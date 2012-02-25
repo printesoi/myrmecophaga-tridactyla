@@ -4,7 +4,7 @@
  *       Filename:  Timer.h
  *        Authors:  Dodon Victor <dodonvictor at gmail dot com>
  *                  Cernov Vladimir <kaspersky_gg@gmail.com>
- *                  Maldur Vitalie <vitalik@maldur.com>
+ *                  Maldur Vitalie <maldur.vitalik@yahoo.com>
  *                  Straticiuc Vicu <straticiuc_vicu@yahoo.com>
  *        Created:  02/25/2012
  *    Description:  

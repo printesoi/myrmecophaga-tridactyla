@@ -2,7 +2,7 @@
 
 VICTOR_EMAIL="dodonvictor at gmail dot com"
 VOVA_EMAIL="kaspersky_gg@gmail.com"
-VITALIK_EMAIL="vitalik@maldur.com"
+VITALIK_EMAIL="maldur.vitalik@yahoo.com"
 VICU_EMAIL="straticiuc_vicu@yahoo.com"
 
 for file in *.h *.cpp; do
