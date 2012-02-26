@@ -16,7 +16,7 @@
 #ifndef BOT_H_
 #define BOT_H_
 
-#include "State.h"
+#include "Strategy.h"
 
 struct Bot
 {

@@ -23,7 +23,6 @@
 #include <stdint.h>
 
 #include "global.h"
-
 #include "Logging.h"
 #include "Timer.h"
 

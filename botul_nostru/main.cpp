@@ -14,7 +14,6 @@
 
 #include <iostream>
 
-#include "Logging.h"
 #include "Bot.h"
 
 int main(int argc, char *argv[])

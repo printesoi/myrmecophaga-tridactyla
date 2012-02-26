@@ -5,7 +5,7 @@ LDFLAGS=-lm -std=c++0x
 SOURCES=$(wildcard *.cpp)
 OBJECTS=$(addprefix bin/, $(notdir $(SOURCES:.cpp=.o)))
 
-EXECUTABLE=bin/MyBot
+EXECUTABLE=bin/Myla
 
 #Comment/Uncomment the following to enable debugging
 ifdef LOGFILENAME
@@ -17,13 +17,13 @@ endif
 all: bin clean $(OBJECTS) $(MAINOBJECTS) $(EXECUTABLE) $(ALLEXECUTABLES)
 
 bin:
-	[[ -d bin ]] || mkdir bin
+	[ -d bin ] || mkdir bin
 
 $(EXECUTABLE): $(OBJECTS)
-	$(CC) $(LDFLAGS) $(OBJECTS) -g -o $@
+	$(CC) $(LDFLAGS) $(OBJECTS) -o $@
 
 bin/%.o: %.cpp
-	$(CC) $(CFLAGS) $(LDFLAGS) -c -g -o $@ $^
+	$(CC) $(CFLAGS) $(LDFLAGS) -c -o $@ $^
 
 clean: 
 	-rm -f bin/*.o $(EXECUTABLE) *.d debug.txt
