@@ -4,3 +4,10 @@ Myrmecophaga tridactyla v.01
 
 Codul sursa pentru botul nostru se afla in directorul
 "botul_nostru"
+
+Pentru a rula jocul se va rula make in directorul botul_nostru si
+se va copia executabilul din botul_nostru/bin
+
+Pentru a putea folosi implementarea STL a unui hashmap : unordered_map
+va trebui sa compilam cu:
+g++ -std=c++0x

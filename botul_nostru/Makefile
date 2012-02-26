@@ -1,11 +1,11 @@
 CC=g++
-CFLAGS=-O3 -funroll-loops -c -Wall
-LDFLAGS=-lm
+CFLAGS=-O3 -funroll-loops -c -Wall -std=c++0x
+LDFLAGS=-lm -std=c++0x
 
 SOURCES=$(wildcard *.cpp)
-OBJECTS=$(notdir $(SOURCES:.cpp=.o))
+OBJECTS=$(addprefix bin/, $(notdir $(SOURCES:.cpp=.o)))
 
-EXECUTABLE=MyBot
+EXECUTABLE=bin/MyBot
 
 #Comment/Uncomment the following to enable debugging
 ifdef LOGFILENAME
@@ -19,11 +19,11 @@ all: clean $(OBJECTS) $(MAINOBJECTS) $(EXECUTABLE) $(ALLEXECUTABLES)
 $(EXECUTABLE): $(OBJECTS)
 	$(CC) $(LDFLAGS) $(OBJECTS) -g -o $@
 
-%.o: %.cpp
+bin/%.o: %.cpp
 	$(CC) $(CFLAGS) $(LDFLAGS) -c -g -o $@ $^
 
 clean: 
-	-rm -f *.o $(EXECUTABLE) *.d debug.txt
+	-rm -f bin/*.o $(EXECUTABLE) *.d debug.txt
 
 .PHONY: all clean
 
