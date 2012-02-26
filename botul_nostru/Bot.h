@@ -23,6 +23,11 @@ struct Bot
     /** Current state of the game. */
     State state;
 
+	/** Map for storing routes. */
+	/** TODO REPLACE WITH HAST_TABLE. */
+	
+	std::map<int,int> hash;
+
     /** Plays a single game of Ants. */
     void playGame();
 
@@ -31,6 +36,10 @@ struct Bot
 
     /** Indicates to the engine that it has made its moves. */
     void endTurn();
+
+	/** Calculates the shortest path from location "from"
+	 *  to location "to" and return it's length. */
+	int bfs(Location from, Location to);
 };
 
 #endif

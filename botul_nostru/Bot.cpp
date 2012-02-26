@@ -45,15 +45,15 @@ void Bot::makeMoves()
         int direction = rand() % 4;
         Location newLocation = state.myAnts[ant].move(direction);
         /* Destination shouldn't be water and shouldn't be an ant. */
-        if (!state.grid[newLocation.row][newLocation.column].isWater &&
-                state.grid[newLocation.row][newLocation.column].antPlayer == -1)
+        if (!state.grid[newLocation.row][newLocation.col].isWater &&
+                state.grid[newLocation.row][newLocation.col].antPlayer == -1)
         {
             /* Move ant. */
-            state.grid[newLocation.row][newLocation.column].antPlayer = 0;
-            state.grid[state.myAnts[ant].row][state.myAnts[ant].column].antPlayer = -1;
+            state.grid[newLocation.row][newLocation.col].antPlayer = 0;
+            state.grid[state.myAnts[ant].row][state.myAnts[ant].col].antPlayer = -1;
             /* Outputs move information correctly to the engine. */
             std::cout << "o" << " " << state.myAnts[ant].row << " " <<
-                    state.myAnts[ant].column << " " << DIRECTION_LETTER[direction] << std::endl; 
+                    state.myAnts[ant].col << " " << DIRECTION_LETTER[direction] << std::endl; 
         }
     }
 }
@@ -74,3 +74,10 @@ void Bot::endTurn()
     std::cout << "go" << std::endl;
 }
 
+int Bot::bfs(Location from,Location to)
+{
+	std::list<Location> squares;
+	std::list<Location> changed;
+
+	return 0;
+}

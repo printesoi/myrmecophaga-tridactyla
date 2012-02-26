@@ -21,6 +21,8 @@
 #include <string>
 #include <cstdlib>
 #include <stdint.h>
+#include <map>
+#include <list>
 
 #include "global.h"
 #include "Logging.h"
@@ -30,14 +32,14 @@
 struct Location
 {
     int row;
-    int column;
+    int col;
 
-    Location(int row, int column) : row(row), column(column) { }
+    Location(int row, int col) : row(row), col(col) { }
 
     Location move(int dir) 
     {
         Location returnValue(row + ROW_DIRECTION[dir],
-                                                 column + COLUMN_DIRECTION[dir]);
+                                                 col + COLUMN_DIRECTION[dir]);
         
         if (returnValue.row < 0) 
         {
@@ -48,13 +50,13 @@ struct Location
             returnValue.row = 0;
         }
 
-        if (returnValue.column < 0)
+        if (returnValue.col < 0)
         {
-            returnValue.column += gparam::mapColumns;
+            returnValue.col += gparam::mapColumns;
         } 
-        else if (returnValue.column == gparam::mapColumns)
+        else if (returnValue.col == gparam::mapColumns)
         {
-            returnValue.column = 0;
+            returnValue.col = 0;
         }
 
         return returnValue;

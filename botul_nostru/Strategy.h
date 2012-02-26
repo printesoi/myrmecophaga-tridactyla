@@ -3,4 +3,6 @@
 
 #include "State.h"
 
+/** TODO ADD A HAST_TABLE CLASS. */
+
 #endif

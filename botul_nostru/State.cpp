@@ -38,7 +38,7 @@ double State::distance(const Location loc1, const Location loc2)
 {
     int d11 = loc1.row - loc2.row;
     int d1 = d11 < 0 ? -d11 : d11;
-    int d22 = loc1.column - loc2.column;
+    int d22 = loc1.col - loc2.col;
     int d2 = d22 < 0 ? -d22 : d22;
     int dr = d1 < (gparam::mapRows - d1) ? d1 : (gparam::mapRows - d1);
     int dc = d2 < (gparam::mapColumns - d2) ? d2 : (gparam::mapColumns - d2);
