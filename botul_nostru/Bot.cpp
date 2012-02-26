@@ -32,7 +32,8 @@ void Bot::playGame()
         makeMoves();
 
         endTurn();
-        LOG("Time taken: " << state.timer.getTime() << "ms" << std::endl);
+        LOG("Time taken: " << state.timer.getTime() << "ms");
+	LOG("Alocated Time: " << gparam::turnTime<<"ms" << std::endl);
     }
 }
 
