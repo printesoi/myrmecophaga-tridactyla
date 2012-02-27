@@ -28,7 +28,13 @@ void Bot::playGame()
     {
         LOG("turn " << state.currentTurnNumber << ":");
 
+		//Reset ants' jobs
+		jobs.clear ();
+		for (unsigned int i = 0; i < state.myAnts.size(); i++)
+			jobs.push_back(-1);
+
         state.mark_visible();
+		//gatherFood();
         makeMoves();
 
         endTurn();
@@ -41,8 +47,10 @@ void Bot::makeMoves()
 {
     for (int ant = 0; ant < (int)state.myAnts.size(); ++ant)
     {
-        /* Try moving this ant in some random direction. */
-        int direction = rand() % 4;
+		int direction = jobs[ant];
+		if (direction == -1)
+        	/* Try moving this ant in some random direction. */
+        	direction = rand() % 4;
         Location newLocation = state.myAnts[ant].move(direction);
         /* Destination shouldn't be water and shouldn't be an ant. */
         if (!state.grid[newLocation.row][newLocation.col].isWater &&
@@ -56,6 +64,16 @@ void Bot::makeMoves()
                     state.myAnts[ant].col << " " << DIRECTION_LETTER[direction] << std::endl; 
         }
     }
+}
+
+void Bot::gatherFood()
+{
+	int rez;
+	for (unsigned int food = 0; food < state.food.size(); food++)
+	{
+		rez = bfs(state.food[food]);
+	}
+	rez *= 2;
 }
 
 void Bot::endTurn()
@@ -74,10 +92,121 @@ void Bot::endTurn()
     std::cout << "go" << std::endl;
 }
 
-int Bot::bfs(Location from,Location to)
+int Bot::bfs(Location from)
 {
 	std::list<Location> squares;
 	std::list<Location> changed;
+	
+	int rez = -1;
+	Location x,y;
+	Square f,t;
 
-	return 0;
+	squares.push_back(from);
+	f = state.square(from);
+	f.isMarked = 0;
+	changed.push_back(from);
+
+	while (squares.size())
+	{
+		x = squares.front();
+		f = state.square(x);
+		squares.pop_front();
+
+		if (f.isMarked > 20)
+			break;
+		
+		//Direction 0
+		y = x.move(0);
+		t = state.square(y);
+
+		if (t.antPlayer == 0)
+		{
+			if (jobs[t.myAntNumber] == -1)
+			{
+				jobs[t.myAntNumber] = 2;
+				rez = f.isMarked + 1;
+				break;
+			}
+		}
+
+		if (!t.isWater && t.isMarked == -1)
+		{
+			t.isMarked = f.isMarked + 1;
+			changed.push_back(y);
+			squares.push_back(y);
+		}
+
+		//Direction 1
+		y = x.move(1);
+		t = state.square(y);
+
+		if (t.antPlayer == 0)
+		{
+			if (jobs[t.myAntNumber] == -1)
+			{
+				jobs[t.myAntNumber] = 3;
+				rez = f.isMarked + 1;
+				break;
+			}
+		}
+
+		if (!t.isWater && t.isMarked == -1)
+		{
+			t.isMarked = f.isMarked + 1;
+			changed.push_back(y);
+			squares.push_back(y);
+		}
+
+		//Direction 2
+		y = x.move(2);
+		t = state.square(y);
+
+		if (t.antPlayer == 0)
+		{
+			if (jobs[t.myAntNumber] == -1)
+			{
+				jobs[t.myAntNumber] = 0;
+				rez = f.isMarked + 1;
+				break;
+			}
+		}
+
+		if (!t.isWater && t.isMarked == -1)
+		{
+			t.isMarked = f.isMarked + 1;
+			changed.push_back(y);
+			squares.push_back(y);
+		}
+
+		//Direction 3
+		y = x.move(3);
+		t = state.square(y);
+
+		if (t.antPlayer == 0)
+		{
+			if (jobs[t.myAntNumber] == -1)
+			{
+				jobs[t.myAntNumber] = 1;
+				rez = f.isMarked + 1;
+				break;
+			}
+		}
+
+		if (!t.isWater && t.isMarked == -1)
+		{
+			t.isMarked = f.isMarked + 1;
+			changed.push_back(y);
+			squares.push_back(y);
+		}
+	}
+
+	while (changed.size())
+	{
+		x = changed.front();
+		f = state.square(x);
+		f.isMarked = -1;
+		changed.pop_front();
+	}
+
+	return rez;
 }

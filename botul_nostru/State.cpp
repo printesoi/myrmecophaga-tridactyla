@@ -170,6 +170,7 @@ std::istream& operator>>(std::istream &is, State &state)
                 state.grid[row][col].antPlayer = player;
                 if(player == 0)
                 {
+					state.grid[row][col].myAntNumber = state.myAnts.size ();
                     state.myAnts.push_back(Location(row, col));
                 }
                 else

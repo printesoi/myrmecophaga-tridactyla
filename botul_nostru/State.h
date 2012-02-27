@@ -34,12 +34,12 @@ struct Location
     int row;
     int col;
 
+	Location() : row(0), col(0) { }
     Location(int row, int col) : row(row), col(col) { }
 
     Location move(int dir) 
     {
-        Location returnValue(row + ROW_DIRECTION[dir],
-                                                 col + COLUMN_DIRECTION[dir]);
+        Location returnValue(row + ROW_DIRECTION[dir], col + COLUMN_DIRECTION[dir]);
         
         if (returnValue.row < 0) 
         {
@@ -70,19 +70,21 @@ struct Square
         bool isWater;
         bool isHill;
         bool isFood;
-        int hillPlayer;
+        int isMarked;
+		int hillPlayer;
         int antPlayer;
+		int myAntNumber;
 
         Square() : isVisible(false), isWater(false), isHill(false), isFood(false)
         {
-            hillPlayer = antPlayer = -1;
+            hillPlayer = antPlayer = myAntNumber = isMarked = -1;
         }
 
         /** Resets the information for the square except water information. */
         void reset()
         {
             isVisible = isHill = isFood = false;
-            hillPlayer = antPlayer = -1;
+            hillPlayer = antPlayer = myAntNumber = isMarked = -1;
         }
 };
 
@@ -126,7 +128,12 @@ struct State
 
     /** This is just square of Euclid distance. */
     double distance(const Location loc1, const Location loc2);
-
+	
+	/** Return the square that a location points to. */
+	Square square(const Location loc)
+	{
+		return grid[loc.row][loc.col];
+	}
 };
 
 /** Method that helps do the IO. */
