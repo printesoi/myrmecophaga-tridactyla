@@ -24,7 +24,7 @@ struct Bot
     State state;
 
 	/** Map for storing routes.
-0	 * TODO REPLACE WITH HAST_TABLE. */
+	 * TODO REPLACE WITH HAST_TABLE. */
 	
 	std::map<int,int> hash;
 
@@ -46,6 +46,9 @@ struct Bot
 
 	/** Calculates the distance to the nearest ant from location "from". */
 	int bfs(Location from);
+
+	/** Returns the number of free ants. */
+	int freeAntsNumber();
 };
 
 #endif

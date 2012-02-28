@@ -210,3 +210,12 @@ int Bot::bfs(Location from)
 
 	return rez;
 }
+
+int Bot::freeAntsNumber()
+{
+	int rez = 0;
+	for (unsigned i = 0; i < jobs.size(); i++)
+		if (jobs[i] == -1)
+			rez++;
+	return rez;
+}
