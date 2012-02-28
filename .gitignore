@@ -1,6 +1,7 @@
 *~
 *.bak
 *.swp
+*.kdev4
 bin/
 logFile.log
 game_logs/

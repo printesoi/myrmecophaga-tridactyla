@@ -7,7 +7,7 @@
  *                  Maldur Vitalie <maldur.vitalik@yahoo.com>
  *                  Straticiuc Vicu <straticiuc_vicu@yahoo.com>
  *        Created:  02/25/2012
- *    Description:  
+ *    Description:
  *
  * =============================================================================
  */
@@ -15,6 +15,8 @@
 /** Structure that represents an AI in a game. */
 #ifndef BOT_H_
 #define BOT_H_
+
+#include <unordered_map>
 
 #include "Strategy.h"
 
@@ -24,9 +26,8 @@ struct Bot
     State state;
 
 	/** Map for storing routes.
-	 * TODO REPLACE WITH HAST_TABLE. */
-	
-	std::map<int,int> hash;
+	 * Victor: Replaced with hash table */
+	std::unordered_map<int,int> hash;
 
 	/** Jobs that ants will do.
 	 *  Represent the direction to move. */
