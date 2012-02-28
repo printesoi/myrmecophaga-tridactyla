@@ -72,10 +72,7 @@ void Bot::gatherFood()
 	for (unsigned int food = 0; food < state.food.size(); food++)
 	{
 		if (freeAntsNumber())
-		{
-			LOG(" THIS IS WHERE FOOD ENDS ");
 			rez = bfs(state.food[food]);
-		}
 		else
 			break;
 	}
@@ -113,11 +110,7 @@ int Bot::bfs(Location from)
 	{
 		x = squares.front();
 		f = &state.grid[x.row][x.col];
-		LOG("-> " << f->isMarked << "\n");
 		squares.pop_front();
-		
-		LOG(x.row << " " << x.col << "\n");
-		LOG(f->isMarked << "\n");
 		
 		if (f->isMarked > 15)
 			break;
