@@ -71,9 +71,11 @@ void Bot::gatherFood()
 	int rez;
 	for (unsigned int food = 0; food < state.food.size(); food++)
 	{
-		LOG("========================");
 		if (freeAntsNumber())
+		{
+			LOG(" THIS IS WHERE FOOD ENDS ");
 			rez = bfs(state.food[food]);
+		}
 		else
 			break;
 	}
@@ -101,104 +103,105 @@ int Bot::bfs(Location from)
 	
 	int rez = -1;
 	Location x,y;
-	Square f,t;
+	Square *f,*t;
 
-	squares.push_back(from);
-	f = state.square(from);
-	f.isMarked = 0;
+	state.grid[from.row][from.col].isMarked = 0;
 	changed.push_back(from);
+	squares.push_back(from);
 
 	while (squares.size())
 	{
 		x = squares.front();
-		f = state.square(x);
+		f = &state.grid[x.row][x.col];
+		LOG("-> " << f->isMarked << "\n");
 		squares.pop_front();
 		
 		LOG(x.row << " " << x.col << "\n");
-		LOG(f.isMarked << "\n");
-		if (f.isMarked > 3)
+		LOG(f->isMarked << "\n");
+		
+		if (f->isMarked > 15)
 			break;
 
 		//Direction 0
 		y = x.move(0);
-		t = state.square(y);
+		t = &state.grid[y.row][y.col];
 
-		if (t.antPlayer == 0)
+		if (t->antPlayer == 0)
 		{
-			if (jobs[t.myAntNumber] == -1)
+			if (jobs[t->myAntNumber] == -1)
 			{
-				jobs[t.myAntNumber] = 2;
-				rez = f.isMarked + 1;
+				jobs[t->myAntNumber] = 2;
+				rez = f->isMarked + 1;
 				break;
 			}
 		}
 
-		if (!t.isWater && t.isMarked == -1)
+		if (!t->isWater && t->isMarked == -1)
 		{
-			t.isMarked = f.isMarked + 1;
+			t->isMarked = f->isMarked + 1;
 			changed.push_back(y);
 			squares.push_back(y);
 		}
 
 		//Direction 1
 		y = x.move(1);
-		t = state.square(y);
+		t = &state.grid[y.row][y.col];
 
-		if (t.antPlayer == 0)
+		if (t->antPlayer == 0)
 		{
-			if (jobs[t.myAntNumber] == -1)
+			if (jobs[t->myAntNumber] == -1)
 			{
-				jobs[t.myAntNumber] = 3;
-				rez = f.isMarked + 1;
+				jobs[t->myAntNumber] = 3;
+				rez = f->isMarked + 1;
 				break;
 			}
 		}
 
-		if (!t.isWater && t.isMarked == -1)
+		if (!t->isWater && t->isMarked == -1)
 		{
-			t.isMarked = f.isMarked + 1;
+			t->isMarked = f->isMarked + 1;
 			changed.push_back(y);
 			squares.push_back(y);
 		}
 
 		//Direction 2
 		y = x.move(2);
-		t = state.square(y);
+		t = &state.grid[y.row][y.col];
 
-		if (t.antPlayer == 0)
+		if (t->antPlayer == 0)
 		{
-			if (jobs[t.myAntNumber] == -1)
+			if (jobs[t->myAntNumber] == -1)
 			{
-				jobs[t.myAntNumber] = 0;
-				rez = f.isMarked + 1;
+				jobs[t->myAntNumber] = 0;
+				rez = f->isMarked + 1;
 				break;
 			}
 		}
 
-		if (!t.isWater && t.isMarked == -1)
+		if (!t->isWater && t->isMarked == -1)
 		{
-			t.isMarked = f.isMarked + 1;
+			t->isMarked = f->isMarked + 1;
 			changed.push_back(y);
 			squares.push_back(y);
 		}
 
 		//Direction 3
 		y = x.move(3);
-		t = state.square(y);
+		t = &state.grid[y.row][y.col];
 
-		if (t.antPlayer == 0)
+		if (t->antPlayer == 0)
 		{
-			if (jobs[t.myAntNumber] == -1)
+			if (jobs[t->myAntNumber] == -1)
 			{
-				jobs[t.myAntNumber] = 1;
-				rez = f.isMarked + 1;
+				jobs[t->myAntNumber] = 1;
+				rez = f->isMarked + 1;
 				break;
 			}
 		}
 
-		if (!t.isWater && t.isMarked == -1)
+		if (!t->isWater && t->isMarked == -1)
 		{
-			t.isMarked = f.isMarked + 1;
+			t->isMarked = f->isMarked + 1;
 			changed.push_back(y);
 			squares.push_back(y);
 		}
@@ -207,8 +210,8 @@ int Bot::bfs(Location from)
 	while (changed.size())
 	{
 		x = changed.front();
-		f = state.square(x);
-		f.isMarked = -1;
+		f = &state.grid[x.row][x.col];
+		f->isMarked = -1;
 		changed.pop_front();
 	}
 
