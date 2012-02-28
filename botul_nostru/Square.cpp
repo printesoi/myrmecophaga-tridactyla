@@ -18,11 +18,12 @@
 Square::Square() : isVisible(false), isWater(false), isHill(false), isFood(false)
 {
     hillPlayer = antPlayer = myAntNumber = isMarked = -1;
+	exploreIndex = 500;
 }
 
     /** Resets the information for the square except water information. */
 void Square::reset()
 {
     isVisible = isHill = isFood = false;
-    hillPlayer = antPlayer = myAntNumber = isMarked = -1;
+    hillPlayer = antPlayer = myAntNumber = -1;
 }

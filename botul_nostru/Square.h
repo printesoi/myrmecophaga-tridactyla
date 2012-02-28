@@ -39,7 +39,7 @@ public:
     int hillPlayer;
     int antPlayer;
     int myAntNumber;
-
+	int exploreIndex;
     std::vector<Square> neighbors;
 
 };
