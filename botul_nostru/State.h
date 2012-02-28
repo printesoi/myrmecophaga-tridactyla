@@ -16,6 +16,8 @@
 #ifndef STATE_H_
 #define STATE_H_
 
+// STD includes
+
 #include <iostream>
 #include <vector>
 #include <string>
@@ -24,69 +26,13 @@
 #include <map>
 #include <list>
 
+// Local includes
+
 #include "global.h"
 #include "Logging.h"
 #include "Timer.h"
-
-/** Structure for representing a location on the map. */
-struct Location
-{
-    int row;
-    int col;
-
-	Location() : row(0), col(0) { }
-    Location(int row, int col) : row(row), col(col) { }
-
-    Location move(int dir) 
-    {
-        Location returnValue(row + ROW_DIRECTION[dir], col + COLUMN_DIRECTION[dir]);
-        
-        if (returnValue.row < 0) 
-        {
-            returnValue.row += gparam::mapRows;
-        } 
-        else if (returnValue.row == gparam::mapRows)
-        {
-            returnValue.row = 0;
-        }
-
-        if (returnValue.col < 0)
-        {
-            returnValue.col += gparam::mapColumns;
-        } 
-        else if (returnValue.col == gparam::mapColumns)
-        {
-            returnValue.col = 0;
-        }
-
-        return returnValue;
-    }
-};
-
-/** Struct for representing a square in the grid. */
-struct Square
-{
-    bool isVisible;
-    bool isWater;
-    bool isHill;
-    bool isFood;
-    int isMarked;
-    int hillPlayer;
-    int antPlayer;
-    int myAntNumber;
-
-    Square() : isVisible(false), isWater(false), isHill(false), isFood(false)
-    {
-        hillPlayer = antPlayer = myAntNumber = isMarked = -1;
-    }
-
-    /** Resets the information for the square except water information. */
-    void reset()
-    {
-        isVisible = isHill = isFood = false;
-        hillPlayer = antPlayer = myAntNumber = isMarked = -1;
-    }
-};
+#include "Square.h"
+#include "Location.h"
 
 struct State
 {
