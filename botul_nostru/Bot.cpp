@@ -102,9 +102,12 @@ int Bot::bfs(Location from)
 	Location x,y;
 	Square *f,*t;
 
-	state.grid[from.row][from.col].isMarked = 0;
-	changed.push_back(from);
-	squares.push_back(from);
+	for (unsigned int i = 0; i < state.food.size(); i++)
+	{
+		state.grid[state.food[i].row][state.food[i].col].isMarked = 0;
+		changed.push_back(state.food[i]);
+		squares.push_back(state.food[i]);
+	}
 
 	while (squares.size())
 	{
