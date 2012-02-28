@@ -66,26 +66,26 @@ struct Location
 /** Struct for representing a square in the grid. */
 struct Square
 {
-        bool isVisible;
-        bool isWater;
-        bool isHill;
-        bool isFood;
-        int isMarked;
-		int hillPlayer;
-        int antPlayer;
-		int myAntNumber;
+    bool isVisible;
+    bool isWater;
+    bool isHill;
+    bool isFood;
+    int isMarked;
+    int hillPlayer;
+    int antPlayer;
+    int myAntNumber;
 
-        Square() : isVisible(false), isWater(false), isHill(false), isFood(false)
-        {
-            hillPlayer = antPlayer = myAntNumber = isMarked = -1;
-        }
+    Square() : isVisible(false), isWater(false), isHill(false), isFood(false)
+    {
+        hillPlayer = antPlayer = myAntNumber = isMarked = -1;
+    }
 
-        /** Resets the information for the square except water information. */
-        void reset()
-        {
-            isVisible = isHill = isFood = false;
-            hillPlayer = antPlayer = myAntNumber = isMarked = -1;
-        }
+    /** Resets the information for the square except water information. */
+    void reset()
+    {
+        isVisible = isHill = isFood = false;
+        hillPlayer = antPlayer = myAntNumber = isMarked = -1;
+    }
 };
 
 struct State

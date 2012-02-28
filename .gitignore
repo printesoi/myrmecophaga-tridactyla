@@ -1,5 +1,6 @@
 *~
 *.bak
+*.swp
 bin/
 logFile.log
 game_logs/
