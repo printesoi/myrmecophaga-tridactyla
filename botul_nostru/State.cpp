@@ -28,8 +28,7 @@ void State::reset()
 
     for(int row = 0; row < gparam::mapRows; row++)
         for(int col = 0; col < gparam::mapColumns; col++)
-            if(!grid[row][col].isWater)
-                grid[row][col].reset();
+			grid[row][col].reset();
 }
 
 /* Returns the square of Euclid distance between two locations with the edges
@@ -64,6 +63,69 @@ void State::mark_visible()
             }
         }
     }
+}
+
+/** Resets the exploreIndex of the "visible" squares to 0. */
+void State::mark_explored()
+{
+	std::list<Location> squares;
+	std::list<Location> changed;
+	
+	Location x,y;
+	Square *f,*t;
+
+	for (unsigned int ant = 0; ant < myAnts.size(); ant++)
+	{
+		grid[food[ant].row][food[ant].col].isMarked = 0;
+		changed.push_back(food[ant]);
+		squares.push_back(food[ant]);
+	}
+
+	while (squares.size())
+	{
+		x = squares.front();
+		f = &grid[x.row][x.col];
+		squares.pop_front();
+		
+		if (f->isMarked > 15)
+			break;
+
+		for (int dir = 0; dir < 4; dir++)
+		{
+			y = x.move(dir);
+			t = &grid[y.row][y.col];
+
+			if (!t->isWater && t->isMarked == -1)
+			{
+				t->isMarked = f->isMarked + 1;
+				changed.push_back(y);
+				squares.push_back(y);
+			}
+		}
+	}
+
+	while (changed.size())
+	{
+		x = changed.front();
+		f = &grid[x.row][x.col];
+		f->isMarked = -1;
+		f->exploreIndex = 0;
+		changed.pop_front();
+	}
+}
+
+/** Outputs the exploreIndexes to LOGFILE. */
+void State::explore_log()
+{
+	for (int i = 0; i < gparam::mapRows; i++)
+	{
+		for (int j = 0; j < gparam::mapColumns; j++)
+			if (grid[i][j].exploreIndex)
+				LOG_NEOLN("X");
+			else
+				LOG_NEOLN(" ");
+		LOG_NEOLN("\n");
+	}
 }
 
 /* Input functions. */

@@ -71,15 +71,21 @@ struct State
 
     /** Marks visible cells. */
     void mark_visible();
+	
+	/** Marks the explored cells. */
+	void mark_explored();
 
     /** This is just square of Euclid distance. */
     double distance(const Location loc1, const Location loc2);
 	
 	/** Return the square that a location points to. */
-	Square square(const Location loc)
+	Square* square(const Location loc)
 	{
-		return grid[loc.row][loc.col];
+		return &grid[loc.row][loc.col];
 	}
+
+	/** Outputs the grid's exploreIndexes to LOGFILE. */
+	void explore_log();
 };
 
 /** Method that helps do the IO. */

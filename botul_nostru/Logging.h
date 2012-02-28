@@ -28,6 +28,7 @@
 
 /** Logs message to standard error file. We can change this in the future. */
 #define LOG(message) (gparam::logFile << message << std::endl).flush()
+#define LOG_NEOLN(message) (gparam::logFile << message).flush()
 
 #else
 

@@ -27,6 +27,8 @@ void Bot::playGame()
     while(std::cin >> state)
     {
         LOG("turn " << state.currentTurnNumber << ":");
+		
+		state.explore_log();
 
 		//Reset ants' jobs
 		jobs.clear ();
@@ -34,6 +36,7 @@ void Bot::playGame()
 			jobs.push_back(-1);
 
         state.mark_visible();
+		state.mark_explored();
 		gatherFood();
         makeMoves();
 

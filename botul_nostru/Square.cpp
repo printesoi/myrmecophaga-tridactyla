@@ -26,4 +26,5 @@ void Square::reset()
 {
     isVisible = isHill = isFood = false;
     hillPlayer = antPlayer = myAntNumber = -1;
+	exploreIndex++;
 }
