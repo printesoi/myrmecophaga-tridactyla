@@ -34,7 +34,7 @@ void Bot::playGame()
 			jobs.push_back(-1);
 
         state.mark_visible();
-		//gatherFood();
+		gatherFood();
         makeMoves();
 
         endTurn();
@@ -71,7 +71,11 @@ void Bot::gatherFood()
 	int rez;
 	for (unsigned int food = 0; food < state.food.size(); food++)
 	{
-		rez = bfs(state.food[food]);
+		LOG("========================");
+		if (freeAntsNumber())
+			rez = bfs(state.food[food]);
+		else
+			break;
 	}
 	rez *= 2;
 }
@@ -82,9 +86,7 @@ void Bot::endTurn()
 
     /* If this wasn't the start game, reset the board. */
     if(state.currentTurnNumber > 0)
-    {
-            state.reset();
-    }
+		state.reset();
 
     /* Move to next turn. */
     state.currentTurnNumber++;
@@ -111,10 +113,12 @@ int Bot::bfs(Location from)
 		x = squares.front();
 		f = state.square(x);
 		squares.pop_front();
-
-		if (f.isMarked > 20)
-			break;
 		
+		LOG(x.row << " " << x.col << "\n");
+		LOG(f.isMarked << "\n");
+		if (f.isMarked > 3)
+			break;
+
 		//Direction 0
 		y = x.move(0);
 		t = state.square(y);
