@@ -28,13 +28,10 @@ void Bot::playGame()
     {
         LOG("turn " << state.currentTurnNumber << ":");
 		
-		state.explore_log();
-
 		//Reset ants' jobs
 		jobs.clear ();
 		for (unsigned int i = 0; i < state.myAnts.size(); i++)
 			jobs.push_back(-1);
-
         state.mark_visible();
 		state.mark_explored();
 		gatherFood();

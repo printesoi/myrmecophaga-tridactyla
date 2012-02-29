@@ -73,14 +73,12 @@ void State::mark_explored()
 	
 	Location x,y;
 	Square *f,*t;
-
 	for (unsigned int ant = 0; ant < myAnts.size(); ant++)
 	{
-		grid[food[ant].row][food[ant].col].isMarked = 0;
-		changed.push_back(food[ant]);
-		squares.push_back(food[ant]);
+		grid[myAnts[ant].row][myAnts[ant].col].isMarked = 0;
+		changed.push_back(myAnts[ant]);
+		squares.push_back(myAnts[ant]);
 	}
-
 	while (squares.size())
 	{
 		x = squares.front();
@@ -103,7 +101,6 @@ void State::mark_explored()
 			}
 		}
 	}
-
 	while (changed.size())
 	{
 		x = changed.front();
