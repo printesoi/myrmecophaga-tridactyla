@@ -40,6 +40,6 @@ public:
     int antPlayer;
     int myAntNumber;
 	int exploreIndex;
+	int foodIndex;
     std::vector<Square> neighbors;
-
 };

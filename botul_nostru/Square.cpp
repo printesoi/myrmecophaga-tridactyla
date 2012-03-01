@@ -17,7 +17,7 @@
 /** Struct for representing a square in the grid. */
 Square::Square() : isVisible(false), isWater(false), isHill(false), isFood(false)
 {
-    hillPlayer = antPlayer = myAntNumber = isMarked = -1;
+    hillPlayer = antPlayer = myAntNumber = isMarked = foodIndex = -1;
 	exploreIndex = 500;
 }
 

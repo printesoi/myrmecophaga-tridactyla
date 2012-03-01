@@ -83,9 +83,6 @@ struct State
 	{
 		return &grid[loc.row][loc.col];
 	}
-
-	/** Outputs the grid's exploreIndexes to LOGFILE. */
-	void explore_log();
 };
 
 /** Method that helps do the IO. */

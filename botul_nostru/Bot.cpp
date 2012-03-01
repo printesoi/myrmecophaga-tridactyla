@@ -66,19 +66,6 @@ void Bot::makeMoves()
     }
 }
 
-void Bot::gatherFood()
-{
-	int rez;
-	for (unsigned int food = 0; food < state.food.size(); food++)
-	{
-		if (freeAntsNumber())
-			rez = bfs(state.food[food]);
-		else
-			break;
-	}
-	rez *= 2;
-}
-
 void Bot::endTurn()
 {
     LOG("Sending endTurn()");
@@ -93,21 +80,27 @@ void Bot::endTurn()
     std::cout << "go" << std::endl;
 }
 
-int Bot::bfs(Location from)
+void Bot::gatherFood()
 {
 	std::list<Location> squares;
 	std::list<Location> changed;
-	
-	int rez = -1;
+	std::vector<bool> active;
+
 	Location x,y;
 	Square *f,*t;
 
+	int nr = 0;
+
 	for (unsigned int i = 0; i < state.food.size(); i++)
-	{
-		state.grid[state.food[i].row][state.food[i].col].isMarked = 0;
-		changed.push_back(state.food[i]);
-		squares.push_back(state.food[i]);
-	}
+		if (state.grid[state.food[i].row][state.food[i].col].exploreIndex == 0)
+		{
+			state.grid[state.food[i].row][state.food[i].col].isMarked = 0;
+			state.grid[state.food[i].row][state.food[i].col].foodIndex = nr++;
+			changed.push_back(state.food[i]);
+			squares.push_back(state.food[i]);
+			active.push_back(1);
+
+		}
 
 	while (squares.size())
 	{
@@ -115,7 +108,7 @@ int Bot::bfs(Location from)
 		f = &state.grid[x.row][x.col];
 		squares.pop_front();
 		
-		if (f->isMarked > 15)
+		if (f->isMarked > 10)
 			break;
 
 		//Direction 0
@@ -123,14 +116,8 @@ int Bot::bfs(Location from)
 		t = &state.grid[y.row][y.col];
 
 		if (t->antPlayer == 0)
-		{
 			if (jobs[t->myAntNumber] == -1)
-			{
 				jobs[t->myAntNumber] = 2;
-				rez = f->isMarked + 1;
-				break;
-			}
-		}
 
 		if (!t->isWater && t->isMarked == -1)
 		{
@@ -144,14 +131,8 @@ int Bot::bfs(Location from)
 		t = &state.grid[y.row][y.col];
 
 		if (t->antPlayer == 0)
-		{
 			if (jobs[t->myAntNumber] == -1)
-			{
 				jobs[t->myAntNumber] = 3;
-				rez = f->isMarked + 1;
-				break;
-			}
-		}
 
 		if (!t->isWater && t->isMarked == -1)
 		{
@@ -165,14 +146,8 @@ int Bot::bfs(Location from)
 		t = &state.grid[y.row][y.col];
 
 		if (t->antPlayer == 0)
-		{
 			if (jobs[t->myAntNumber] == -1)
-			{
 				jobs[t->myAntNumber] = 0;
-				rez = f->isMarked + 1;
-				break;
-			}
-		}
 
 		if (!t->isWater && t->isMarked == -1)
 		{
@@ -186,14 +161,8 @@ int Bot::bfs(Location from)
 		t = &state.grid[y.row][y.col];
 
 		if (t->antPlayer == 0)
-		{
 			if (jobs[t->myAntNumber] == -1)
-			{
 				jobs[t->myAntNumber] = 1;
-				rez = f->isMarked + 1;
-				break;
-			}
-		}
 
 		if (!t->isWater && t->isMarked == -1)
 		{
@@ -210,8 +179,6 @@ int Bot::bfs(Location from)
 		f->isMarked = -1;
 		changed.pop_front();
 	}
-
-	return rez;
 }
 
 int Bot::freeAntsNumber()

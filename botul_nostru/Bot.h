@@ -45,9 +45,6 @@ struct Bot
     /** Indicates to the engine that it has made its moves. */
     void endTurn();
 
-	/** Calculates the distance to the nearest ant from location "from". */
-	int bfs(Location from);
-
 	/** Returns the number of free ants. */
 	int freeAntsNumber();
 };

@@ -85,7 +85,7 @@ void State::mark_explored()
 		f = &grid[x.row][x.col];
 		squares.pop_front();
 		
-		if (f->isMarked > 15)
+		if (f->isMarked > 10)
 			break;
 
 		for (int dir = 0; dir < 4; dir++)
@@ -108,20 +108,6 @@ void State::mark_explored()
 		f->isMarked = -1;
 		f->exploreIndex = 0;
 		changed.pop_front();
-	}
-}
-
-/** Outputs the exploreIndexes to LOGFILE. */
-void State::explore_log()
-{
-	for (int i = 0; i < gparam::mapRows; i++)
-	{
-		for (int j = 0; j < gparam::mapColumns; j++)
-			if (grid[i][j].exploreIndex)
-				LOG_NEOLN("X");
-			else
-				LOG_NEOLN(" ");
-		LOG_NEOLN("\n");
 	}
 }
 
@@ -291,7 +277,6 @@ std::istream& operator>>(std::istream &is, State &state)
             }
         }
     }
-
     return is;
 }
 
