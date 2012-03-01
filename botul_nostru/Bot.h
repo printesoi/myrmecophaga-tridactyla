@@ -16,7 +16,11 @@
 #ifndef BOT_H_
 #define BOT_H_
 
+// STD includes
+
 #include <unordered_map>
+
+// local includes
 
 #include "Strategy.h"
 
@@ -30,7 +34,8 @@ struct Bot
 	std::unordered_map<int,int> hash;
 
 	/** Jobs that ants will do.
-	 *  Represent the direction to move. */
+	 *  Represent the direction to move.
+     * TODO replace the vector of jobs with an entry in ant class */
 	std::vector<int> jobs;
 
 	/** Plays a single game of Ants. */
