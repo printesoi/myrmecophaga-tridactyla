@@ -32,7 +32,6 @@ void Bot::playGame()
 		jobs.clear ();
 		for (unsigned int i = 0; i < state.myAnts.size(); i++)
 			jobs.push_back(-1);
-        state.mark_visible();
 		state.mark_explored();
 		gatherFood();
         makeMoves();
@@ -90,7 +89,6 @@ void Bot::gatherFood()
 	Square *f,*t;
 
 	int nr = 0;
-
 	for (unsigned int i = 0; i < state.food.size(); i++)
 		if (state.grid[state.food[i].row][state.food[i].col].exploreIndex == 0)
 		{
@@ -98,8 +96,7 @@ void Bot::gatherFood()
 			state.grid[state.food[i].row][state.food[i].col].foodIndex = nr++;
 			changed.push_back(state.food[i]);
 			squares.push_back(state.food[i]);
-			active.push_back(1);
-
+			active.push_back(true);
 		}
 
 	while (squares.size())
@@ -108,8 +105,11 @@ void Bot::gatherFood()
 		f = &state.grid[x.row][x.col];
 		squares.pop_front();
 		
-		if (f->isMarked > 10)
+		if (f->isMarked > VIEW_RADIUS)
 			break;
+		
+		if (!active[f->foodIndex])
+			continue;
 
 		//Direction 0
 		y = x.move(0);
@@ -117,11 +117,15 @@ void Bot::gatherFood()
 
 		if (t->antPlayer == 0)
 			if (jobs[t->myAntNumber] == -1)
+			{
+				active[f->foodIndex] = false;
 				jobs[t->myAntNumber] = 2;
+			}
 
 		if (!t->isWater && t->isMarked == -1)
 		{
 			t->isMarked = f->isMarked + 1;
+			t->foodIndex = f->foodIndex;
 			changed.push_back(y);
 			squares.push_back(y);
 		}
@@ -129,14 +133,17 @@ void Bot::gatherFood()
 		//Direction 1
 		y = x.move(1);
 		t = &state.grid[y.row][y.col];
-
 		if (t->antPlayer == 0)
 			if (jobs[t->myAntNumber] == -1)
+			{
+				LOG(active.size() << " " << t->foodIndex);
+				active[f->foodIndex] = false;
 				jobs[t->myAntNumber] = 3;
-
+			}
 		if (!t->isWater && t->isMarked == -1)
 		{
 			t->isMarked = f->isMarked + 1;
+			t->foodIndex = f->foodIndex;
 			changed.push_back(y);
 			squares.push_back(y);
 		}
@@ -147,11 +154,15 @@ void Bot::gatherFood()
 
 		if (t->antPlayer == 0)
 			if (jobs[t->myAntNumber] == -1)
+			{
+				active[f->foodIndex] = false;
 				jobs[t->myAntNumber] = 0;
+			}
 
 		if (!t->isWater && t->isMarked == -1)
 		{
 			t->isMarked = f->isMarked + 1;
+			t->foodIndex = f->foodIndex;
 			changed.push_back(y);
 			squares.push_back(y);
 		}
@@ -162,21 +173,25 @@ void Bot::gatherFood()
 
 		if (t->antPlayer == 0)
 			if (jobs[t->myAntNumber] == -1)
+			{
+				active[f->foodIndex] = false;
 				jobs[t->myAntNumber] = 1;
+			}
 
 		if (!t->isWater && t->isMarked == -1)
 		{
 			t->isMarked = f->isMarked + 1;
+			t->foodIndex = f->foodIndex;
 			changed.push_back(y);
 			squares.push_back(y);
 		}
 	}
-
 	while (changed.size())
 	{
 		x = changed.front();
 		f = &state.grid[x.row][x.col];
 		f->isMarked = -1;
+		f->foodIndex = -1;
 		changed.pop_front();
 	}
 }

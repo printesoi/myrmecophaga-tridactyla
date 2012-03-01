@@ -2,501 +2,536 @@ Reading initial parameters.
 Sending endTurn()
 turn 1:
 Sending endTurn()
-Time taken: 1.09799ms
+Time taken: 91.0461ms
 Alocated Time: 1000ms
 
 turn 2:
 Sending endTurn()
-Time taken: 1.04909ms
+Time taken: 90.6749ms
 Alocated Time: 1000ms
 
 turn 3:
 Sending endTurn()
-Time taken: 1.79904ms
+Time taken: 96.9641ms
 Alocated Time: 1000ms
 
 turn 4:
 Sending endTurn()
-Time taken: 1.25097ms
+Time taken: 99.3499ms
 Alocated Time: 1000ms
 
 turn 5:
 Sending endTurn()
-Time taken: 1.58497ms
+Time taken: 89.6721ms
 Alocated Time: 1000ms
 
 turn 6:
 Sending endTurn()
-Time taken: 1.557ms
+Time taken: 52.4751ms
 Alocated Time: 1000ms
 
 turn 7:
 Sending endTurn()
-Time taken: 2.17907ms
+Time taken: 53.2099ms
 Alocated Time: 1000ms
 
 turn 8:
 Sending endTurn()
-Time taken: 1.16288ms
+Time taken: 96.1031ms
 Alocated Time: 1000ms
 
 turn 9:
 Sending endTurn()
-Time taken: 1.18907ms
+Time taken: 100.117ms
 Alocated Time: 1000ms
 
 turn 10:
 Sending endTurn()
-Time taken: 1.31496ms
+Time taken: 56.0711ms
 Alocated Time: 1000ms
 
 turn 11:
 Sending endTurn()
-Time taken: 1.04611ms
+Time taken: 60.3579ms
 Alocated Time: 1000ms
 
 turn 12:
 Sending endTurn()
-Time taken: 1.92001ms
+Time taken: 58.402ms
 Alocated Time: 1000ms
 
 turn 13:
 Sending endTurn()
-Time taken: 1.09504ms
+Time taken: 62.528ms
 Alocated Time: 1000ms
 
 turn 14:
 Sending endTurn()
-Time taken: 1.46311ms
+Time taken: 61.78ms
 Alocated Time: 1000ms
 
 turn 15:
 Sending endTurn()
-Time taken: 2.00707ms
+Time taken: 68.342ms
 Alocated Time: 1000ms
 
 turn 16:
 Sending endTurn()
-Time taken: 1.51707ms
+Time taken: 73.781ms
 Alocated Time: 1000ms
 
 turn 17:
 Sending endTurn()
-Time taken: 0.858089ms
+Time taken: 68.8979ms
 Alocated Time: 1000ms
 
 turn 18:
 Sending endTurn()
-Time taken: 1.12494ms
+Time taken: 68.0109ms
 Alocated Time: 1000ms
 
 turn 19:
 Sending endTurn()
-Time taken: 1.72601ms
+Time taken: 77.216ms
 Alocated Time: 1000ms
 
 turn 20:
 Sending endTurn()
-Time taken: 1.95609ms
+Time taken: 68.4649ms
 Alocated Time: 1000ms
 
 turn 21:
 Sending endTurn()
-Time taken: 0.960022ms
+Time taken: 63.837ms
 Alocated Time: 1000ms
 
 turn 22:
 Sending endTurn()
-Time taken: 2.18011ms
+Time taken: 68.4961ms
 Alocated Time: 1000ms
 
 turn 23:
 Sending endTurn()
-Time taken: 1.34995ms
+Time taken: 67.9239ms
 Alocated Time: 1000ms
 
 turn 24:
 Sending endTurn()
-Time taken: 1.61607ms
+Time taken: 73.0689ms
 Alocated Time: 1000ms
 
 turn 25:
 Sending endTurn()
-Time taken: 2.218ms
+Time taken: 68.136ms
 Alocated Time: 1000ms
 
 turn 26:
 Sending endTurn()
-Time taken: 1.12597ms
+Time taken: 62.3909ms
 Alocated Time: 1000ms
 
 turn 27:
 Sending endTurn()
-Time taken: 1.63804ms
+Time taken: 63.6061ms
 Alocated Time: 1000ms
 
 turn 28:
 Sending endTurn()
-Time taken: 2.24589ms
+Time taken: 68.882ms
 Alocated Time: 1000ms
 
 turn 29:
 Sending endTurn()
-Time taken: 2.13694ms
+Time taken: 69.362ms
 Alocated Time: 1000ms
 
 turn 30:
 Sending endTurn()
-Time taken: 1.13697ms
+Time taken: 68.8801ms
 Alocated Time: 1000ms
 
 turn 31:
 Sending endTurn()
-Time taken: 2.04809ms
+Time taken: 68.9301ms
 Alocated Time: 1000ms
 
 turn 32:
 Sending endTurn()
-Time taken: 1.92702ms
+Time taken: 70.3669ms
 Alocated Time: 1000ms
 
 turn 33:
 Sending endTurn()
-Time taken: 2.30904ms
+Time taken: 77.7059ms
 Alocated Time: 1000ms
 
 turn 34:
 Sending endTurn()
-Time taken: 1.19701ms
+Time taken: 77.7059ms
 Alocated Time: 1000ms
 
 turn 35:
 Sending endTurn()
-Time taken: 2.36997ms
+Time taken: 73.4629ms
 Alocated Time: 1000ms
 
 turn 36:
 Sending endTurn()
-Time taken: 1.61689ms
+Time taken: 71.9961ms
 Alocated Time: 1000ms
 
 turn 37:
 Sending endTurn()
-Time taken: 1.41801ms
+Time taken: 86.707ms
 Alocated Time: 1000ms
 
 turn 38:
 Sending endTurn()
-Time taken: 1.19591ms
+Time taken: 75.5549ms
 Alocated Time: 1000ms
 
 turn 39:
 Sending endTurn()
-Time taken: 2.27489ms
+Time taken: 95.088ms
 Alocated Time: 1000ms
 
 turn 40:
 Sending endTurn()
-Time taken: 2.23392ms
+Time taken: 110.521ms
 Alocated Time: 1000ms
 
 turn 41:
 Sending endTurn()
-Time taken: 2.74198ms
+Time taken: 111.007ms
 Alocated Time: 1000ms
 
 turn 42:
 Sending endTurn()
-Time taken: 1.53197ms
+Time taken: 102.769ms
 Alocated Time: 1000ms
 
 turn 43:
 Sending endTurn()
-Time taken: 2.89693ms
+Time taken: 105.56ms
 Alocated Time: 1000ms
 
 turn 44:
 Sending endTurn()
-Time taken: 2.40103ms
+Time taken: 109.151ms
 Alocated Time: 1000ms
 
 turn 45:
+3 -1
 Sending endTurn()
-Time taken: 3.30696ms
+Time taken: 102.027ms
 Alocated Time: 1000ms
 
 turn 46:
+3 -1
 Sending endTurn()
-Time taken: 2.8981ms
+Time taken: 106.657ms
 Alocated Time: 1000ms
 
 turn 47:
 Sending endTurn()
-Time taken: 3.61802ms
+Time taken: 100.455ms
 Alocated Time: 1000ms
 
 turn 48:
 Sending endTurn()
-Time taken: 2.56294ms
+Time taken: 98.0349ms
 Alocated Time: 1000ms
 
 turn 49:
 Sending endTurn()
-Time taken: 4.44606ms
+Time taken: 100.825ms
 Alocated Time: 1000ms
 
 turn 50:
 Sending endTurn()
-Time taken: 2.5551ms
+Time taken: 98.5351ms
 Alocated Time: 1000ms
 
 turn 51:
+3 -1
 Sending endTurn()
-Time taken: 2.01501ms
+Time taken: 101.994ms
 Alocated Time: 1000ms
 
 turn 52:
 Sending endTurn()
-Time taken: 1.9039ms
+Time taken: 101.475ms
 Alocated Time: 1000ms
 
 turn 53:
 Sending endTurn()
-Time taken: 3.00095ms
+Time taken: 111.51ms
 Alocated Time: 1000ms
 
 turn 54:
 Sending endTurn()
-Time taken: 1.59002ms
+Time taken: 107.215ms
 Alocated Time: 1000ms
 
 turn 55:
 Sending endTurn()
-Time taken: 1.87297ms
+Time taken: 108.196ms
 Alocated Time: 1000ms
 
 turn 56:
 Sending endTurn()
-Time taken: 1.60498ms
+Time taken: 107.44ms
 Alocated Time: 1000ms
 
 turn 57:
 Sending endTurn()
-Time taken: 1.48096ms
+Time taken: 102.282ms
 Alocated Time: 1000ms
 
 turn 58:
 Sending endTurn()
-Time taken: 2.75207ms
+Time taken: 97.4331ms
 Alocated Time: 1000ms
 
 turn 59:
 Sending endTurn()
-Time taken: 1.70907ms
+Time taken: 105.407ms
 Alocated Time: 1000ms
 
 turn 60:
+5 -1
 Sending endTurn()
-Time taken: 1.77295ms
+Time taken: 106.769ms
 Alocated Time: 1000ms
 
 turn 61:
+7 -1
+7 -1
 Sending endTurn()
-Time taken: 2.25406ms
+Time taken: 161.149ms
 Alocated Time: 1000ms
 
 turn 62:
+6 -1
+6 -1
 Sending endTurn()
-Time taken: 3.11103ms
+Time taken: 134.654ms
 Alocated Time: 1000ms
 
 turn 63:
+6 -1
+6 -1
 Sending endTurn()
-Time taken: 2.84889ms
+Time taken: 137.592ms
 Alocated Time: 1000ms
 
 turn 64:
+6 -1
+6 -1
 Sending endTurn()
-Time taken: 4.84289ms
+Time taken: 135.332ms
 Alocated Time: 1000ms
 
 turn 65:
 Sending endTurn()
-Time taken: 7.35492ms
+Time taken: 114.592ms
 Alocated Time: 1000ms
 
 turn 66:
+4 -1
 Sending endTurn()
-Time taken: 1.70497ms
+Time taken: 110.812ms
 Alocated Time: 1000ms
 
 turn 67:
+5 -1
 Sending endTurn()
-Time taken: 4.63002ms
+Time taken: 128.984ms
 Alocated Time: 1000ms
 
 turn 68:
+5 -1
 Sending endTurn()
-Time taken: 4.43997ms
+Time taken: 140.411ms
 Alocated Time: 1000ms
 
 turn 69:
 Sending endTurn()
-Time taken: 3.31692ms
+Time taken: 134.687ms
 Alocated Time: 1000ms
 
 turn 70:
+6 -1
 Sending endTurn()
-Time taken: 3.715ms
+Time taken: 163.04ms
 Alocated Time: 1000ms
 
 turn 71:
 Sending endTurn()
-Time taken: 2.49093ms
+Time taken: 115.477ms
 Alocated Time: 1000ms
 
 turn 72:
 Sending endTurn()
-Time taken: 4.17592ms
+Time taken: 122.695ms
 Alocated Time: 1000ms
 
 turn 73:
 Sending endTurn()
-Time taken: 1.89196ms
+Time taken: 123.023ms
 Alocated Time: 1000ms
 
 turn 74:
 Sending endTurn()
-Time taken: 6.9381ms
+Time taken: 134.417ms
 Alocated Time: 1000ms
 
 turn 75:
 Sending endTurn()
-Time taken: 3.74894ms
+Time taken: 140.908ms
 Alocated Time: 1000ms
 
 turn 76:
+6 -1
 Sending endTurn()
-Time taken: 2.32301ms
+Time taken: 156.085ms
 Alocated Time: 1000ms
 
 turn 77:
 Sending endTurn()
-Time taken: 2.76902ms
+Time taken: 159.943ms
 Alocated Time: 1000ms
 
 turn 78:
+6 -1
 Sending endTurn()
-Time taken: 4.2751ms
+Time taken: 157.837ms
 Alocated Time: 1000ms
 
 turn 79:
+6 -1
 Sending endTurn()
-Time taken: 5.0221ms
+Time taken: 175.918ms
 Alocated Time: 1000ms
 
 turn 80:
 Sending endTurn()
-Time taken: 2.74493ms
+Time taken: 133.182ms
 Alocated Time: 1000ms
 
 turn 81:
+6 -1
 Sending endTurn()
-Time taken: 4.26194ms
+Time taken: 169.564ms
 Alocated Time: 1000ms
 
 turn 82:
+6 -1
 Sending endTurn()
-Time taken: 4.19695ms
+Time taken: 174.573ms
 Alocated Time: 1000ms
 
 turn 83:
+6 -1
 Sending endTurn()
-Time taken: 5.28193ms
+Time taken: 172.16ms
 Alocated Time: 1000ms
 
 turn 84:
+8 -1
+8 -1
+8 -1
 Sending endTurn()
-Time taken: 9.1291ms
+Time taken: 178.381ms
 Alocated Time: 1000ms
 
 turn 85:
+5 -1
 Sending endTurn()
-Time taken: 4.94907ms
+Time taken: 148.255ms
 Alocated Time: 1000ms
 
 turn 86:
+6 -1
 Sending endTurn()
-Time taken: 6.04311ms
+Time taken: 159.24ms
 Alocated Time: 1000ms
 
 turn 87:
+5 -1
 Sending endTurn()
-Time taken: 6.4509ms
+Time taken: 142.205ms
 Alocated Time: 1000ms
 
 turn 88:
+4 -1
 Sending endTurn()
-Time taken: 4.91392ms
+Time taken: 168.593ms
 Alocated Time: 1000ms
 
 turn 89:
 Sending endTurn()
-Time taken: 6.74405ms
+Time taken: 158.724ms
 Alocated Time: 1000ms
 
 turn 90:
+4 -1
 Sending endTurn()
-Time taken: 7.42108ms
+Time taken: 160.809ms
 Alocated Time: 1000ms
 
 turn 91:
 Sending endTurn()
-Time taken: 3.50793ms
+Time taken: 158.87ms
 Alocated Time: 1000ms
 
 turn 92:
 Sending endTurn()
-Time taken: 3.26599ms
+Time taken: 161.851ms
 Alocated Time: 1000ms
 
 turn 93:
+9 -1
 Sending endTurn()
-Time taken: 5.86406ms
+Time taken: 198.553ms
 Alocated Time: 1000ms
 
 turn 94:
 Sending endTurn()
-Time taken: 6.02307ms
+Time taken: 164.791ms
 Alocated Time: 1000ms
 
 turn 95:
+7 -1
 Sending endTurn()
-Time taken: 4.73411ms
+Time taken: 161.121ms
 Alocated Time: 1000ms
 
 turn 96:
+9 -1
 Sending endTurn()
-Time taken: 7.02407ms
+Time taken: 185.216ms
 Alocated Time: 1000ms
 
 turn 97:
 Sending endTurn()
-Time taken: 3.50505ms
+Time taken: 188.25ms
 Alocated Time: 1000ms
 
 turn 98:
 Sending endTurn()
-Time taken: 5.84804ms
+Time taken: 196.51ms
 Alocated Time: 1000ms
 
 turn 99:
+10 -1
 Sending endTurn()
-Time taken: 4.06896ms
+Time taken: 199.753ms
 Alocated Time: 1000ms
 
 turn 100:
+10 -1
 Sending endTurn()
-Time taken: 4.53801ms
+Time taken: 209.496ms
 Alocated Time: 1000ms
 

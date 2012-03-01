@@ -85,7 +85,7 @@ void State::mark_explored()
 		f = &grid[x.row][x.col];
 		squares.pop_front();
 		
-		if (f->isMarked > 10)
+		if (f->isMarked > VIEW_RADIUS)
 			break;
 
 		for (int dir = 0; dir < 4; dir++)
