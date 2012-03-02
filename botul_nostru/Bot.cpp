@@ -112,80 +112,33 @@ void Bot::gatherFood()
 		if (!active[f->foodIndex])
 			continue;
 
-		//Direction 0
-		y = x.move(0);
-		t = &state.grid[y.row][y.col];
-
-		if (t->antPlayer == 0)
-			if (jobs[t->myAntNumber] == -1)
-			{
-				active[f->foodIndex] = false;
-				jobs[t->myAntNumber] = 2;
-			}
-
-		if (!t->isWater && t->isMarked == -1)
+		for (int dir = 0; dir < 4; dir++)
 		{
-			t->isMarked = f->isMarked + 1;
-			t->foodIndex = f->foodIndex;
-			changed.push_back(y);
-			squares.push_back(y);
-		}
+			y = x.move(dir);
+			t = &state.grid[y.row][y.col];
 
-		//Direction 1
-		y = x.move(1);
-		t = &state.grid[y.row][y.col];
-		if (t->antPlayer == 0)
-			if (jobs[t->myAntNumber] == -1)
+			if (t->antPlayer == 0)
+				if (jobs[t->myAntNumber] == -1)
+				{
+					active[f->foodIndex] = false;
+					if (dir + 2 > 3)
+						jobs[t->myAntNumber] = dir - 2;
+					else
+						jobs[t->myAntNumber] = dir + 2;
+				}
+
+			if (!t->isWater && t->isMarked == -1)
 			{
-				active[f->foodIndex] = false;
-				jobs[t->myAntNumber] = 3;
+				t->isMarked = f->isMarked + 1;
+				t->foodIndex = f->foodIndex;
+				changed.push_back(y);
+				squares.push_back(y);
 			}
-		if (!t->isWater && t->isMarked == -1)
-		{
-			t->isMarked = f->isMarked + 1;
-			t->foodIndex = f->foodIndex;
-			changed.push_back(y);
-			squares.push_back(y);
-		}
-
-		//Direction 2
-		y = x.move(2);
-		t = &state.grid[y.row][y.col];
-
-		if (t->antPlayer == 0)
-			if (jobs[t->myAntNumber] == -1)
-			{
-				active[f->foodIndex] = false;
-				jobs[t->myAntNumber] = 0;
-			}
-
-		if (!t->isWater && t->isMarked == -1)
-		{
-			t->isMarked = f->isMarked + 1;
-			t->foodIndex = f->foodIndex;
-			changed.push_back(y);
-			squares.push_back(y);
-		}
-
-		//Direction 3
-		y = x.move(3);
-		t = &state.grid[y.row][y.col];
-
-		if (t->antPlayer == 0)
-			if (jobs[t->myAntNumber] == -1)
-			{
-				active[f->foodIndex] = false;
-				jobs[t->myAntNumber] = 1;
-			}
-
-		if (!t->isWater && t->isMarked == -1)
-		{
-			t->isMarked = f->isMarked + 1;
-			t->foodIndex = f->foodIndex;
-			changed.push_back(y);
-			squares.push_back(y);
 		}
 	}
+
+	squares.clear();
+
 	while (changed.size())
 	{
 		x = changed.front();
