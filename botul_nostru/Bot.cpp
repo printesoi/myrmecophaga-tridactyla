@@ -34,6 +34,7 @@ void Bot::playGame()
 			jobs.push_back(-1);
 		state.mark_explored();
 		gatherFood();
+		explore();
         makeMoves();
 
         endTurn();
@@ -136,7 +137,6 @@ void Bot::gatherFood()
 		if (t->antPlayer == 0)
 			if (jobs[t->myAntNumber] == -1)
 			{
-				LOG(active.size() << " " << t->foodIndex);
 				active[f->foodIndex] = false;
 				jobs[t->myAntNumber] = 3;
 			}
@@ -194,6 +194,31 @@ void Bot::gatherFood()
 		f->foodIndex = -1;
 		changed.pop_front();
 	}
+}
+
+void Bot::explore()
+{
+	for (unsigned int ant = 0; ant < jobs.size(); ant++)
+		if (jobs[ant] == -1)
+		{
+			int dir = -1;
+			int sum0 = 0;
+			Location y;
+			for (int i = 0; i < 4; i++)
+			{
+				y = state.myAnts[ant].move(i);
+				if (!state.grid[y.row][y.col].isWater)
+				{
+					int sum = state.unexplored_index(y);
+					if (sum > sum0)
+					{
+						sum0 = sum;
+						dir = i;
+					}
+				}
+			}
+			jobs[ant] = dir;
+		}
 }
 
 int Bot::freeAntsNumber()

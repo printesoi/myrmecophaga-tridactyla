@@ -47,6 +47,9 @@ struct Bot
     /** Moves ants on the board. */
     void makeMoves();
 
+	/** Explores the map. */
+	void explore();
+
     /** Indicates to the engine that it has made its moves. */
     void endTurn();
 

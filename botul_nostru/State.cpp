@@ -85,7 +85,7 @@ void State::mark_explored()
 		f = &grid[x.row][x.col];
 		squares.pop_front();
 		
-		if (f->isMarked > VIEW_RADIUS)
+		if (f->isMarked == VIEW_RADIUS)
 			break;
 
 		for (int dir = 0; dir < 4; dir++)
@@ -109,6 +109,66 @@ void State::mark_explored()
 		f->exploreIndex = 0;
 		changed.pop_front();
 	}
+	squares.clear();
+}
+
+int State::unexplored_index(Location from)
+{
+	std::list<Location> squares;
+	std::list<Location> changed;
+	
+	Location x,y;
+	Square *f,*t;
+
+	int rez = 0;
+	
+	grid[from.row][from.col].isMarked = 0;
+	changed.push_back(from);
+	squares.push_back(from);
+	
+	while (squares.size())
+	{
+		x = squares.front();
+		f = &grid[x.row][x.col];
+		squares.pop_front();
+		
+		if (f->isMarked == VIEW_RADIUS)
+		{
+			rez = f->exploreIndex;
+			break;
+		}
+
+		for (int dir = 0; dir < 4; dir++)
+		{
+			y = x.move(dir);
+			t = &grid[y.row][y.col];
+
+			if (!t->isWater && t->isMarked == -1)
+			{
+				t->isMarked = f->isMarked + 1;
+				changed.push_back(y);
+				squares.push_back(y);
+			}
+		}
+	}
+
+	while (squares.size())
+	{
+		x = squares.front();
+		f = &grid[x.row][x.col];
+		rez += f->exploreIndex;
+		squares.pop_front();
+	}
+
+	while (changed.size())
+	{
+		x = changed.front();
+		f = &grid[x.row][x.col];
+		f->isMarked = -1;
+		changed.pop_front();
+	}
+
+	return rez;
 }
 
 /* Input functions. */

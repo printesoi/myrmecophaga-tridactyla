@@ -75,7 +75,10 @@ struct State
 	/** Marks the explored cells. */
 	void mark_explored();
 
-    /** This is just square of Euclid distance. */
+    /** Calculates the unexplored index. */
+	int unexplored_index(Location from);
+	
+	/** This is just square of Euclid distance. */
     double distance(const Location loc1, const Location loc2);
 	
 	/** Return the square that a location points to. */

@@ -57,7 +57,7 @@ extern std::ofstream logFile;
 const int MAXIMUM_MAP_SIZE = 200;
 
 /** View radius. */
-const int VIEW_RADIUS = 50;
+const int VIEW_RADIUS = 10;
 
 /** Directionality constants. */
 const int NUMBER_DIRECTIONS = 4;
