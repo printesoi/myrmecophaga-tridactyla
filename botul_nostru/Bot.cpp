@@ -89,6 +89,9 @@ void Bot::gatherFood()
 	Location x,y;
 	Square *f,*t;
 
+	for (unsigned int hill = 0; hill < state.enemyHills.size(); hill++)
+		state.food.push_back(state.enemyHills[hill]);
+
 	int nr = 0;
 	for (unsigned int i = 0; i < state.food.size(); i++)
 		if (state.grid[state.food[i].row][state.food[i].col].exploreIndex == 0)
@@ -137,7 +140,7 @@ void Bot::gatherFood()
 		}
 	}
 
-	//squares.clear();
+	squares.clear();
 
 	while (changed.size())
 	{
