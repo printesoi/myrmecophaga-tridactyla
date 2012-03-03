@@ -5,7 +5,7 @@
 *.kate-swp
 *.pyc
 */*.pyc
-bin/
-logFile.log
+/botul_nostru/bin/
+/logFile.log
 game_logs/
 Myla
