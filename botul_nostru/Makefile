@@ -25,8 +25,11 @@ $(EXECUTABLE): $(OBJECTS)
 bin/%.o: %.cpp
 	$(CC) $(CFLAGS) $(LDFLAGS) -c -o $@ $^
 
-clean: 
-	-rm -f bin/*.o $(EXECUTABLE) *.d debug.txt
+clean:
+	-rm -f bin/*.o $(EXECUTABLE) *.d debug.txt Myla.zip
 
-.PHONY: all clean
+pack:
+	zip Myla.zip *.h *.cpp README Makefile
+
+.PHONY: all clean pack
 

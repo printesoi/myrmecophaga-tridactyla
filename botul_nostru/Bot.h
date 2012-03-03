@@ -22,7 +22,7 @@
 
 // local includes
 
-#include "Strategy.h"
+#include "State.h"
 
 struct Bot
 {

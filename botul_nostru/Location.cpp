@@ -1,7 +1,7 @@
 /*
  * =============================================================================
  *
- *       Filename:  State.h
+ *       Filename:  Location.cpp
  *        Authors:  Dodon Victor <dodonvictor at gmail dot com>
  *                  Cernov Vladimir <gg.kaspersky@gmail.com>
  *                  Maldur Vitalie <maldur.vitalik@yahoo.com>
