@@ -137,7 +137,7 @@ void Bot::gatherFood()
 		}
 	}
 
-	squares.clear();
+	//squares.clear();
 
 	while (changed.size())
 	{
