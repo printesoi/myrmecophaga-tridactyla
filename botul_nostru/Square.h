@@ -7,7 +7,7 @@
  *                  Maldur Vitalie <maldur.vitalik@yahoo.com>
  *                  Straticiuc Vicu <straticiuc_vicu@yahoo.com>
  *        Created:  02/25/2012
- *    Description:  
+ *    Description:
  *
  * =============================================================================
  */
@@ -20,7 +20,7 @@
 #include "Logging.h"
 #include "Timer.h"
 
-/** Struct for representing a square in the grid. */
+/** Class for representing a square in the grid. */
 class Square
 {
 
@@ -29,9 +29,10 @@ public:
 
     /** Resets the information for the square except water information. */
     void reset();
-    bool isVisible;
+
 
 public:
+    bool isVisible;
     bool isWater;
     bool isHill;
     bool isFood;

@@ -14,7 +14,7 @@ else
 CFLAGS+=-g -DDEBUG
 endif
 
-all: bin clean $(OBJECTS) $(MAINOBJECTS) $(EXECUTABLE) $(ALLEXECUTABLES)
+all: bin $(OBJECTS) $(MAINOBJECTS) $(EXECUTABLE) $(ALLEXECUTABLES)
 
 bin:
 	[ -d bin ] || mkdir bin
