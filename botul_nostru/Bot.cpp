@@ -34,6 +34,7 @@ void Bot::playGame()
 			jobs.push_back(-1);
 		state.mark_explored();
 		gatherFood();
+		state.mark_enemy_hills();
 		explore();
 		disperse();
         makeMoves();
