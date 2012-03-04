@@ -10,6 +10,7 @@ Mediu de dezvoltare folosit:
  	Linux.
 Mod de compilare:
 	$ make
+[Daca ceva nu functioneaza, folositi make clean, apoi make.]
 
 	In urma compilarii este creat directorul bin/ in directorul curent, care contine fisierele
 obiect si executabilul "MyBot".
@@ -45,11 +46,22 @@ Descrierea rezolvarii:
 	spre partea cu suma cea mai mare (spre fogul cel mai intunecos). Known issue: raman furnici
 	care nu au ce sa faca. Ca sa le ocupam, am incercat o alta modalitate de a explora harta,
 	care este inca intr-o faza beta. Ideea consta intr-un BFS de la musuroaie spre exterior.
+		Este greu sa dau detalii de implementare, aruncati si voi o privire in cod. Oricum,
+	deja am amintit toate ideile de baza aplicate de noi. Ar mai fi de mentionat algoritmul
+	A*, aflat in stare beta, pe care il vom folosi in viitor.
 
-	Observatii:
+Observatii:
+	*
+		Botul e departe de perfectiune, nu face decat sa treaca etapa1 (si uneori etapa 2, din
+	pura intamplare).
+	
+	*
+		Botul contine memory-leakuri
+
 	*
 		Tinand cont ca view radius este intotdeauna 77, am hard-codat o functie legata de a
-	marca celulele vizibile in grid. Ni s-a parut ca ar fi cea mai buna varianta.
+	marca celulele vizibile in grid. Ni s-a parut ca ar fi cea mai buna varianta. Aceasta
+	functie deocamdata nu este folosita.
 
 	*		
 		Noi ne rezervam dreptul de a schimba pe viitor oricare din aceste functionalitati, daca
@@ -62,7 +74,7 @@ Contributii:
 	Vladimir Cernov:	Implementarea algoritmilor de BFS.
 	Vicu Straticiuc:	Implementarea algoritmului de mark_visible.
 	Victor Dodon:		Crearea repozitoriului git, Makefile, structurarea proiectului.
-	Vitalie Maldur:		Implementarea algoritmului A*, pe care il vom folosi in viitor.
+	Vitalie Maldur:		Implementarea algoritmului A*.
 	
 Resurse folosite:
 	http://forums.aichallenge.org
