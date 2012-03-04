@@ -13,6 +13,11 @@
  */
 
 #include "Location.h"
+/** Operator for sort utility */
+bool Location::operator == (Location param)
+{
+    return col == param.col && row == param.row;
+}
 
 /** Structure for representing a location on the map. */
 Location Location::move(int dir) 

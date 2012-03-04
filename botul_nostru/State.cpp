@@ -14,6 +14,7 @@
 
 #include <cstdlib>
 #include <iomanip>
+#include <cmath>
 
 #include "State.h"
 
@@ -170,12 +171,51 @@ int State::unexplored_index(Location from)
 
 	return rez;
 }
+
+/* Comparator for sorting a list of locations */
+bool comparator( Location one, Location two ){
+	return (one.f < two.f);
+}
+
 /* A* algorithm. */
 int State::Astar( Location from, Location to )
 {
-	return -1;	
-}
+	Location tmp;
+	std::list<Location> open;
+	open.push_back(from);
+	from.g = 0;
+	from.dir = -1;
+	grid[from.row][from.col].isMarked = 0;
+	while(!open.empty())
+	{
+		open.sort(comparator);
+		tmp = open.front();
+		open.pop_front();
+		
+		if( tmp == to )
+			break;
 
+		for( int i=0; i<4; i++ )
+		{
+			Location aux = tmp.move(i);
+			Square x = grid[aux.row][aux.col];
+			
+			if( x.isMarked == -1 && !x.isWater )
+			{
+				
+				if(	tmp.dir == -1 ) 
+					aux.dir = i;
+				else
+					aux.dir = tmp.dir;
+				
+				aux.g = 10 + tmp.g;
+				aux.f = aux.g + 10 * (abs(aux.row - to.row) + abs(aux.col - to.col));
+				open.push_back(aux);
+			}
+		}
+	}
+	return tmp.dir;
+}
 
 /* Input functions. */
 std::istream& operator>>(std::istream &is, State &state)

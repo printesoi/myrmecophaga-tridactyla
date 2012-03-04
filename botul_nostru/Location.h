@@ -4,9 +4,11 @@ struct Location
 {
     int row;
     int col;
-
-	Location() : row(0), col(0) { }
+    int f;
+    int g;
+    int dir;
+    Location() : row(0), col(0) { }
     Location(int row, int col) : row(row), col(col) { }
-
+    bool operator == (Location);
     Location move(int dir);
 };
