@@ -20,10 +20,10 @@ bin:
 	[ -d bin ] || mkdir bin
 
 $(EXECUTABLE): $(OBJECTS)
-    $(CC) $(LDFLAGS) $(OBJECTS) -o $@
+	$(CC) $(LDFLAGS) $(OBJECTS) -o $@
 
 bin/%.o: %.cpp
-    $(CC) $(CFLAGS) $(LDFLAGS) -c -o $@ $^
+	$(CC) $(CFLAGS) $(LDFLAGS) -c -o $@ $^
 
 clean:
 	-rm -f bin/*.o $(EXECUTABLE) *.d debug.txt MylaEtapa1.zip && rm -rf bin/
