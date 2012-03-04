@@ -1,5 +1,0 @@
-Compilare botului se realizeaza cu "make".
-Executabilul si fisierele obiect sunt generate in bin/
-Pentru stergerea fisierelor obiect si a executabilului "make clean"
-
-Test
