@@ -45,14 +45,14 @@ double State::distance(const Location loc1, const Location loc2)
     return dr*dr + dc*dc;
 }
 
-/* Marks which squares on the map are visible. This function can be greatly
- * improved! */
+/* Marks which squares on the map are visible. */
 void State::mark_visible()
 {
 	for (unsigned int ant = 0; ant < myAnts.size(); ++ant)
 		mark_seen(myAnts[ant]);
 }
 
+/** Marks which squares are visible from an ant Location. */
 void State::mark_seen(Location ant)
 {
 	Location to = ant.move(8,-3);

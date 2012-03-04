@@ -26,7 +26,7 @@ bin/%.o: %.cpp
 	$(CC) $(CFLAGS) $(LDFLAGS) -c -o $@ $^
 
 clean:
-	-rm -f bin/*.o $(EXECUTABLE) *.d debug.txt MylaEtapa1.zip
+	-rm -f bin/*.o $(EXECUTABLE) *.d debug.txt MylaEtapa1.zip && rm -rf bin/
 
 pack:
 	zip MylaEtapa1.zip *.h *.cpp README Makefile

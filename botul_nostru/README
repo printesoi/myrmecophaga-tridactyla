@@ -60,7 +60,9 @@ Observatii:
 	pura intamplare).
 	
 	*
-		Botul contine memory-leakuri
+		Botul contine memory-leakuri, acestea urmeaza a fi eliminate in etapele urmatoare.
+	Nu am considerat de cuviinta sa le fixam acum, pentru ca scopul nostru este doar ca sa
+	stragem mancare. De asemenea, botul ruleaza mai rapid cu ele.
 
 	*
 		Tinand cont ca view radius este intotdeauna 77, am hard-codat o functie legata de a
@@ -84,4 +86,3 @@ Resurse folosite:
 	http://forums.aichallenge.org
 	http://en.wikipedia.org
 	http://www.cplusplus.com
->>>>>>> 20c2391bbffa233e9a55cbb898da71ee15daf147
