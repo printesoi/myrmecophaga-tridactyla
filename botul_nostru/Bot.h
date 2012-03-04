@@ -55,6 +55,9 @@ struct Bot
 
 	/** Returns the number of free ants. */
 	int freeAntsNumber();
+
+	/**Leave traces from busy ants. */
+	void leave_traces();
 };
 
 #endif

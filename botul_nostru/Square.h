@@ -42,5 +42,6 @@ public:
     int myAntNumber;
 	int exploreIndex;
 	int foodIndex;
+	int curiosity;
     std::vector<Square> neighbors;
 };

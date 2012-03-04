@@ -35,6 +35,7 @@ void Bot::playGame()
 		state.mark_explored();
 		gatherFood();
 		explore();
+		leave_traces();
         makeMoves();
 
         endTurn();
@@ -49,8 +50,20 @@ void Bot::makeMoves()
     {
 		int direction = jobs[ant];
 		if (direction == -1)
-        	/* Try moving this ant in some random direction. */
-        	direction = rand() % 4;
+		{
+			int curiosity = 0;
+			for (int i = 0; i < 3; i++)
+			{
+				Square * x = state.square(state.myAnts[ant].move(i));
+				if (x->curiosity > curiosity)
+				{
+					curiosity = x->curiosity;
+					direction = i;
+				}
+			}
+			if (direction == -1)
+				direction = rand() % 4;
+		}
         Location newLocation = state.myAnts[ant].move(direction);
         /* Destination shouldn't be water and shouldn't be an ant. */
         if (!state.grid[newLocation.row][newLocation.col].isWater &&
@@ -184,4 +197,14 @@ int Bot::freeAntsNumber()
 		if (jobs[i] == -1)
 			rez++;
 	return rez;
+}
+
+void Bot::leave_traces()
+{
+	for (unsigned int ant = 0; ant < jobs.size(); ant++)
+		if (jobs[ant] != -1)
+		{
+			Square * x = state.square(state.myAnts[ant].move(jobs[ant]));
+			x->curiosity++;
+		}
 }
