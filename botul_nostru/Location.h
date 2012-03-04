@@ -9,4 +9,6 @@ struct Location
     Location(int row, int col) : row(row), col(col) { }
 
     Location move(int dir);
+
+	Location move(int x,int y);
 };
