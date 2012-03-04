@@ -90,6 +90,9 @@ struct State
 
 	/** A* algorithm. */
 	int Astar( Location from, Location to );
+
+	/** Marks the radius of sight. */
+	void mark_seen(Location from);
 };
 
 /** Method that helps do the IO. */

@@ -48,21 +48,14 @@ double State::distance(const Location loc1, const Location loc2)
  * improved! */
 void State::mark_visible()
 {
-    for (int row = 0; row < gparam::mapRows; ++row)
-    {
-        for (int col = 0; col < gparam::mapColumns; ++col)
-        {
-            /* Check of any of the ants sees this. */
-            for (int ant = 0; ant < (int)myAnts.size(); ++ant)
-            {
-                if (distance(Location(row, col), myAnts[ant]) <= gparam::viewRadius)
-                {
-                    grid[row][col].isVisible = true;
-                    break;
-                }
-            }
-        }
-    }
+	for (unsigned int ant = 0; ant < myAnts.size(); ++ant)
+		mark_seen(myAnts[ant]);
+}
+
+void State::mark_seen(Location from)
+{
+	Location to;
+	grid[from.row][from.col].seen = true;
 }
 
 /** Resets the exploreIndex of the "visible" squares to 0. */
