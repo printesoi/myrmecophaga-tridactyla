@@ -51,15 +51,16 @@ void Bot::makeMoves()
 		int direction = jobs[ant];
 		if (direction == -1)
 		{
-			std::random_shuffle(R_DIR,R_DIR + 4);
-			direction = R_DIR[0];
-			Square* x = state.square(state.myAnts[ant].move(R_DIR[0]));
+			int r_dir[] = {0,1,2,3};
+			std::random_shuffle(r_dir,r_dir + 4);
+			direction = r_dir[0];
+			Square* x = state.square(state.myAnts[ant].move(r_dir[0]));
 			for (int dir = 1; dir < 4; dir++)
 			{
-				Square* y = state.square(state.myAnts[ant].move(R_DIR[dir]));
+				Square* y = state.square(state.myAnts[ant].move(r_dir[dir]));
 				if (y->expandIndex > x->expandIndex)
 				{
-					direction = R_DIR[dir];
+					direction = r_dir[dir];
 					break;
 				}
 			}

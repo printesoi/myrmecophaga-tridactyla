@@ -170,6 +170,12 @@ int State::unexplored_index(Location from)
 
 	return rez;
 }
+/* A* algorithm. */
+int State::Astar( Location from, Location to )
+{
+	return -1;	
+}
+
 
 /* Input functions. */
 std::istream& operator>>(std::istream &is, State &state)

@@ -87,10 +87,14 @@ struct State
 	{
 		return &grid[loc.row][loc.col];
 	}
+
+	/** A* algorithm. */
+	int Astar( Location from, Location to );
 };
 
 /** Method that helps do the IO. */
 std::istream& operator>>(std::istream &is, State &state);
+
 
 #endif
 

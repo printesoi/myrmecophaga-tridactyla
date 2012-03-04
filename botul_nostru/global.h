@@ -59,9 +59,6 @@ const int MAXIMUM_MAP_SIZE = 200;
 /** View radius. */
 const int VIEW_RADIUS = 10;
 
-/** Sequence of directions. */
-int R_DIR[] = {0,1,2,3};
-
 /** Directionality constants. */
 const int NUMBER_DIRECTIONS = 4;
 const int NORTH = 0;
