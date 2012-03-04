@@ -1,6 +1,5 @@
 Readme pentru botul "Myrmecophaga tridactyla" [prescurtat Myla], proiect PA.
 
-<<<<<<< HEAD
 Test
 Test2
 =======
@@ -56,8 +55,8 @@ Descrierea rezolvarii:
 
 Observatii:
 	*
-		Botul e departe de perfectiune, nu face decat sa treaca etapa1 (si uneori etapa 2, din
-	pura intamplare).
+		Botul e departe de perfectiune, nu face decat sa treaca etapa1 (si uneori etapa 2),
+	avand un mecanism primitiv de a ataca (vede musuroiul - pleaca spre el).
 	
 	*
 		Botul contine memory-leakuri, acestea urmeaza a fi eliminate in etapele urmatoare.
