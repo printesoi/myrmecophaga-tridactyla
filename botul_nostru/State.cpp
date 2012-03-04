@@ -52,10 +52,89 @@ void State::mark_visible()
 		mark_seen(myAnts[ant]);
 }
 
-void State::mark_seen(Location from)
+void State::mark_seen(Location ant)
 {
-	Location to;
-	grid[from.row][from.col].seen = true;
+	Location to = ant.move(8,-3);
+	for(int i = 0;i < 7; ++i)
+	{
+		to = to.move(1);
+		grid[to.row][to.col].seen = true;
+	}
+	
+	to = ant.move(7,-5);
+	for(int i = 0;i < 11; ++i)
+	{
+		to = to.move(1);
+		grid[to.row][to.col].seen = true;	
+	}
+	
+	to = ant.move(6,-6);
+	for(int i = 0;i < 13; ++i)
+	{
+		to = to.move(1);
+		grid[to.row][to.col].seen = true;
+	}
+	
+	to = ant.move(5,-7);
+	for(int i = 0;i < 15; ++i)
+	{
+		to = to.move(1);
+		grid[to.row][to.col].seen = true;
+	}
+	
+	to = ant.move(4,-7);
+	for(int i = 0;i < 15; ++i)
+	{
+		to = to.move(1);
+		grid[to.row][to.col].seen = true;
+	}
+	
+	for(int j = (-3);j < 4; j++)
+	{
+		to = ant.move(j,-8);
+		for(int i = 0;i < 17; ++i)
+		{
+			to = to.move(1);
+			grid[to.row][to.col].seen = true;
+		}
+	}
+	
+	to = ant.move(-8,-3);
+	for(int i = 0;i < 7; ++i)
+	{
+		to = to.move(1);
+		grid[to.row][to.col].seen = true;
+	}
+	
+	to = ant.move(-7,-5);
+	for(int i = 0;i < 11; ++i)
+	{
+		to = to.move(1);
+		grid[to.row][to.col].seen = true;	
+	}
+	
+	to = ant.move(-6,-6);
+	for(int i = 0;i < 13; ++i)
+	{
+		to = to.move(1);
+		grid[to.row][to.col].seen = true;
+	}
+	
+	to = ant.move(-5,-7);
+	for(int i = 0;i < 15; ++i)
+	{
+		to = to.move(1);
+		grid[to.row][to.col].seen = true;
+	}
+	
+	to = ant.move(-4,-7);
+	for(int i = 0;i < 15; ++i)
+	{
+		to = to.move(1);
+		grid[to.row][to.col].seen = true;
+	}
+		
+	
 }
 
 /** Resets the exploreIndex of the "visible" squares to 0. */
