@@ -5,7 +5,7 @@ LDFLAGS=-lm -std=c++0x
 SOURCES=$(wildcard *.cpp)
 OBJECTS=$(addprefix bin/, $(notdir $(SOURCES:.cpp=.o)))
 
-EXECUTABLE=bin/Myla
+EXECUTABLE=bin/MyBot
 
 #Comment/Uncomment the following to enable debugging
 ifdef LOGFILENAME
@@ -26,10 +26,10 @@ bin/%.o: %.cpp
 	$(CC) $(CFLAGS) $(LDFLAGS) -c -o $@ $^
 
 clean:
-	-rm -f bin/*.o $(EXECUTABLE) *.d debug.txt Myla.zip
+	-rm -f bin/*.o $(EXECUTABLE) *.d debug.txt MylaEtapa1.zip
 
 pack:
-	zip Myla.zip *.h *.cpp README Makefile
+	zip MylaEtapa1.zip *.h *.cpp README Makefile
 
 .PHONY: all clean pack
 

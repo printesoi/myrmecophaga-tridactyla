@@ -44,3 +44,19 @@ Location Location::move(int dir)
 
     return returnValue;
 }
+
+Location Location::move(int x,int y)
+{
+	Location rez(row + x, col + y);
+	if (rez.row < 0)
+		rez.row += gparam::mapRows;
+	else
+		if (rez.row == gparam::mapRows)
+			rez.row = 0;
+    if (rez.col < 0)
+        rez.col += gparam::mapColumns;
+    else
+		if (rez.col == gparam::mapColumns)
+			rez.col = 0;
+    return rez;
+}

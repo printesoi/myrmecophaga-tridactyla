@@ -15,7 +15,7 @@
 #include "Square.h"
 
 /** Struct for representing a square in the grid. */
-Square::Square() : isVisible(false), isWater(false), isHill(false), isFood(false)
+Square::Square() : isVisible(false), isWater(false), isHill(false), isFood(false), seen(false)
 {
     hillPlayer = antPlayer = myAntNumber = isMarked = foodIndex = expandIndex = -1;
 	exploreIndex = 500;

@@ -36,6 +36,7 @@ public:
     bool isWater;
     bool isHill;
     bool isFood;
+	bool seen;
     int isMarked;
     int hillPlayer;
     int antPlayer;

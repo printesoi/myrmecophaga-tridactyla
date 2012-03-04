@@ -11,4 +11,6 @@ struct Location
     Location(int row, int col) : row(row), col(col) { }
     bool operator == (Location);
     Location move(int dir);
+
+	Location move(int x,int y);
 };

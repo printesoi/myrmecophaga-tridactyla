@@ -49,21 +49,93 @@ double State::distance(const Location loc1, const Location loc2)
  * improved! */
 void State::mark_visible()
 {
-    for (int row = 0; row < gparam::mapRows; ++row)
-    {
-        for (int col = 0; col < gparam::mapColumns; ++col)
-        {
-            /* Check of any of the ants sees this. */
-            for (int ant = 0; ant < (int)myAnts.size(); ++ant)
-            {
-                if (distance(Location(row, col), myAnts[ant]) <= gparam::viewRadius)
-                {
-                    grid[row][col].isVisible = true;
-                    break;
-                }
-            }
-        }
-    }
+	for (unsigned int ant = 0; ant < myAnts.size(); ++ant)
+		mark_seen(myAnts[ant]);
+}
+
+void State::mark_seen(Location ant)
+{
+	Location to = ant.move(8,-3);
+	for(int i = 0;i < 7; ++i)
+	{
+		to = to.move(1);
+		grid[to.row][to.col].seen = true;
+	}
+	
+	to = ant.move(7,-5);
+	for(int i = 0;i < 11; ++i)
+	{
+		to = to.move(1);
+		grid[to.row][to.col].seen = true;	
+	}
+	
+	to = ant.move(6,-6);
+	for(int i = 0;i < 13; ++i)
+	{
+		to = to.move(1);
+		grid[to.row][to.col].seen = true;
+	}
+	
+	to = ant.move(5,-7);
+	for(int i = 0;i < 15; ++i)
+	{
+		to = to.move(1);
+		grid[to.row][to.col].seen = true;
+	}
+	
+	to = ant.move(4,-7);
+	for(int i = 0;i < 15; ++i)
+	{
+		to = to.move(1);
+		grid[to.row][to.col].seen = true;
+	}
+	
+	for(int j = (-3);j < 4; j++)
+	{
+		to = ant.move(j,-8);
+		for(int i = 0;i < 17; ++i)
+		{
+			to = to.move(1);
+			grid[to.row][to.col].seen = true;
+		}
+	}
+	
+	to = ant.move(-8,-3);
+	for(int i = 0;i < 7; ++i)
+	{
+		to = to.move(1);
+		grid[to.row][to.col].seen = true;
+	}
+	
+	to = ant.move(-7,-5);
+	for(int i = 0;i < 11; ++i)
+	{
+		to = to.move(1);
+		grid[to.row][to.col].seen = true;	
+	}
+	
+	to = ant.move(-6,-6);
+	for(int i = 0;i < 13; ++i)
+	{
+		to = to.move(1);
+		grid[to.row][to.col].seen = true;
+	}
+	
+	to = ant.move(-5,-7);
+	for(int i = 0;i < 15; ++i)
+	{
+		to = to.move(1);
+		grid[to.row][to.col].seen = true;
+	}
+	
+	to = ant.move(-4,-7);
+	for(int i = 0;i < 15; ++i)
+	{
+		to = to.move(1);
+		grid[to.row][to.col].seen = true;
+	}
+		
+	
 }
 
 /** Resets the exploreIndex of the "visible" squares to 0. */
