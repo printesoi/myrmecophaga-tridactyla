@@ -43,5 +43,6 @@ public:
 	int exploreIndex;
 	int foodIndex;
 	int curiosity;
+	int expandIndex;
     std::vector<Square> neighbors;
 };

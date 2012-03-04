@@ -35,7 +35,7 @@ void Bot::playGame()
 		state.mark_explored();
 		gatherFood();
 		explore();
-		leave_traces();
+		disperse();
         makeMoves();
 
         endTurn();
@@ -46,23 +46,23 @@ void Bot::playGame()
 
 void Bot::makeMoves()
 {
-    for (int ant = 0; ant < (int)state.myAnts.size(); ++ant)
+    for (unsigned int ant = 0; ant < state.myAnts.size(); ++ant)
     {
 		int direction = jobs[ant];
 		if (direction == -1)
 		{
-			int curiosity = 0;
-			for (int i = 0; i < 3; i++)
+			std::random_shuffle(R_DIR,R_DIR + 4);
+			direction = R_DIR[0];
+			Square* x = state.square(state.myAnts[ant].move(R_DIR[0]));
+			for (int dir = 1; dir < 4; dir++)
 			{
-				Square * x = state.square(state.myAnts[ant].move(i));
-				if (x->curiosity > curiosity)
+				Square* y = state.square(state.myAnts[ant].move(R_DIR[dir]));
+				if (y->expandIndex > x->expandIndex)
 				{
-					curiosity = x->curiosity;
-					direction = i;
+					direction = R_DIR[dir];
+					break;
 				}
 			}
-			if (direction == -1)
-				direction = rand() % 4;
 		}
         Location newLocation = state.myAnts[ant].move(direction);
         /* Destination shouldn't be water and shouldn't be an ant. */
@@ -199,12 +199,33 @@ int Bot::freeAntsNumber()
 	return rez;
 }
 
-void Bot::leave_traces()
+void Bot::disperse()
 {
-	for (unsigned int ant = 0; ant < jobs.size(); ant++)
-		if (jobs[ant] != -1)
+	std::list<Location> squares;
+	
+	Location x,y;
+	Square *f,*t;
+	for (unsigned int hill = 0; hill < state.myHills.size(); hill++)
+	{
+		state.grid[state.myHills[hill].row][state.myHills[hill].col].expandIndex = 0;
+		squares.push_back(state.myHills[hill]);
+	}
+	while (squares.size())
+	{
+		x = squares.front();
+		f = &state.grid[x.row][x.col];
+		squares.pop_front();
+
+		for (int dir = 0; dir < 4; dir++)
 		{
-			Square * x = state.square(state.myAnts[ant].move(jobs[ant]));
-			x->curiosity++;
+			y = x.move(dir);
+			t = &state.grid[y.row][y.col];
+
+			if (!t->isWater && t->expandIndex == -1)
+			{
+				t->expandIndex = f->expandIndex + 1;
+				squares.push_back(y);
+			}
 		}
+	}
 }

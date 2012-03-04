@@ -25,6 +25,7 @@
 #include <stdint.h>
 #include <map>
 #include <list>
+#include <algorithm>
 
 // Local includes
 
