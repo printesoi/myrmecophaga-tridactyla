@@ -29,38 +29,38 @@ struct Bot
     /** Current state of the game. */
     State state;
 
-	/** Map for storing routes.
-	 * Victor: Replaced with hash table */
-	std::unordered_map<int,int> hash;
+    /** Map for storing routes.
+     * Victor: Replaced with hash table */
+    std::unordered_map<int,int> hash;
 
-	/** Jobs that ants will do.
-	 *  Represent the direction to move.
+    /** Jobs that ants will do.
+     *  Represent the direction to move.
      * TODO replace the vector of jobs with an entry in ant class */
-	std::vector<int> jobs;
+    std::vector<int> jobs;
 
-	/** Plays a single game of Ants. */
+    /** Plays a single game of Ants. */
     void playGame();
 
-	/** Gather food. */
-	void gatherFood();
+    /** Gather food. */
+    void gatherFood();
 
     /** Moves ants on the board. */
     void makeMoves();
 
-	/** Explores the map. */
-	void explore();
+    /** Explores the map. */
+    void explore();
 
     /** Indicates to the engine that it has made its moves. */
     void endTurn();
 
-	/** Returns the number of free ants. */
-	int freeAntsNumber();
+    /** Returns the number of free ants. */
+    int freeAntsNumber();
 
-	/** Leave traces from busy ants. */
-	void leave_traces();
+    /** Leave traces from busy ants. */
+    void leave_traces();
 
-	/** Try to expand the ants away from own hills. */
-	void disperse();
+    /** Try to expand the ants away from own hills. */
+    void disperse();
 };
 
 #endif

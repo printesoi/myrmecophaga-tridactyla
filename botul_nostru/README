@@ -1,87 +1,91 @@
 Readme pentru botul "Myrmecophaga tridactyla" [prescurtat Myla], proiect PA.
 
-Test
-Test2
 =======
 Echipa:
-	Vladimir Cernov 323CC
-	Victor Dodon 325CC
-	Vicu Straticiuc 325CC
-	Vitalie Maldur 324CC
+    Vladimir Cernov     323CC
+    Victor Dodon         325CC
+    Vicu Straticiuc     325CC
+    Vitalie Maldur         324CC
 
-Mediu de dezvoltare folosit:
- 	Linux.
+Sistem de operare folosit:
+     Linux (Ubuntu si Archlinux)
 Mod de compilare:
-	$ make
-[Daca ceva nu functioneaza, folositi make clean, apoi make.]
+    $ make
 
-	In urma compilarii este creat directorul bin/ in directorul curent, care contine fisierele
-obiect si executabilul "MyBot".
-
+    In urma compilarii este creat directorul bin/ in directorul curent, care
+contine fisierele obiect si executabilul "MyBot".
 
 
 ========================== Etapa1 ============================
 
 
-
 Task:
-	De adaugat botului utilitatea de a strange mancare.
+    De adaugat botului utilitatea de a strange mancare.
 
 Descrierea rezolvarii:
-		
-		Pornind de la unul din scheletele de cod propuse [C++], am adaugat doua "servicii" care
-	gestioneaza strangerea mancarii [gatherFood()] si extinderea pe harta [explore()]. Ambelor
-	le sunt comune conceptul de reachable in x steps, care inlocuieste oarecum variabila
-	isVisible. Logica este urmatoarea: daca o furnica vede o mancare, este naiv ca ea sa se duca
-	sa o stranga, daca nu poate sa ajunga la mancare, de ex. cand mancarea este peste apa. De
-	aceea, furnica o sa plece spre o locatie numai daca poate sa ajunga la ea.
-		Pentru a strange mancare am implementat [teamul] o logica simpla: adaugam datele despre
-	mancarea la care ajungem in x pasi intr-o coada, si pornim un BFS folosind coada spre
-	eventuale furnici aflate in apropiere. Known issue: se poate intampla ca aceeasi mancare sa
-	cheme mai multe furnici, ceea ce nu se comporta deloc bine in practica. Pentru a scapa de
-	acest lucru, am introdus un indicator logic asociat mancarii, astfel incat o mancare va 
-	chema furnici numai daca indicatorul asociat ei este activ. La gasirea unei furnici,
-	indicatorul este dezactivat.
-		Pentru a explora harta, am folosit urmatorul mecanism: fiecarui square din grid i-am
-	asociat un indicator [exploreIndex], care arata cat timp acel square nu a fost vazut
-	(that's it, reached in x steps). Apoi, pentru fiecare furnica se calculeaza 4 sume de
-	exploreIndecsi pentru marginea domeniului de vizibilitate, furnica urmand sa se indrepte
-	spre partea cu suma cea mai mare (spre fogul cel mai intunecos). Known issue: raman furnici
-	care nu au ce sa faca. Ca sa le ocupam, am incercat o alta modalitate de a explora harta,
-	care este inca intr-o faza beta. Ideea consta intr-un BFS de la musuroaie spre exterior.
-		Este greu sa dau detalii de implementare, aruncati si voi o privire in cod. Oricum,
-	deja am amintit toate ideile de baza aplicate de noi. Ar mai fi de mentionat algoritmul
-	A*, aflat in stare beta, pe care il vom folosi in viitor.
+        
+        Pornind de la unul din scheletele de cod propuse [C++], am adaugat doua
+    "servicii" care gestioneaza strangerea mancarii [gatherFood()] si extinderea
+    pe harta [explore()]. Ambelor le sunt comune conceptul de reachable in x
+    steps, care inlocuieste oarecum variabila isVisible. Logica este urmatoarea:
+    daca o furnica vede o mancare, este naiv ca ea sa se duca sa o stranga, daca
+    nu poate sa ajunga la mancare, de ex. cand mancarea este peste apa. De aceea,
+    furnica o sa plece spre o locatie numai daca poate sa ajunga la ea.
+        Pentru a strange mancare am implementat [teamul] o logica simpla: adaugam
+    datele despre mancarea la care ajungem in x pasi intr-o coada, si pornim un
+    BFS folosind coada spre eventuale furnici aflate in apropiere. Known issue: 
+    se poate intampla ca aceeasi mancare sa cheme mai multe furnici, ceea ce nu 
+    se comporta deloc bine in practica. Pentru a scapa de acest lucru, am
+    introdus un indicator logic asociat mancarii, astfel incat o mancare va
+    chema furnici numai daca indicatorul asociat ei este activ. La gasirea unei
+    furnici, indicatorul este dezactivat.
+        Pentru a explora harta, am folosit urmatorul mecanism: fiecarui square
+    din grid i-am asociat un indicator [exploreIndex], care arata cat timp acel
+    square nu a fost vazut (that's it, reached in x steps). Apoi, pentru fiecare
+    furnica se calculeaza 4 sume de exploreIndecsi pentru marginea domeniului de
+    vizibilitate, furnica urmand sa se indrepte spre partea cu suma cea mai mare
+    (spre fogul cel mai intunecos). Known issue: raman furnici care nu au ce sa
+    faca. Ca sa le ocupam, am incercat o alta modalitate de a explora harta,
+    care este inca intr-o faza beta. Ideea consta intr-un BFS de la musuroaie
+    spre exterior.
+        Este greu sa dau detalii de implementare, aruncati si voi o privire in
+    cod. Oricum, deja am amintit toate ideile de baza aplicate de noi. Ar mai fi
+    de mentionat algoritmul A*, aflat in stare beta, pe care il vom folosi in
+    viitor.
 
 Observatii:
-	*
-		Botul e departe de perfectiune, nu face decat sa treaca etapa1 (si uneori etapa 2),
-	avand un mecanism primitiv de a ataca (vede musuroiul - pleaca spre el).
-	
-	*
-		Botul contine memory-leakuri, acestea urmeaza a fi eliminate in etapele urmatoare.
-	Nu am considerat de cuviinta sa le fixam acum, pentru ca scopul nostru este doar ca sa
-	stragem mancare. De asemenea, botul ruleaza mai rapid cu ele.
+    *
+        Botul e departe de perfectiune, nu face decat sa treaca etapa1 (si
+    uneori etapa 2), avand un mecanism primitiv de a ataca (vede musuroiul - 
+    pleaca spre el).
+    
+    *
+        Botul contine memory-leakuri, acestea urmeaza a fi eliminate in etapele
+    urmatoare. Nu am considerat de cuviinta sa le fixam acum, pentru ca scopul
+    nostru este doar ca sa stragem mancare. De asemenea, botul ruleaza mai rapid
+    cu ele.
 
-	*
-		Tinand cont ca view radius este intotdeauna 77, am hard-codat o functie legata de a
-	marca celulele vizibile in grid. Ni s-a parut ca ar fi cea mai buna varianta. Aceasta
-	functie deocamdata nu este folosita.
+    *
+        Tinand cont ca view radius este intotdeauna 77, am hard-codat o functie 
+    legata de a marca celulele vizibile in grid. Ni s-a parut ca ar fi cea mai
+    buna varianta. Aceasta functie deocamdata nu este folosita.
 
-	*		
-		Noi ne rezervam dreptul de a schimba pe viitor oricare din aceste functionalitati, daca
-	vom considera de cuviinta.
+    *        
+        Noi ne rezervam dreptul de a schimba pe viitor oricare din aceste 
+    functionalitati, daca vom considera de cuviinta.
 
 Contributii:
 
-	Toata echipa: Idei, propuneri, rezolvari, analiza.
+    Toata echipa: Idei, propuneri, rezolvari, analiza.
 
-	Vladimir Cernov:	Implementarea algoritmilor de BFS.
-	Vicu Straticiuc:	Implementarea algoritmului de mark_visible.
-	Victor Dodon:		Crearea repozitoriului git, Makefile, structurarea proiectului.
-	Vitalie Maldur:		Implementarea algoritmului A*.
-	
+    Vladimir Cernov:    Implementarea algoritmilor de BFS.
+    Vicu Straticiuc:    Implementarea algoritmului de mark_visible.
+    Victor Dodon:        Crearea si administrarea repozitoriului git, 
+                        Makefile, structurarea si modularizarea proiectului.
+    Vitalie Maldur:        Implementarea algoritmului A*.
+
+    
 Resurse folosite:
-	http://forums.aichallenge.org
-	http://en.wikipedia.org
-	http://www.cplusplus.com
+    http://forums.aichallenge.org
+    http://en.wikipedia.org
+    http://www.cplusplus.com

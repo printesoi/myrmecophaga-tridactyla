@@ -29,7 +29,7 @@ void State::reset()
 
     for(int row = 0; row < gparam::mapRows; row++)
         for(int col = 0; col < gparam::mapColumns; col++)
-			grid[row][col].reset();
+            grid[row][col].reset();
 }
 
 /* Returns the square of Euclid distance between two locations with the edges
@@ -48,294 +48,294 @@ double State::distance(const Location loc1, const Location loc2)
 /* Marks which squares on the map are visible. */
 void State::mark_visible()
 {
-	for (unsigned int ant = 0; ant < myAnts.size(); ++ant)
-		mark_seen(myAnts[ant]);
+    for (unsigned int ant = 0; ant < myAnts.size(); ++ant)
+        mark_seen(myAnts[ant]);
 }
 
 /** Marks which squares are visible from an ant Location. */
 void State::mark_seen(Location ant)
 {
-	Location to = ant.move(8,-3);
-	for(int i = 0;i < 7; ++i)
-	{
-		to = to.move(1);
-		grid[to.row][to.col].seen = true;
-	}
-	
-	to = ant.move(7,-5);
-	for(int i = 0;i < 11; ++i)
-	{
-		to = to.move(1);
-		grid[to.row][to.col].seen = true;	
-	}
-	
-	to = ant.move(6,-6);
-	for(int i = 0;i < 13; ++i)
-	{
-		to = to.move(1);
-		grid[to.row][to.col].seen = true;
-	}
-	
-	to = ant.move(5,-7);
-	for(int i = 0;i < 15; ++i)
-	{
-		to = to.move(1);
-		grid[to.row][to.col].seen = true;
-	}
-	
-	to = ant.move(4,-7);
-	for(int i = 0; i < 15; ++i)
-	{
-		to = to.move(1);
-		grid[to.row][to.col].seen = true;
-	}
-	
-	for(int j = -3; j < 4; j++)
-	{
-		to = ant.move(j,-8);
-		for(int i = 0;i < 17; ++i)
-		{
-			to = to.move(1);
-			grid[to.row][to.col].seen = true;
-		}
-	}
-	
-	to = ant.move(-8,-3);
-	for(int i = 0;i < 7; ++i)
-	{
-		to = to.move(1);
-		grid[to.row][to.col].seen = true;
-	}
-	
-	to = ant.move(-7,-5);
-	for(int i = 0;i < 11; ++i)
-	{
-		to = to.move(1);
-		grid[to.row][to.col].seen = true;	
-	}
-	
-	to = ant.move(-6,-6);
-	for(int i = 0;i < 13; ++i)
-	{
-		to = to.move(1);
-		grid[to.row][to.col].seen = true;
-	}
-	
-	to = ant.move(-5,-7);
-	for(int i = 0;i < 15; ++i)
-	{
-		to = to.move(1);
-		grid[to.row][to.col].seen = true;
-	}
-	
-	to = ant.move(-4,-7);
-	for(int i = 0;i < 15; ++i)
-	{
-		to = to.move(1);
-		grid[to.row][to.col].seen = true;
-	}
+    Location to = ant.move(8,-3);
+    for(int i = 0;i < 7; ++i)
+    {
+        to = to.move(1);
+        grid[to.row][to.col].seen = true;
+    }
+    
+    to = ant.move(7,-5);
+    for(int i = 0;i < 11; ++i)
+    {
+        to = to.move(1);
+        grid[to.row][to.col].seen = true;    
+    }
+    
+    to = ant.move(6,-6);
+    for(int i = 0;i < 13; ++i)
+    {
+        to = to.move(1);
+        grid[to.row][to.col].seen = true;
+    }
+    
+    to = ant.move(5,-7);
+    for(int i = 0;i < 15; ++i)
+    {
+        to = to.move(1);
+        grid[to.row][to.col].seen = true;
+    }
+    
+    to = ant.move(4,-7);
+    for(int i = 0; i < 15; ++i)
+    {
+        to = to.move(1);
+        grid[to.row][to.col].seen = true;
+    }
+    
+    for(int j = -3; j < 4; j++)
+    {
+        to = ant.move(j,-8);
+        for(int i = 0;i < 17; ++i)
+        {
+            to = to.move(1);
+            grid[to.row][to.col].seen = true;
+        }
+    }
+    
+    to = ant.move(-8,-3);
+    for(int i = 0;i < 7; ++i)
+    {
+        to = to.move(1);
+        grid[to.row][to.col].seen = true;
+    }
+    
+    to = ant.move(-7,-5);
+    for(int i = 0;i < 11; ++i)
+    {
+        to = to.move(1);
+        grid[to.row][to.col].seen = true;    
+    }
+    
+    to = ant.move(-6,-6);
+    for(int i = 0;i < 13; ++i)
+    {
+        to = to.move(1);
+        grid[to.row][to.col].seen = true;
+    }
+    
+    to = ant.move(-5,-7);
+    for(int i = 0;i < 15; ++i)
+    {
+        to = to.move(1);
+        grid[to.row][to.col].seen = true;
+    }
+    
+    to = ant.move(-4,-7);
+    for(int i = 0;i < 15; ++i)
+    {
+        to = to.move(1);
+        grid[to.row][to.col].seen = true;
+    }
 }
 
 /** Resets the exploreIndex of the "visible" squares to 0. */
 void State::mark_explored()
 {
-	std::list<Location> squares;
-	std::list<Location> changed;
-	
-	Location x,y;
-	Square *f,*t;
-	for (unsigned int ant = 0; ant < myAnts.size(); ant++)
-	{
-		grid[myAnts[ant].row][myAnts[ant].col].isMarked = 0;
-		changed.push_back(myAnts[ant]);
-		squares.push_back(myAnts[ant]);
-	}
-	while (squares.size())
-	{
-		x = squares.front();
-		f = &grid[x.row][x.col];
-		squares.pop_front();
-		
-		if (f->isMarked == VIEW_RADIUS)
-			break;
+    std::list<Location> squares;
+    std::list<Location> changed;
+    
+    Location x,y;
+    Square *f,*t;
+    for (unsigned int ant = 0; ant < myAnts.size(); ant++)
+    {
+        grid[myAnts[ant].row][myAnts[ant].col].isMarked = 0;
+        changed.push_back(myAnts[ant]);
+        squares.push_back(myAnts[ant]);
+    }
+    while (squares.size())
+    {
+        x = squares.front();
+        f = &grid[x.row][x.col];
+        squares.pop_front();
+        
+        if (f->isMarked == VIEW_RADIUS)
+            break;
 
-		for (int dir = 0; dir < 4; dir++)
-		{
-			y = x.move(dir);
-			t = &grid[y.row][y.col];
+        for (int dir = 0; dir < 4; dir++)
+        {
+            y = x.move(dir);
+            t = &grid[y.row][y.col];
 
-			if (!t->isWater && t->isMarked == -1)
-			{
-				t->isMarked = f->isMarked + 1;
-				changed.push_back(y);
-				squares.push_back(y);
-			}
-		}
-	}
-	while (changed.size())
-	{
-		x = changed.front();
-		f = &grid[x.row][x.col];
-		f->isMarked = -1;
-		f->exploreIndex = 0;
-		changed.pop_front();
-	}
-	squares.clear();
+            if (!t->isWater && t->isMarked == -1)
+            {
+                t->isMarked = f->isMarked + 1;
+                changed.push_back(y);
+                squares.push_back(y);
+            }
+        }
+    }
+    while (changed.size())
+    {
+        x = changed.front();
+        f = &grid[x.row][x.col];
+        f->isMarked = -1;
+        f->exploreIndex = 0;
+        changed.pop_front();
+    }
+    squares.clear();
 }
 
 /** A primitive "hunting" method. */
 void State::mark_enemy_hills()
 {
-	if (enemyHills.size() == 0)
-		return;
+    if (enemyHills.size() == 0)
+        return;
 
-	std::list<Location> squares;
-	std::list<Location> changed;
-	
-	Location x,y;
-	Square *f,*t;
-	for (unsigned int eHill = 0; eHill < enemyHills.size(); eHill++)
-	{
-		grid[enemyHills[eHill].row][enemyHills[eHill].col].isMarked = 0;
-		changed.push_back(enemyHills[eHill]);
-		squares.push_back(enemyHills[eHill]);
-	}
-	while (squares.size())
-	{
-		x = squares.front();
-		f = &grid[x.row][x.col];
-		squares.pop_front();
-		
-		if (f->isMarked == 2 * VIEW_RADIUS)
-			break;
+    std::list<Location> squares;
+    std::list<Location> changed;
+    
+    Location x,y;
+    Square *f,*t;
+    for (unsigned int eHill = 0; eHill < enemyHills.size(); eHill++)
+    {
+        grid[enemyHills[eHill].row][enemyHills[eHill].col].isMarked = 0;
+        changed.push_back(enemyHills[eHill]);
+        squares.push_back(enemyHills[eHill]);
+    }
+    while (squares.size())
+    {
+        x = squares.front();
+        f = &grid[x.row][x.col];
+        squares.pop_front();
+        
+        if (f->isMarked == 2 * VIEW_RADIUS)
+            break;
 
-		for (int dir = 0; dir < 4; dir++)
-		{
-			y = x.move(dir);
-			t = &grid[y.row][y.col];
+        for (int dir = 0; dir < 4; dir++)
+        {
+            y = x.move(dir);
+            t = &grid[y.row][y.col];
 
-			if (!t->isWater && t->isMarked == -1)
-			{
-				t->isMarked = f->isMarked + 1;
-				changed.push_back(y);
-				squares.push_back(y);
-			}
-		}
-	}
-	while (changed.size())
-	{
-		x = changed.front();
-		f = &grid[x.row][x.col];
-		f->exploreIndex = 1000 - f->isMarked;
-		f->isMarked = -1;
-		changed.pop_front();
-	}
-	squares.clear();
+            if (!t->isWater && t->isMarked == -1)
+            {
+                t->isMarked = f->isMarked + 1;
+                changed.push_back(y);
+                squares.push_back(y);
+            }
+        }
+    }
+    while (changed.size())
+    {
+        x = changed.front();
+        f = &grid[x.row][x.col];
+        f->exploreIndex = 1000 - f->isMarked;
+        f->isMarked = -1;
+        changed.pop_front();
+    }
+    squares.clear();
 }
 
 /** Calculates a sum which represents a fog indicator. */
 int State::unexplored_index(Location from)
 {
-	std::list<Location> squares;
-	std::list<Location> changed;
-	
-	Location x,y;
-	Square *f,*t;
+    std::list<Location> squares;
+    std::list<Location> changed;
+    
+    Location x,y;
+    Square *f,*t;
 
-	int rez = 0;
-	
-	grid[from.row][from.col].isMarked = 0;
-	changed.push_back(from);
-	squares.push_back(from);
-	
-	while (squares.size())
-	{
-		x = squares.front();
-		f = &grid[x.row][x.col];
-		squares.pop_front();
-		
-		if (f->isMarked == VIEW_RADIUS)
-		{
-			rez = f->exploreIndex;
-			break;
-		}
+    int rez = 0;
+    
+    grid[from.row][from.col].isMarked = 0;
+    changed.push_back(from);
+    squares.push_back(from);
+    
+    while (squares.size())
+    {
+        x = squares.front();
+        f = &grid[x.row][x.col];
+        squares.pop_front();
+        
+        if (f->isMarked == VIEW_RADIUS)
+        {
+            rez = f->exploreIndex;
+            break;
+        }
 
-		for (int dir = 0; dir < 4; dir++)
-		{
-			y = x.move(dir);
-			t = &grid[y.row][y.col];
+        for (int dir = 0; dir < 4; dir++)
+        {
+            y = x.move(dir);
+            t = &grid[y.row][y.col];
 
-			if (!t->isWater && t->isMarked == -1)
-			{
-				t->isMarked = f->isMarked + 1;
-				changed.push_back(y);
-				squares.push_back(y);
-			}
-		}
-	}
+            if (!t->isWater && t->isMarked == -1)
+            {
+                t->isMarked = f->isMarked + 1;
+                changed.push_back(y);
+                squares.push_back(y);
+            }
+        }
+    }
 
-	while (squares.size())
-	{
-		x = squares.front();
-		f = &grid[x.row][x.col];
-		rez += f->exploreIndex;
-		squares.pop_front();
-	}
+    while (squares.size())
+    {
+        x = squares.front();
+        f = &grid[x.row][x.col];
+        rez += f->exploreIndex;
+        squares.pop_front();
+    }
 
-	while (changed.size())
-	{
-		x = changed.front();
-		f = &grid[x.row][x.col];
-		f->isMarked = -1;
-		changed.pop_front();
-	}
+    while (changed.size())
+    {
+        x = changed.front();
+        f = &grid[x.row][x.col];
+        f->isMarked = -1;
+        changed.pop_front();
+    }
 
-	return rez;
+    return rez;
 }
 
 /* Comparator for sorting a list of locations */
 bool comparator( Location one, Location two ){
-	return (one.f < two.f);
+    return (one.f < two.f);
 }
 
 /* A* algorithm. */
 int State::Astar( Location from, Location to )
 {
-	Location tmp;
-	std::list<Location> open;
-	open.push_back(from);
-	from.g = 0;
-	from.dir = -1;
-	grid[from.row][from.col].isMarked = 0;
-	while(!open.empty())
-	{
-		open.sort(comparator);
-		tmp = open.front();
-		open.pop_front();
-		
-		if( tmp == to )
-			break;
+    Location tmp;
+    std::list<Location> open;
+    open.push_back(from);
+    from.g = 0;
+    from.dir = -1;
+    grid[from.row][from.col].isMarked = 0;
+    while(!open.empty())
+    {
+        open.sort(comparator);
+        tmp = open.front();
+        open.pop_front();
+        
+        if( tmp == to )
+            break;
 
-		for( int i=0; i<4; i++ )
-		{
-			Location aux = tmp.move(i);
-			Square x = grid[aux.row][aux.col];
-			
-			if( x.isMarked == -1 && !x.isWater )
-			{
-				
-				if(	tmp.dir == -1 ) 
-					aux.dir = i;
-				else
-					aux.dir = tmp.dir;
-				
-				aux.g = 10 + tmp.g;
-				aux.f = aux.g + 10 * (abs(aux.row - to.row) + abs(aux.col - to.col));
-				open.push_back(aux);
-			}
-		}
-	}
-	return tmp.dir;
+        for( int i=0; i<4; i++ )
+        {
+            Location aux = tmp.move(i);
+            Square x = grid[aux.row][aux.col];
+            
+            if( x.isMarked == -1 && !x.isWater )
+            {
+                
+                if(    tmp.dir == -1 ) 
+                    aux.dir = i;
+                else
+                    aux.dir = tmp.dir;
+                
+                aux.g = 10 + tmp.g;
+                aux.f = aux.g + 10 * (abs(aux.row - to.row) + abs(aux.col - to.col));
+                open.push_back(aux);
+            }
+        }
+    }
+    return tmp.dir;
 }
 
 /* Input functions. */
@@ -442,7 +442,7 @@ std::istream& operator>>(std::istream &is, State &state)
                 state.grid[row][col].antPlayer = player;
                 if(player == 0)
                 {
-					state.grid[row][col].myAntNumber = state.myAnts.size ();
+                    state.grid[row][col].myAntNumber = state.myAnts.size ();
                     state.myAnts.push_back(Location(row, col));
                 }
                 else

@@ -12,5 +12,5 @@ struct Location
     bool operator == (Location);
     Location move(int dir);
 
-	Location move(int x,int y);
+    Location move(int x,int y);
 };

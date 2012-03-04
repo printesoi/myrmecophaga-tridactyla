@@ -14,22 +14,22 @@ else
 CFLAGS+=-g -DDEBUG
 endif
 
-all: bin $(OBJECTS) $(MAINOBJECTS) $(EXECUTABLE) $(ALLEXECUTABLES)
+all: clean bin $(OBJECTS) $(MAINOBJECTS) $(EXECUTABLE) $(ALLEXECUTABLES)
 
 bin:
-	[ -d bin ] || mkdir bin
+    [ -d bin ] || mkdir bin
 
 $(EXECUTABLE): $(OBJECTS)
-	$(CC) $(LDFLAGS) $(OBJECTS) -o $@
+    $(CC) $(LDFLAGS) $(OBJECTS) -o $@
 
 bin/%.o: %.cpp
-	$(CC) $(CFLAGS) $(LDFLAGS) -c -o $@ $^
+    $(CC) $(CFLAGS) $(LDFLAGS) -c -o $@ $^
 
 clean:
-	-rm -f bin/*.o $(EXECUTABLE) *.d debug.txt MylaEtapa1.zip && rm -rf bin/
+    -rm -f bin/*.o $(EXECUTABLE) *.d debug.txt MylaEtapa1.zip && rm -rf bin/
 
 pack:
-	zip MylaEtapa1.zip *.h *.cpp README Makefile
+    zip MylaEtapa1.zip *.h *.cpp README Makefile
 
 .PHONY: all clean pack
 

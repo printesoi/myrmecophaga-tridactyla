@@ -72,30 +72,30 @@ struct State
 
     /** Marks visible cells. */
     void mark_visible();
-	
-	/** Marks the explored cells. */
-	void mark_explored();
+    
+    /** Marks the explored cells. */
+    void mark_explored();
 
-	/** A primitive "hunting" method. */
-	void mark_enemy_hills();
+    /** A primitive "hunting" method. */
+    void mark_enemy_hills();
 
     /** Calculates the unexplored index. */
-	int unexplored_index(Location from);
-	
-	/** This is just square of Euclid distance. */
+    int unexplored_index(Location from);
+    
+    /** This is just square of Euclid distance. */
     double distance(const Location loc1, const Location loc2);
-	
-	/** Return the square that a location points to. */
-	Square* square(const Location loc)
-	{
-		return &grid[loc.row][loc.col];
-	}
+    
+    /** Return the square that a location points to. */
+    Square* square(const Location loc)
+    {
+        return &grid[loc.row][loc.col];
+    }
 
-	/** A* algorithm. */
-	int Astar( Location from, Location to );
+    /** A* algorithm. */
+    int Astar( Location from, Location to );
 
-	/** Marks the radius of sight. */
-	void mark_seen(Location from);
+    /** Marks the radius of sight. */
+    void mark_seen(Location from);
 };
 
 /** Method that helps do the IO. */
