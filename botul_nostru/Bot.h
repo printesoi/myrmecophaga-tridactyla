@@ -41,6 +41,12 @@ struct Bot
     /** Plays a single game of Ants. */
     void playGame();
 
+	/** Prepare the data for a round. */
+	void init_round();
+	
+	/** "Gather" enemy hills. */
+	void gatherHills();
+
     /** Gather food. */
     void gatherFood();
 
@@ -55,9 +61,6 @@ struct Bot
 
     /** Returns the number of free ants. */
     int freeAntsNumber();
-
-    /** Leave traces from busy ants. */
-    void leave_traces();
 
     /** Try to expand the ants away from own hills. */
     void disperse();
