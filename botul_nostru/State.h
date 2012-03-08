@@ -18,7 +18,6 @@
 
 // STD includes
 
-#include <vector>
 #include <string>
 #include <cstdlib>
 #include <stdint.h>
@@ -27,9 +26,6 @@
 
 // Local includes
 
-#include "global.h"
-#include "Logging.h"
-#include "Timer.h"
 #include "Square.h"
 #include "Location.h"
 

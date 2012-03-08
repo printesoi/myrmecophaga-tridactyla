@@ -19,6 +19,11 @@ bool Location::operator == (Location param)
     return col == param.col && row == param.row;
 }
 
+int Location::operator < (Location param)
+{
+	return (f - param.f);
+}
+
 Location Location::move(int dir) 
 {
     Location rez(row + ROW_DIRECTION[dir], col + COLUMN_DIRECTION[dir]);

@@ -14,6 +14,7 @@ public:
     Location(int row, int col) : row(row), col(col) { }
     
 	bool operator == (Location);
+	int operator < (Location);
 
     Location move(int dir);
 

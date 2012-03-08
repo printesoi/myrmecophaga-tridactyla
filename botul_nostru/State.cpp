@@ -150,7 +150,7 @@ void State::mark_explored()
         changed.push_back(myAnts[ant]);
         squares.push_back(myAnts[ant]);
     }
-    while (squares.size())
+    while (!squares.empty())
     {
         x = squares.front();
         f = &grid[x.row][x.col];
@@ -172,7 +172,7 @@ void State::mark_explored()
             }
         }
     }
-    while (changed.size())
+    while (!changed.empty())
     {
         x = changed.front();
         f = &grid[x.row][x.col];
@@ -180,6 +180,7 @@ void State::mark_explored()
         f->exploreIndex = 0;
         changed.pop_front();
     }
+
     squares.clear();
 }
 
@@ -198,7 +199,7 @@ int State::unexplored_index(Location from)
     changed.push_back(from);
     squares.push_back(from);
     
-    while (squares.size())
+    while (!squares.empty())
     {
         x = squares.front();
         f = &grid[x.row][x.col];
@@ -224,7 +225,7 @@ int State::unexplored_index(Location from)
         }
     }
 
-    while (squares.size())
+    while (!squares.empty())
     {
         x = squares.front();
         f = &grid[x.row][x.col];
@@ -232,7 +233,7 @@ int State::unexplored_index(Location from)
         squares.pop_front();
     }
 
-    while (changed.size())
+    while (!changed.empty())
     {
         x = changed.front();
         f = &grid[x.row][x.col];
@@ -243,48 +244,61 @@ int State::unexplored_index(Location from)
     return rez;
 }
 
-/* Comparator for sorting a list of locations */
-bool comparator( Location one, Location two ){
-    return (one.f < two.f);
-}
-
-/* A* algorithm. */
-int State::Astar( Location from, Location to )
+/* The A* algorithm. */
+int State::Astar(Location from, Location to)
 {
-    Location tmp;
+    Location tmp, aux;
     std::list<Location> open;
-    open.push_back(from);
-    from.g = 0;
+	std::list<Location> changed;
+
+	from.g = 0;
     from.dir = -1;
-    grid[from.row][from.col].isMarked = 0;
-    while(!open.empty())
+	grid[from.row][from.col].isMarked = 0;
+    
+	open.push_back(from);
+	
+	LOG("1");
+	while(!open.empty())
     {
-        open.sort(comparator);
+        open.sort();
         tmp = open.front();
         open.pop_front();
         
-        if( tmp == to )
+		if (tmp == to)
             break;
 
-        for( int i=0; i<4; i++ )
+		LOG("2");
+        for (int i = 0; i < 4; i++)
         {
-            Location aux = tmp.move(i);
-            Square x = grid[aux.row][aux.col];
-            
-            if( x.isMarked == -1 && !x.isWater )
+            aux = tmp.move(i);
+            Square *x = square(aux);
+			LOG("-> " << x->isMarked << " " << aux.row << " : " << aux.col);
+
+            if (x->isMarked == -1 && !x->isWater)
             {
-                
-                if(    tmp.dir == -1 ) 
+				x->isMarked = 0;
+                if (tmp.dir == -1) 
                     aux.dir = i;
                 else
                     aux.dir = tmp.dir;
-                
                 aux.g = 10 + tmp.g;
                 aux.f = aux.g + 10 * (abs(aux.row - to.row) + abs(aux.col - to.col));
                 open.push_back(aux);
             }
         }
     }
+	LOG("3");
+
+	while (!changed.empty())
+	{
+		Location loc = changed.front();
+		grid[loc.row][loc.col].isMarked = -1;
+		changed.pop_front();
+	}
+	LOG("4");
+
+	open.clear();
+
     return tmp.dir;
 }
 

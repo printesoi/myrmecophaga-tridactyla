@@ -53,7 +53,10 @@ void Bot::makeMoves()
     {
         int direction = jobs[ant];
         if (direction == -1)
+		{
 			direction = rand() %  4;
+			//direction = state.Astar(state.myAnts[ant],Location(100,100));
+		}
         
 		Location newLocation = state.myAnts[ant].move(direction);
         /* Destination shouldn't be water and shouldn't be an ant. */
