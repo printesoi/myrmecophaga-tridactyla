@@ -29,15 +29,10 @@ void Bot::playGame()
         LOG("turn " << state.currentTurnNumber << ":");
         
 		init_round();
-		LOG("mark_explored");
         state.mark_explored();
-		LOG("gatherFood");
         gatherFood();
-		LOG("exlpore");
         explore();
-		LOG("makemoves");
         makeMoves();
-		LOG("moves off");
 
         endTurn();
         LOG("Time taken: " << state.timer.getTime() << "ms");
@@ -47,11 +42,9 @@ void Bot::playGame()
 
 void Bot::init_round()
 {
-	LOG("init");
     jobs.clear ();
     for (unsigned int i = 0; i < state.myAnts.size(); i++)
         jobs.push_back(-1);
-	LOG("init off");
 }
 
 void Bot::makeMoves()
@@ -81,9 +74,8 @@ void Bot::endTurn()
 {
     LOG("Sending endTurn()");
 
-    /* If this wasn't the start game, reset the board. */
-    if(state.currentTurnNumber > 0)
-        state.reset();
+	if (state.currentTurnNumber > 0)
+		state.reset();
 
     /* Move to next turn. */
     state.currentTurnNumber++;
@@ -263,56 +255,4 @@ int Bot::freeAntsNumber()
         if (jobs[i] == -1)
             rez++;
     return rez;
-}
-
-void Bot::disperse()
-{
-    std::list<Location> squares;
-    
-    Location x,y;
-    Square *f,*t;
-    for (unsigned int hill = 0; hill < state.myHills.size(); hill++)
-    {
-        state.grid[state.myHills[hill].row][state.myHills[hill].col].expandIndex = 0;
-        squares.push_back(state.myHills[hill]);
-    }
-    while (squares.size())
-    {
-        x = squares.front();
-        f = &state.grid[x.row][x.col];
-        squares.pop_front();
-
-        for (int dir = 0; dir < 4; dir++)
-        {
-            y = x.move(dir);
-            t = &state.grid[y.row][y.col];
-
-            if (!t->isWater && t->expandIndex == -1)
-            {
-                t->expandIndex = f->expandIndex + 1;
-                squares.push_back(y);
-            }
-        }
-    }
-
-    for (unsigned int ant = 0; ant < state.myAnts.size(); ++ant)
-    {
-        int direction = jobs[ant];
-        if (direction == -1)
-        {
-            int r_dir[] = {0,1,2,3};
-            std::random_shuffle(r_dir,r_dir + 4);
-            direction = r_dir[0];
-            Square* x = state.square(state.myAnts[ant].move(r_dir[0]));
-            for (int dir = 1; dir < 4; dir++)
-            {
-                Square* y = state.square(state.myAnts[ant].move(r_dir[dir]));
-                if (y->expandIndex > x->expandIndex)
-                {
-                    direction = r_dir[dir];
-                    break;
-                }
-            }
-        }
-	}
 }

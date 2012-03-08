@@ -61,9 +61,6 @@ struct Bot
 
     /** Returns the number of free ants. */
     int freeAntsNumber();
-
-    /** Try to expand the ants away from own hills. */
-    void disperse();
 };
 
 #endif

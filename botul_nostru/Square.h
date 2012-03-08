@@ -27,11 +27,6 @@ class Square
 public:
     Square();
 
-    /** Resets the information for the square except water information. */
-    void reset();
-
-
-public:
     bool isVisible;
     bool isWater;
     bool isHill;
@@ -43,7 +38,7 @@ public:
     int myAntNumber;
     int exploreIndex;
     int foodIndex;
-    int curiosity;
-    int expandIndex;
-    std::vector<Square> neighbors;
+    
+	/** Resets the information for the square except water information. */
+    void reset();
 };

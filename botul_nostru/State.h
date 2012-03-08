@@ -76,9 +76,6 @@ struct State
     /** Marks the explored cells. */
     void mark_explored();
 
-    /** A primitive "hunting" method. */
-    void mark_enemy_hills();
-
     /** Calculates the unexplored index. */
     int unexplored_index(Location from);
     

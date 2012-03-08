@@ -183,56 +183,6 @@ void State::mark_explored()
     squares.clear();
 }
 
-/** A primitive "hunting" method. */
-void State::mark_enemy_hills()
-{
-    if (enemyHills.size() == 0)
-        return;
-
-    std::list<Location> squares;
-    std::list<Location> changed;
-    
-    Location x,y;
-    Square *f,*t;
-    for (unsigned int eHill = 0; eHill < enemyHills.size(); eHill++)
-    {
-        grid[enemyHills[eHill].row][enemyHills[eHill].col].isMarked = 0;
-        changed.push_back(enemyHills[eHill]);
-        squares.push_back(enemyHills[eHill]);
-    }
-    while (squares.size())
-    {
-        x = squares.front();
-        f = &grid[x.row][x.col];
-        squares.pop_front();
-        
-        if (f->isMarked == 2 * VIEW_RADIUS)
-            break;
-
-        for (int dir = 0; dir < 4; dir++)
-        {
-            y = x.move(dir);
-            t = &grid[y.row][y.col];
-
-            if (!t->isWater && t->isMarked == -1)
-            {
-                t->isMarked = f->isMarked + 1;
-                changed.push_back(y);
-                squares.push_back(y);
-            }
-        }
-    }
-    while (changed.size())
-    {
-        x = changed.front();
-        f = &grid[x.row][x.col];
-        f->exploreIndex = 1000 - f->isMarked;
-        f->isMarked = -1;
-        changed.pop_front();
-    }
-    squares.clear();
-}
-
 /** Calculates a sum which represents a fog indicator. */
 int State::unexplored_index(Location from)
 {
