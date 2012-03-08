@@ -16,10 +16,6 @@
 #ifndef BOT_H_
 #define BOT_H_
 
-// STD includes
-
-#include <unordered_map>
-
 // local includes
 
 #include "State.h"
@@ -28,10 +24,6 @@ struct Bot
 {
     /** Current state of the game. */
     State state;
-
-    /** Map for storing routes.
-     * Victor: Replaced with hash table */
-    std::unordered_map<int,int> hash;
 
     /** Jobs that ants will do.
      *  Represent the direction to move.
