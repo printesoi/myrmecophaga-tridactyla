@@ -1,3 +1,6 @@
+#ifndef LOCATION_H_
+#define LOCATION_H_
+
 #include "global.h"
 
 class Location
@@ -6,17 +9,23 @@ class Location
 public:
 	int row;
 	int col;
-	int f;
-	int g;
-	int dir;
+
+	Location()
+	{
+		row = col = 0;
+	}
+
+    Location(int row, int col) : row(row), col(col)
+	{
+	}
     
-	Location() : row(0), col(0) { }
-    Location(int row, int col) : row(row), col(col) { }
-    
+	bool operator < (Location);
+	bool operator > (Location);
 	bool operator == (Location);
-	int operator < (Location);
 
     Location move(int dir);
 
     Location move(int x,int y);
 };
+
+#endif

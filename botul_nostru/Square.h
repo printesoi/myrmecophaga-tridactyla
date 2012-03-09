@@ -12,7 +12,6 @@
  * =============================================================================
  */
 
-#include <vector>
 
 // Local includes
 
@@ -38,6 +37,7 @@ public:
     int myAntNumber;
     int exploreIndex;
     int foodIndex;
+	int f,g,h,dir;
     
 	/** Resets the information for the square except water information. */
     void reset();

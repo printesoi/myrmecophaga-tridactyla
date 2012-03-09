@@ -11,21 +11,28 @@
  *
  * =============================================================================
  */
-
 #include "Location.h"
+#include "State.h"
 
 bool Location::operator == (Location param)
 {
     return col == param.col && row == param.row;
 }
 
-int Location::operator < (Location param)
+bool Location::operator < (Location param)
 {
-	return (f - param.f);
+	return (State.grid[row][col].f > State.grid[param.row][param.col].f);
+}
+
+bool Location::operator > (Location param)
+{
+	return (State.grid[row][col].f < State.grid[param.row][param.col].f);
 }
 
 Location Location::move(int dir) 
 {
+	if (dir == -1)
+		return Location(row,col);
     Location rez(row + ROW_DIRECTION[dir], col + COLUMN_DIRECTION[dir]);
     if (rez.row < 0)
         rez.row += gparam::mapRows;

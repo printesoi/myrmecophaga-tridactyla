@@ -13,8 +13,6 @@
  */
 
 /** Structure for storing information abour the current state of the map. */
-#ifndef STATE_H_
-#define STATE_H_
 
 // STD includes
 
@@ -23,6 +21,10 @@
 #include <stdint.h>
 #include <list>
 #include <algorithm>
+#include <iomanip>
+#include <cstdlib>
+#include <cmath>
+#include <vector>
 
 // Local includes
 
@@ -75,15 +77,18 @@ struct State
     
     /** This is just square of Euclid distance. */
     double distance(const Location loc1, const Location loc2);
+
+	/** This is just Manhattan distance. */
+	int manhattan (const Location loc1, const Location loc2);
     
     /** Return the square that a location points to. */
     Square* square(const Location loc)
     {
         return &grid[loc.row][loc.col];
     }
-
+	
     /** A* algorithm. */
-    int Astar( Location from, Location to );
+    int Astar(Location from, Location to);
 
     /** Marks the radius of sight. */
     void mark_seen(Location from);
@@ -91,7 +96,3 @@ struct State
 
 /** Method that helps do the IO. */
 std::istream& operator>>(std::istream &is, State &state);
-
-
-#endif
-

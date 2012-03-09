@@ -12,10 +12,6 @@
  * =============================================================================
  */
 
-#include <cstdlib>
-#include <iomanip>
-#include <cmath>
-
 #include "State.h"
 
 /* Resets all non-water squares to land and clears the bots ant vector. */
@@ -32,8 +28,36 @@ void State::reset()
             grid[row][col].reset();
 }
 
-/* Returns the square of Euclid distance between two locations with the edges
- * wrapped. */
+/* Returns the Manhattan distance between two locations. */
+int State::manhattan(const Location loc1, const Location loc2)
+{
+	int	rez = 0,
+		min = loc2.row - loc1.row,
+		max = loc1.row - loc2.row;
+	if (min < 0)
+		min += gparam::mapRows;
+	else
+		max += gparam::mapRows;
+	if (min < max)
+		rez += min;
+	else
+		rez += max;
+
+	min = loc2.col - loc1.col;
+	max = loc1.col - loc2.col;
+	if (min < 0)
+		min += gparam::mapColumns;
+	else
+		max += gparam::mapColumns;
+	if (min < max)
+		rez += min;
+	else
+		rez += max;
+
+	return rez;
+}
+
+/* Returns the square of Euclid distance between two locations. */
 double State::distance(const Location loc1, const Location loc2)
 {
     int d11 = loc1.row - loc2.row;
@@ -247,59 +271,100 @@ int State::unexplored_index(Location from)
 /* The A* algorithm. */
 int State::Astar(Location from, Location to)
 {
-    Location tmp, aux;
-    std::list<Location> open;
+    std::vector<Location> squares;
 	std::list<Location> changed;
 
-	from.g = 0;
-    from.dir = -1;
-	grid[from.row][from.col].isMarked = 0;
-    
-	open.push_back(from);
+	int tentative_g_score;
+	bool tentative_is_better;
+
+	Location curr, neigh;
+
+	Square * fr = square(from), *cu, *ne;
+	fr->g = 0;
+	fr->h = manhattan(from,to);
+	LOG("manh" << " ... " << fr->h);
+	fr->f = fr->g + fr->h;
+	fr->dir = -1;
+
+	fr->isMarked = 0;
+	changed.push_back(from);
 	
-	LOG("1");
-	while(!open.empty())
-    {
-        open.sort();
-        tmp = open.front();
-        open.pop_front();
-        
-		if (tmp == to)
-            break;
+	squares.push_back(from);
+	while (!squares.empty())
+	{
+		sort_heap(squares.begin(),squares.end());
+		for (unsigned int k = 0; k < squares.size(); k++)
+			LOG_NEOLN(" - " << square(squares[k])->f);
+		LOG("");
 
-		LOG("2");
-        for (int i = 0; i < 4; i++)
-        {
-            aux = tmp.move(i);
-            Square *x = square(aux);
-			LOG("-> " << x->isMarked << " " << aux.row << " : " << aux.col);
+		curr = squares[0];
+		cu = square(curr);
+		LOG(curr.row << " : " << curr.col << " : " << cu->dir << " : " << cu->f << " : " << cu->g);
+		if (curr == to)
+			break;
 
-            if (x->isMarked == -1 && !x->isWater)
-            {
-				x->isMarked = 0;
-                if (tmp.dir == -1) 
-                    aux.dir = i;
-                else
-                    aux.dir = tmp.dir;
-                aux.g = 10 + tmp.g;
-                aux.f = aux.g + 10 * (abs(aux.row - to.row) + abs(aux.col - to.col));
-                open.push_back(aux);
-            }
-        }
-    }
-	LOG("3");
+		pop_heap(squares.begin(),squares.end());
+		squares.pop_back();
 
+		cu->isMarked = -2;
+		for (int dir = 0; dir < 4; dir++)
+		{
+			neigh = curr.move(dir);
+			ne = square(neigh);
+			if (ne->isMarked == -2 || ne->isWater)
+				continue;
+
+			tentative_g_score = cu->g + 1;
+
+			if (ne->isMarked == -1)
+			{
+				ne->isMarked = 0;
+				ne->h = manhattan(neigh,to);
+				changed.push_back(neigh);
+				squares.push_back(neigh);
+				push_heap(squares.begin(),squares.end());
+				tentative_is_better = true;
+			}
+			else
+				tentative_is_better = tentative_g_score < ne->g;
+
+			if (tentative_is_better)
+			{
+				ne->dir = ((dir + 2) > 3 ? dir - 2 : dir + 2);
+				ne->g = tentative_g_score;
+				ne->f = ne->g + ne->h;
+			}
+		}
+	}
+
+	int rez = -1;
+
+	curr = to;
+	cu = square(curr);
+	while (cu->dir != -1)
+	{
+		rez = (cu->dir + 2) > 3 ? cu->dir - 2 : cu->dir + 2;
+		curr = curr.move(cu->dir);
+		cu = square(curr);
+		(LOG("-> " << rez));
+	}
+
+	LOG("5");
 	while (!changed.empty())
 	{
-		Location loc = changed.front();
-		grid[loc.row][loc.col].isMarked = -1;
+		cu = square(changed.front());
+
+		cu->isMarked = -1;
+		cu->f = -1;
+		cu->g = -1;
+		cu->h = -1;
+		cu->dir = -1;
 		changed.pop_front();
 	}
-	LOG("4");
 
-	open.clear();
+	squares.clear();
 
-    return tmp.dir;
+	return rez;
 }
 
 /* Input functions. */
@@ -332,7 +397,7 @@ std::istream& operator>>(std::istream &is, State &state)
         /* If we are at the beginning of the game, read in the parameters. */
         while(is >> inputType)
         {
-            if(inputType == "loadtime") 
+            if(inputType == "loadtime")
             {
                 is >> gparam::loadTime;
             } 

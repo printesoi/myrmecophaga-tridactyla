@@ -18,6 +18,7 @@
 Square::Square() : isVisible(false), isWater(false), isHill(false), isFood(false), seen(false)
 {
     hillPlayer = antPlayer = myAntNumber = isMarked = foodIndex = -1;
+	f = g = h = dir = -1;
     exploreIndex = 500;
 }
 
