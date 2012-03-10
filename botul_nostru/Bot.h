@@ -48,6 +48,9 @@ struct Bot
     /** Explores the map. */
     void explore();
 
+	/** Tries to hunt enemy hills. */
+	void huntHills();
+
     /** Indicates to the engine that it has made its moves. */
     void endTurn();
 

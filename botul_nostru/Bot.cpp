@@ -29,9 +29,10 @@ void Bot::playGame()
         LOG("turn " << state.currentTurnNumber << ":");
         
 		init_round();
-        //state.mark_explored();
-        //gatherFood();
-        //explore();
+        state.mark_explored();
+        gatherFood();
+        explore();
+		huntHills();
         makeMoves();
 
         endTurn();
@@ -47,6 +48,14 @@ void Bot::init_round()
         jobs.push_back(-1);
 }
 
+void Bot::huntHills()
+{
+	if (!state.enemyHills.empty())
+		for (unsigned int ant = 0; ant < state.myAnts.size(); ++ant)
+			if (jobs[ant] == -1)
+				jobs[ant] = state.Astar(state.myAnts[ant],state.enemyHills[0]);
+}
+
 void Bot::makeMoves()
 {
     for (unsigned int ant = 0; ant < state.myAnts.size(); ++ant)
@@ -54,8 +63,9 @@ void Bot::makeMoves()
         int direction = jobs[ant];
         if (direction == -1)
 		{
-			direction = rand() %  4;
-			direction = state.Astar(state.myAnts[ant],Location(43,128));
+			//direction = state.Astar(state.myAnts[ant],Location());
+			if (direction == -1)
+				direction = rand() %  4;
 		}
         
 		Location newLocation = state.myAnts[ant].move(direction);
