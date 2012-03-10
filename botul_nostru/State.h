@@ -35,6 +35,17 @@
 #include "Square.h"
 #include "Location.h"
 
+class Compare
+{
+
+public:
+
+	bool operator() (const Square* a, const Square* b)
+	{
+		return (a->f > b->f);
+	}
+};
+
 class State
 {
 
@@ -60,12 +71,16 @@ public:
     Timer timer;
 	
     /** Constructor creates the map proper. */
-    State() : gameOver(false), currentTurnNumber(0)
+    State()
     {
+		gameOver = false;
+		currentTurnNumber = 0;
         for (int i = 0; i < MAXIMUM_MAP_SIZE; ++i)
-        {
-            grid.push_back(std::vector<Square>(MAXIMUM_MAP_SIZE, Square()));
-        }
+		{
+			grid.push_back(std::vector<Square>());
+			for (int j = 0; j < MAXIMUM_MAP_SIZE; ++j)
+	            grid[i].push_back(Square(i,j));
+		}
     }
 
     /** Clears non-persistent informatin from the grid after a step. */

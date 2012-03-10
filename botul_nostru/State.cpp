@@ -276,13 +276,13 @@ int State::unexplored_index(Location from)
 /* The A* algorithm. */
 int State::Astar(Location from, Location to)
 {
-    std::vector<Location> squares;
-	std::list<Location> changed;
+    std::vector<Square*> open;
+	std::list<Square*> changed;
 
 	int tentative_g_score;
 	bool tentative_is_better;
 
-	Location curr = from, neigh;
+	Location curr = from;
 
 	Square * fr = square(curr), *cu, *ne;
 	fr->g = 0;
@@ -291,32 +291,24 @@ int State::Astar(Location from, Location to)
 	fr->dir = -1;
 
 	fr->isMarked = 0;
-	changed.push_back(curr);
+	changed.push_back(fr);
 	
-	squares.push_back(curr);
-	while (!squares.empty())
+	open.push_back(fr);
+	while (!open.empty())
 	{
-		sort_heap(squares.begin(),squares.end());
-		for (unsigned int k = 0; k < squares.size(); k++)
-			LOG_NEOLN(" x " << square(squares[k])->f);
-		LOG("");
+		make_heap(open.begin(),open.end(),Compare());
+		cu = open[0];
 
-		curr = squares[0];
-		cu = square(curr);
-
-		LOG(curr.row << " : " << curr.col << " : " << cu->dir << " : " << cu->f << " : " <<cu->g);
-
-		if (curr == to)
+		if (Location(*cu) == to)
 			break;
 
-		pop_heap(squares.begin(),squares.end());
-		squares.pop_back();
+		pop_heap(open.begin(),open.end(),Compare());
+		open.pop_back();
 
 		cu->isMarked = -2;
 		for (int dir = 0; dir < 4; dir++)
 		{
-			neigh = curr.move(dir);
-			ne = square(neigh);
+			ne = square(Location(*cu).move(dir));
 			if (ne->isMarked == -2 || ne->isWater)
 				continue;
 
@@ -325,11 +317,11 @@ int State::Astar(Location from, Location to)
 			if (ne->isMarked == -1)
 			{
 				ne->isMarked = 0;
-				ne->h = manhattan(neigh,to);
+				ne->h = manhattan(Location(*ne),to);
 
-				changed.push_back(neigh);
-				squares.push_back(neigh);
-				push_heap(squares.begin(),squares.end());
+				changed.push_back(ne);
+				open.push_back(ne);
+				push_heap(open.begin(),open.end(),Compare());
 				
 				tentative_is_better = true;
 			}
@@ -347,20 +339,16 @@ int State::Astar(Location from, Location to)
 
 	int rez = -1;
 
-	curr = to;
-	cu = square(curr);
+	cu = square(to);
 	while (cu->dir != -1)
 	{
 		rez = (cu->dir + 2) > 3 ? cu->dir - 2 : cu->dir + 2;
-		curr = curr.move(cu->dir);
-		cu = square(curr);
-		(LOG("-> " << rez));
+		cu = square(Location(*cu).move(cu->dir));
 	}
 
-	LOG("5");
 	while (!changed.empty())
 	{
-		cu = square(changed.front());
+		cu = changed.front();
 
 		cu->isMarked = -1;
 		cu->f = -1;
@@ -370,7 +358,7 @@ int State::Astar(Location from, Location to)
 		changed.pop_front();
 	}
 
-	squares.clear();
+	open.clear();
 
 	return rez;
 }

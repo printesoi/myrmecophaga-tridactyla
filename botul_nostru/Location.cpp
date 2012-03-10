@@ -13,11 +13,6 @@
  */
 #include "Location.h"
 
-bool Location::operator < (Location param)
-{
-	return true;
-}
-
 bool Location::operator == (Location param)
 {
     return col == param.col && row == param.row;

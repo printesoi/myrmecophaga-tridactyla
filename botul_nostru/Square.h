@@ -12,6 +12,8 @@
  * =============================================================================
  */
 
+#ifndef SQUARE_H_
+#define SQUARE_H_
 
 // Local includes
 
@@ -24,8 +26,8 @@ class Square
 {
 
 public:
-    Square();
-
+	int x;
+	int y;
     bool isVisible;
     bool isWater;
     bool isHill;
@@ -38,7 +40,12 @@ public:
     int exploreIndex;
     int foodIndex;
 	int f,g,h,dir;
-    
+	
+	/** Constructor. */
+	Square(int a, int b);
+
 	/** Resets the information for the square except water information. */
     void reset();
 };
+
+#endif

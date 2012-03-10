@@ -49,13 +49,13 @@ void Bot::init_round()
 
 void Bot::makeMoves()
 {
-    for (unsigned int ant = 0; ant < 1; ++ant)
+    for (unsigned int ant = 0; ant < state.myAnts.size(); ++ant)
     {
         int direction = jobs[ant];
         if (direction == -1)
 		{
 			direction = rand() %  4;
-			direction = state.Astar(state.myAnts[ant],Location(19,95));
+			direction = state.Astar(state.myAnts[ant],Location(43,128));
 		}
         
 		Location newLocation = state.myAnts[ant].move(direction);

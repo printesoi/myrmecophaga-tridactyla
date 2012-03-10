@@ -2,6 +2,7 @@
 #define LOCATION_H_
 
 #include "global.h"
+#include "Square.h"
 
 class Location
 {
@@ -18,9 +19,14 @@ public:
     Location(int row, int col) : row(row), col(col)
 	{
 	}
+
+	Location(Square s)
+	{
+		row = s.x;
+		col = s.y;
+	}
     
 	bool operator == (Location);
-	bool operator < (Location);
 
     Location move(int dir);
 
