@@ -12,21 +12,15 @@
  * =============================================================================
  */
 #include "Location.h"
-#include "State.h"
+
+bool Location::operator < (Location param)
+{
+	return true;
+}
 
 bool Location::operator == (Location param)
 {
     return col == param.col && row == param.row;
-}
-
-bool Location::operator < (Location param)
-{
-	return (State.grid[row][col].f > State.grid[param.row][param.col].f);
-}
-
-bool Location::operator > (Location param)
-{
-	return (State.grid[row][col].f < State.grid[param.row][param.col].f);
 }
 
 Location Location::move(int dir) 

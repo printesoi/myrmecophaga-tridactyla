@@ -14,6 +14,9 @@
 
 /** Structure for storing information abour the current state of the map. */
 
+#ifndef STATE_H_
+#define STATE_H_
+
 // STD includes
 
 #include <string>
@@ -25,16 +28,18 @@
 #include <cstdlib>
 #include <cmath>
 #include <vector>
+#include <functional>
 
 // Local includes
 
 #include "Square.h"
 #include "Location.h"
 
-struct State
+class State
 {
-    /** False while we keep playing. */
 
+public:
+    /** False while we keep playing. */
     bool gameOver;
     
     int currentTurnNumber;
@@ -53,7 +58,7 @@ struct State
 
     /** This could have been global, but there you go... */
     Timer timer;
-
+	
     /** Constructor creates the map proper. */
     State() : gameOver(false), currentTurnNumber(0)
     {
@@ -82,11 +87,8 @@ struct State
 	int manhattan (const Location loc1, const Location loc2);
     
     /** Return the square that a location points to. */
-    Square* square(const Location loc)
-    {
-        return &grid[loc.row][loc.col];
-    }
-	
+    Square* square(const Location loc);
+
     /** A* algorithm. */
     int Astar(Location from, Location to);
 
@@ -96,3 +98,5 @@ struct State
 
 /** Method that helps do the IO. */
 std::istream& operator>>(std::istream &is, State &state);
+
+#endif

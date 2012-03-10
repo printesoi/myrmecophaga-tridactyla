@@ -55,7 +55,7 @@ void Bot::makeMoves()
         if (direction == -1)
 		{
 			direction = rand() %  4;
-			direction = state.Astar(state.myAnts[ant],Location(20,85));
+			direction = state.Astar(state.myAnts[ant],Location(19,95));
 		}
         
 		Location newLocation = state.myAnts[ant].move(direction);

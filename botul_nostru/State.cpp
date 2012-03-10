@@ -28,6 +28,11 @@ void State::reset()
             grid[row][col].reset();
 }
 
+Square *State::square(const Location loc)
+{
+	return &grid[loc.row][loc.col];
+}
+
 /* Returns the Manhattan distance between two locations. */
 int State::manhattan(const Location loc1, const Location loc2)
 {
@@ -277,29 +282,30 @@ int State::Astar(Location from, Location to)
 	int tentative_g_score;
 	bool tentative_is_better;
 
-	Location curr, neigh;
+	Location curr = from, neigh;
 
-	Square * fr = square(from), *cu, *ne;
+	Square * fr = square(curr), *cu, *ne;
 	fr->g = 0;
 	fr->h = manhattan(from,to);
-	LOG("manh" << " ... " << fr->h);
 	fr->f = fr->g + fr->h;
 	fr->dir = -1;
 
 	fr->isMarked = 0;
-	changed.push_back(from);
+	changed.push_back(curr);
 	
-	squares.push_back(from);
+	squares.push_back(curr);
 	while (!squares.empty())
 	{
 		sort_heap(squares.begin(),squares.end());
 		for (unsigned int k = 0; k < squares.size(); k++)
-			LOG_NEOLN(" - " << square(squares[k])->f);
+			LOG_NEOLN(" x " << square(squares[k])->f);
 		LOG("");
 
 		curr = squares[0];
 		cu = square(curr);
-		LOG(curr.row << " : " << curr.col << " : " << cu->dir << " : " << cu->f << " : " << cu->g);
+
+		LOG(curr.row << " : " << curr.col << " : " << cu->dir << " : " << cu->f << " : " <<cu->g);
+
 		if (curr == to)
 			break;
 
@@ -315,14 +321,16 @@ int State::Astar(Location from, Location to)
 				continue;
 
 			tentative_g_score = cu->g + 1;
-
+		
 			if (ne->isMarked == -1)
 			{
 				ne->isMarked = 0;
 				ne->h = manhattan(neigh,to);
+
 				changed.push_back(neigh);
 				squares.push_back(neigh);
 				push_heap(squares.begin(),squares.end());
+				
 				tentative_is_better = true;
 			}
 			else

@@ -19,9 +19,8 @@ public:
 	{
 	}
     
-	bool operator < (Location);
-	bool operator > (Location);
 	bool operator == (Location);
+	bool operator < (Location);
 
     Location move(int dir);
 

@@ -73,6 +73,5 @@ const char DIRECTION_LETTER[NUMBER_DIRECTIONS] = { 'N', 'E', 'S', 'W' };
 const int ROW_DIRECTION[NUMBER_DIRECTIONS] = { -1, 0, 1, 0 };
 const int COLUMN_DIRECTION[NUMBER_DIRECTIONS] = { 0, 1, 0, -1 };
 
-class Square;
 #endif
 
