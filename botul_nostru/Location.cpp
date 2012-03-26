@@ -7,7 +7,7 @@
  *                  Maldur Vitalie <maldur.vitalik@yahoo.com>
  *                  Straticiuc Vicu <straticiuc_vicu@yahoo.com>
  *        Created:  02/25/2012
- *    Description:  
+ *    Description:
  *
  * =============================================================================
  */
@@ -18,7 +18,7 @@ bool Location::operator == (Location param)
     return col == param.col && row == param.row;
 }
 
-Location Location::move(int dir) 
+Location Location::move(int dir)
 {
 	if (dir == -1)
 		return Location(row,col);

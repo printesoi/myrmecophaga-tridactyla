@@ -35,7 +35,7 @@ struct Bot
 
 	/** Prepare the data for a round. */
 	void init_round();
-	
+
 	/** "Gather" enemy hills. */
 	void gatherHills();
 

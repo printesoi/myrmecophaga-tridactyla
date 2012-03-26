@@ -25,7 +25,7 @@ public:
 		row = s.x;
 		col = s.y;
 	}
-    
+
 	bool operator == (Location);
 
     Location move(int dir);

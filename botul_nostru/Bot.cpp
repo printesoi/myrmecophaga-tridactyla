@@ -7,7 +7,7 @@
  *                  Maldur Vitalie <maldur.vitalik@yahoo.com>
  *                  Straticiuc Vicu <straticiuc_vicu@yahoo.com>
  *        Created:  02/25/2012
- *    Description:  
+ *    Description:
  *
  * =============================================================================
  */
@@ -20,14 +20,14 @@ void Bot::playGame()
     LOG("Reading initial parameters.");
     std::cin >> state;
     endTurn();
-    
+
     srand((unsigned int)gparam::seed);
 
     /* Continues to make moves until game is over. */
     while(std::cin >> state)
     {
         LOG("turn " << state.currentTurnNumber << ":");
-        
+
 		init_round();
         state.mark_explored();
         gatherFood();
@@ -67,7 +67,7 @@ void Bot::makeMoves()
 			if (direction == -1)
 				direction = rand() %  4;
 		}
-        
+
 		Location newLocation = state.myAnts[ant].move(direction);
         /* Destination shouldn't be water and shouldn't be an ant. */
         if (!state.grid[newLocation.row][newLocation.col].isWater &&
@@ -78,7 +78,7 @@ void Bot::makeMoves()
             state.grid[state.myAnts[ant].row][state.myAnts[ant].col].antPlayer = -1;
             /* Outputs move information correctly to the engine. */
             std::cout << "o" << " " << state.myAnts[ant].row << " " <<
-                    state.myAnts[ant].col << " " << DIRECTION_LETTER[direction] << std::endl; 
+                    state.myAnts[ant].col << " " << DIRECTION_LETTER[direction] << std::endl;
         }
     }
 }
@@ -123,10 +123,10 @@ void Bot::gatherHills()
         x = squares.front();
         f = &state.grid[x.row][x.col];
         squares.pop_front();
-        
+
         if (f->isMarked > VIEW_RADIUS)
             break;
-        
+
         if (!active[f->foodIndex])
             continue;
 
@@ -192,10 +192,10 @@ void Bot::gatherFood()
         x = squares.front();
         f = &state.grid[x.row][x.col];
         squares.pop_front();
-        
+
         if (f->isMarked > VIEW_RADIUS)
             break;
-        
+
         if (!active[f->foodIndex])
             continue;
 

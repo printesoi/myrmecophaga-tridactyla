@@ -7,7 +7,7 @@
  *                  Maldur Vitalie <maldur.vitalik@yahoo.com>
  *                  Straticiuc Vicu <straticiuc_vicu@yahoo.com>
  *        Created:  02/25/2012
- *    Description:  
+ *    Description:
  *
  * =============================================================================
  */
@@ -52,7 +52,7 @@ class State
 public:
     /** False while we keep playing. */
     bool gameOver;
-    
+
     int currentTurnNumber;
 
     /** Score for each of the current players. */
@@ -69,7 +69,7 @@ public:
 
     /** This could have been global, but there you go... */
     Timer timer;
-	
+
     /** Constructor creates the map proper. */
     State()
     {
@@ -88,19 +88,19 @@ public:
 
     /** Marks visible cells. */
     void mark_visible();
-    
+
     /** Marks the explored cells. */
     void mark_explored();
 
     /** Calculates the unexplored index. */
     int unexplored_index(Location from);
-    
+
     /** This is just square of Euclid distance. */
     double distance(const Location loc1, const Location loc2);
 
 	/** This is just Manhattan distance. */
 	int manhattan (const Location loc1, const Location loc2);
-    
+
     /** Return the square that a location points to. */
     Square* square(const Location loc);
 

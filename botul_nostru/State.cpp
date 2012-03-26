@@ -7,7 +7,7 @@
  *                  Maldur Vitalie <maldur.vitalik@yahoo.com>
  *                  Straticiuc Vicu <straticiuc_vicu@yahoo.com>
  *        Created:  02/25/2012
- *    Description:  
+ *    Description:
  *
  * =============================================================================
  */
@@ -90,35 +90,35 @@ void State::mark_seen(Location ant)
         to = to.move(1);
         grid[to.row][to.col].seen = true;
     }
-    
+
     to = ant.move(7,-5);
     for(int i = 0;i < 11; ++i)
     {
         to = to.move(1);
-        grid[to.row][to.col].seen = true;    
+        grid[to.row][to.col].seen = true;
     }
-    
+
     to = ant.move(6,-6);
     for(int i = 0;i < 13; ++i)
     {
         to = to.move(1);
         grid[to.row][to.col].seen = true;
     }
-    
+
     to = ant.move(5,-7);
     for(int i = 0;i < 15; ++i)
     {
         to = to.move(1);
         grid[to.row][to.col].seen = true;
     }
-    
+
     to = ant.move(4,-7);
     for(int i = 0; i < 15; ++i)
     {
         to = to.move(1);
         grid[to.row][to.col].seen = true;
     }
-    
+
     for(int j = -3; j < 4; j++)
     {
         to = ant.move(j,-8);
@@ -128,35 +128,35 @@ void State::mark_seen(Location ant)
             grid[to.row][to.col].seen = true;
         }
     }
-    
+
     to = ant.move(-8,-3);
     for(int i = 0;i < 7; ++i)
     {
         to = to.move(1);
         grid[to.row][to.col].seen = true;
     }
-    
+
     to = ant.move(-7,-5);
     for(int i = 0;i < 11; ++i)
     {
         to = to.move(1);
-        grid[to.row][to.col].seen = true;    
+        grid[to.row][to.col].seen = true;
     }
-    
+
     to = ant.move(-6,-6);
     for(int i = 0;i < 13; ++i)
     {
         to = to.move(1);
         grid[to.row][to.col].seen = true;
     }
-    
+
     to = ant.move(-5,-7);
     for(int i = 0;i < 15; ++i)
     {
         to = to.move(1);
         grid[to.row][to.col].seen = true;
     }
-    
+
     to = ant.move(-4,-7);
     for(int i = 0;i < 15; ++i)
     {
@@ -170,7 +170,7 @@ void State::mark_explored()
 {
     std::list<Location> squares;
     std::list<Location> changed;
-    
+
     Location x,y;
     Square *f,*t;
     for (unsigned int ant = 0; ant < myAnts.size(); ant++)
@@ -184,7 +184,7 @@ void State::mark_explored()
         x = squares.front();
         f = &grid[x.row][x.col];
         squares.pop_front();
-        
+
         if (f->isMarked == VIEW_RADIUS)
             break;
 
@@ -218,22 +218,22 @@ int State::unexplored_index(Location from)
 {
     std::list<Location> squares;
     std::list<Location> changed;
-    
+
     Location x,y;
     Square *f,*t;
 
     int rez = 0;
-    
+
     grid[from.row][from.col].isMarked = 0;
     changed.push_back(from);
     squares.push_back(from);
-    
+
     while (!squares.empty())
     {
         x = squares.front();
         f = &grid[x.row][x.col];
         squares.pop_front();
-        
+
         if (f->isMarked == VIEW_RADIUS)
         {
             rez = f->exploreIndex;
@@ -292,7 +292,7 @@ int State::Astar(Location from, Location to)
 
 	fr->isMarked = 0;
 	changed.push_back(fr);
-	
+
 	open.push_back(fr);
 	while (!open.empty())
 	{
@@ -313,7 +313,7 @@ int State::Astar(Location from, Location to)
 				continue;
 
 			tentative_g_score = cu->g + 1;
-		
+
 			if (ne->isMarked == -1)
 			{
 				ne->isMarked = 0;
@@ -322,7 +322,7 @@ int State::Astar(Location from, Location to)
 				changed.push_back(ne);
 				open.push_back(ne);
 				push_heap(open.begin(),open.end(),Compare());
-				
+
 				tentative_is_better = true;
 			}
 			else
@@ -377,12 +377,12 @@ std::istream& operator>>(std::istream &is, State &state)
             state.gameOver = true;
             break;
         }
-        else if(inputType == "turn") 
+        else if(inputType == "turn")
         {
             is >> state.currentTurnNumber;
             break;
-        } 
-        else 
+        }
+        else
         {
             getline(is, junk);
         }
@@ -396,23 +396,23 @@ std::istream& operator>>(std::istream &is, State &state)
             if(inputType == "loadtime")
             {
                 is >> gparam::loadTime;
-            } 
-            else if(inputType == "turntime") 
+            }
+            else if(inputType == "turntime")
             {
                 is >> gparam::turnTime;
-            } 
-            else if(inputType == "rows") 
+            }
+            else if(inputType == "rows")
             {
                 is >> gparam::mapRows;
             }
-            else if(inputType == "cols") 
+            else if(inputType == "cols")
             {
                 is >> gparam::mapColumns;
-            } 
+            }
             else if(inputType == "turns")
             {
                 is >> gparam::totalTurnsNumber;
-            } 
+            }
             else if(inputType == "player_seed")
             {
                 is >> gparam::seed;
@@ -425,24 +425,24 @@ std::istream& operator>>(std::istream &is, State &state)
             else if(inputType == "attackradius2")
             {
                 is >> gparam::attackRadius;
-            } 
+            }
             else if(inputType == "spawnradius2")
             {
                 is >> gparam::spawnRadius;
-            } 
+            }
             else if(inputType == "ready")
             {
                 /* This is the end of the parameter input. */
                 state.timer.start();
                 break;
-            } 
-            else 
+            }
+            else
             {
                 getline(is, junk);
             }
         }
-    } 
-    else 
+    }
+    else
     {
         /* Reads in information about the current turn. */
         while(is >> inputType)
@@ -459,7 +459,7 @@ std::istream& operator>>(std::istream &is, State &state)
                 is >> row >> col;
                 state.grid[row][col].isFood = 1;
                 state.food.push_back(Location(row, col));
-            } 
+            }
             else if(inputType == "a")
             {
                 /* Live ant square. */
@@ -479,7 +479,7 @@ std::istream& operator>>(std::istream &is, State &state)
             {
                 /* Dead ant squares. */
                 is >> row >> col >> player;
-            } 
+            }
             else if(inputType == "h")
             {
                 /* Hill square. */
@@ -495,7 +495,7 @@ std::istream& operator>>(std::istream &is, State &state)
                     state.enemyHills.push_back(Location(row, col));
                 }
             }
-            else if(inputType == "players") 
+            else if(inputType == "players")
             {
                 /* Information about the players. */
                 is >> gparam::numberPlayers;
@@ -517,13 +517,13 @@ std::istream& operator>>(std::istream &is, State &state)
                     LOG("Received end of game message.");
                     is.setstate(std::ios::failbit);
                 }
-                else 
+                else
                 {
                     state.timer.start();
                 }
                 break;
-            } 
-            else 
+            }
+            else
             {
                 getline(is, junk);
             }

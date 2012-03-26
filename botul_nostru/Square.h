@@ -40,7 +40,7 @@ public:
     int exploreIndex;
     int foodIndex;
 	int f,g,h,dir;
-	
+
 	/** Constructor. */
 	Square(int a, int b);
 
