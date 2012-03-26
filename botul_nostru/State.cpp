@@ -30,36 +30,36 @@ void State::reset()
 
 Square *State::square(const Location loc)
 {
-	return &grid[loc.row][loc.col];
+    return &grid[loc.row][loc.col];
 }
 
 /* Returns the Manhattan distance between two locations. */
 int State::manhattan(const Location loc1, const Location loc2)
 {
-	int	rez = 0,
-		min = loc2.row - loc1.row,
-		max = loc1.row - loc2.row;
-	if (min < 0)
-		min += gparam::mapRows;
-	else
-		max += gparam::mapRows;
-	if (min < max)
-		rez += min;
-	else
-		rez += max;
+    int    rez = 0,
+        min = loc2.row - loc1.row,
+        max = loc1.row - loc2.row;
+    if (min < 0)
+        min += gparam::mapRows;
+    else
+        max += gparam::mapRows;
+    if (min < max)
+        rez += min;
+    else
+        rez += max;
 
-	min = loc2.col - loc1.col;
-	max = loc1.col - loc2.col;
-	if (min < 0)
-		min += gparam::mapColumns;
-	else
-		max += gparam::mapColumns;
-	if (min < max)
-		rez += min;
-	else
-		rez += max;
+    min = loc2.col - loc1.col;
+    max = loc1.col - loc2.col;
+    if (min < 0)
+        min += gparam::mapColumns;
+    else
+        max += gparam::mapColumns;
+    if (min < max)
+        rez += min;
+    else
+        rez += max;
 
-	return rez;
+    return rez;
 }
 
 /* Returns the square of Euclid distance between two locations. */
@@ -277,90 +277,90 @@ int State::unexplored_index(Location from)
 int State::Astar(Location from, Location to)
 {
     std::vector<Square*> open;
-	std::list<Square*> changed;
+    std::list<Square*> changed;
 
-	int tentative_g_score;
-	bool tentative_is_better;
+    int tentative_g_score;
+    bool tentative_is_better;
 
-	Location curr = from;
+    Location curr = from;
 
-	Square * fr = square(curr), *cu, *ne;
-	fr->g = 0;
-	fr->h = manhattan(from,to);
-	fr->f = fr->g + fr->h;
-	fr->dir = -1;
+    Square * fr = square(curr), *cu, *ne;
+    fr->g = 0;
+    fr->h = manhattan(from,to);
+    fr->f = fr->g + fr->h;
+    fr->dir = -1;
 
-	fr->isMarked = 0;
-	changed.push_back(fr);
+    fr->isMarked = 0;
+    changed.push_back(fr);
 
-	open.push_back(fr);
-	while (!open.empty())
-	{
-		make_heap(open.begin(),open.end(),Compare());
-		cu = open[0];
+    open.push_back(fr);
+    while (!open.empty())
+    {
+        make_heap(open.begin(),open.end(),Compare());
+        cu = open[0];
 
-		if (Location(*cu) == to)
-			break;
+        if (Location(*cu) == to)
+            break;
 
-		pop_heap(open.begin(),open.end(),Compare());
-		open.pop_back();
+        pop_heap(open.begin(),open.end(),Compare());
+        open.pop_back();
 
-		cu->isMarked = -2;
-		for (int dir = 0; dir < 4; dir++)
-		{
-			ne = square(Location(*cu).move(dir));
-			if (ne->isMarked == -2 || ne->isWater)
-				continue;
+        cu->isMarked = -2;
+        for (int dir = 0; dir < 4; dir++)
+        {
+            ne = square(Location(*cu).move(dir));
+            if (ne->isMarked == -2 || ne->isWater)
+                continue;
 
-			tentative_g_score = cu->g + 1;
+            tentative_g_score = cu->g + 1;
 
-			if (ne->isMarked == -1)
-			{
-				ne->isMarked = 0;
-				ne->h = manhattan(Location(*ne),to);
+            if (ne->isMarked == -1)
+            {
+                ne->isMarked = 0;
+                ne->h = manhattan(Location(*ne),to);
 
-				changed.push_back(ne);
-				open.push_back(ne);
-				push_heap(open.begin(),open.end(),Compare());
+                changed.push_back(ne);
+                open.push_back(ne);
+                push_heap(open.begin(),open.end(),Compare());
 
-				tentative_is_better = true;
-			}
-			else
-				tentative_is_better = tentative_g_score < ne->g;
+                tentative_is_better = true;
+            }
+            else
+                tentative_is_better = tentative_g_score < ne->g;
 
-			if (tentative_is_better)
-			{
-				ne->dir = ((dir + 2) > 3 ? dir - 2 : dir + 2);
-				ne->g = tentative_g_score;
-				ne->f = ne->g + ne->h;
-			}
-		}
-	}
+            if (tentative_is_better)
+            {
+                ne->dir = ((dir + 2) > 3 ? dir - 2 : dir + 2);
+                ne->g = tentative_g_score;
+                ne->f = ne->g + ne->h;
+            }
+        }
+    }
 
-	int rez = -1;
+    int rez = -1;
 
-	cu = square(to);
-	while (cu->dir != -1)
-	{
-		rez = (cu->dir + 2) > 3 ? cu->dir - 2 : cu->dir + 2;
-		cu = square(Location(*cu).move(cu->dir));
-	}
+    cu = square(to);
+    while (cu->dir != -1)
+    {
+        rez = (cu->dir + 2) > 3 ? cu->dir - 2 : cu->dir + 2;
+        cu = square(Location(*cu).move(cu->dir));
+    }
 
-	while (!changed.empty())
-	{
-		cu = changed.front();
+    while (!changed.empty())
+    {
+        cu = changed.front();
 
-		cu->isMarked = -1;
-		cu->f = -1;
-		cu->g = -1;
-		cu->h = -1;
-		cu->dir = -1;
-		changed.pop_front();
-	}
+        cu->isMarked = -1;
+        cu->f = -1;
+        cu->g = -1;
+        cu->h = -1;
+        cu->dir = -1;
+        changed.pop_front();
+    }
 
-	open.clear();
+    open.clear();
 
-	return rez;
+    return rez;
 }
 
 /* Input functions. */

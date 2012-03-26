@@ -20,8 +20,8 @@ bool Location::operator == (Location param)
 
 Location Location::move(int dir)
 {
-	if (dir == -1)
-		return Location(row,col);
+    if (dir == -1)
+        return Location(row,col);
     Location rez(row + ROW_DIRECTION[dir], col + COLUMN_DIRECTION[dir]);
     if (rez.row < 0)
         rez.row += gparam::mapRows;

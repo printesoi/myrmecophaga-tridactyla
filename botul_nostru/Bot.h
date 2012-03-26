@@ -33,11 +33,11 @@ struct Bot
     /** Plays a single game of Ants. */
     void playGame();
 
-	/** Prepare the data for a round. */
-	void init_round();
+    /** Prepare the data for a round. */
+    void init_round();
 
-	/** "Gather" enemy hills. */
-	void gatherHills();
+    /** "Gather" enemy hills. */
+    void gatherHills();
 
     /** Gather food. */
     void gatherFood();
@@ -48,8 +48,8 @@ struct Bot
     /** Explores the map. */
     void explore();
 
-	/** Tries to hunt enemy hills. */
-	void huntHills();
+    /** Tries to hunt enemy hills. */
+    void huntHills();
 
     /** Indicates to the engine that it has made its moves. */
     void endTurn();

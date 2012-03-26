@@ -26,8 +26,8 @@ class Square
 {
 
 public:
-	int x;
-	int y;
+    int x;
+    int y;
     bool isVisible;
     bool isWater;
     bool isHill;
@@ -39,12 +39,12 @@ public:
     int myAntNumber;
     int exploreIndex;
     int foodIndex;
-	int f,g,h,dir;
+    int f,g,h,dir;
 
-	/** Constructor. */
-	Square(int a, int b);
+    /** Constructor. */
+    Square(int a, int b);
 
-	/** Resets the information for the square except water information. */
+    /** Resets the information for the square except water information. */
     void reset();
 };
 
