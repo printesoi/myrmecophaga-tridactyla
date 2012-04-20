@@ -25,9 +25,8 @@ struct Bot
     /** Current state of the game. */
     State state;
 
-    /** Jobs that ants will do.
-     *  Represent the direction to move.
-     * TODO replace the vector of jobs with an entry in ant class */
+    /** Jobs that ants will do. */
+    /** Represent the direction to move. */
     std::vector<int> jobs;
 
     /** Plays a single game of Ants. */

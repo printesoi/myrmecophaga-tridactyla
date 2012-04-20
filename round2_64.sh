@@ -1,6 +1,6 @@
 #!/bin/bash
 
-bot='./MyBot'
+bot='./botnow'
 bot1='./bot2_64'
 
 cp botul_nostru/bin/MyBot .

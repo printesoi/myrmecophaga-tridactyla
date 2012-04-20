@@ -1,4 +1,6 @@
-Readme pentru botul "Myrmecophaga tridactyla" [prescurtat Myla], proiect PA.
+README pentru botul "Myrmecophaga tridactyla" [prescurtat Myla], proiect PA.
+
+
 
 =======
 Echipa:
@@ -8,12 +10,58 @@ Echipa:
     Vitalie Maldur         324CC
 
 Sistem de operare folosit:
-     Linux (Ubuntu si Archlinux)
+     Linux (Ubuntu, Xubuntu, Archlinux)
+
 Mod de compilare:
     $ make
 
     In urma compilarii este creat directorul bin/ in directorul curent, care
 contine fisierele obiect si executabilul "MyBot".
+
+
+
+========================== Etapa2 ============================
+
+Task:
+	De adaugat botul un mecanism de a cuceri un mecanism.
+
+Changelog:
+
+	* Am fixat algoritmul Astar, acum acesta functioneaza foarte bine.
+	* Am eliminat niste mecanisme de la prima etapa:
+		- O functie greoaie folosita pentru explorare
+		- O functie greoaie folosita pentru atac
+		(Ambele bazate pe BFS)
+	* Am adus imbunatiri la coding style (multumim Adrian !)
+		- am eliminat "trailing whitespace"
+		- am introdus un singur tip de comentarii
+		- am eliminat functia hard-codata urat
+		- am trunchiat si sursele la 80 caractere (erau trunchiate la 100)
+	* In proces de a elimina clasa Location.h
+	* Am eliminat memory-leaks
+
+Descrierea rezolvarii:
+
+		Pornind de la botul cu etapa 1, am eliminat niste functii care erau
+	intr-un fel fortate, si care nu puteau fi dezvoltate in continuare. Nu am
+	pastrat decat modul in care botul se expanda si strangea mancare.
+		Una din partile rele ale etapei 1 era ca ramaneau furnici care nu
+	faceau nimic, si tot ce am facut a fost ca sa folosim Astar pentru a le
+	trimite sa cuceareasca adversarul, in cazul in care acesta este vizibil.
+
+		Scopul nostru pentru aceasta etapa este doar sa invingem adversarul,
+	ceea ce se si intampla (chiar daca pe o harta ramanem fara un musuroi). De
+	asemenea, punem bazele unui comportament nou, practic, care va fi folosit
+	in etapa 3 si, bineinteles, etapa 4.
+
+Observatii:
+	*
+		Complexitatile pentru toti algoritmii implementati sunt incluse la
+	sfarsitul acestui README la rubrica "Complexitati".
+	*
+		Complexitatea algoritmul Astar nu este optima, o vom face optima in
+	viitor.
+
 
 
 ========================== Etapa1 ============================
@@ -23,7 +71,7 @@ Task:
     De adaugat botului utilitatea de a strange mancare.
 
 Descrierea rezolvarii:
-        
+
         Pornind de la unul din scheletele de cod propuse [C++], am adaugat doua
     "servicii" care gestioneaza strangerea mancarii [gatherFood()] si extinderea
     pe harta [explore()]. Ambelor le sunt comune conceptul de reachable in x
@@ -33,8 +81,8 @@ Descrierea rezolvarii:
     furnica o sa plece spre o locatie numai daca poate sa ajunga la ea.
         Pentru a strange mancare am implementat [teamul] o logica simpla: adaugam
     datele despre mancarea la care ajungem in x pasi intr-o coada, si pornim un
-    BFS folosind coada spre eventuale furnici aflate in apropiere. Known issue: 
-    se poate intampla ca aceeasi mancare sa cheme mai multe furnici, ceea ce nu 
+    BFS folosind coada spre eventuale furnici aflate in apropiere. Known issue:
+    se poate intampla ca aceeasi mancare sa cheme mai multe furnici, ceea ce nu
     se comporta deloc bine in practica. Pentru a scapa de acest lucru, am
     introdus un indicator logic asociat mancarii, astfel incat o mancare va
     chema furnici numai daca indicatorul asociat ei este activ. La gasirea unei
@@ -56,9 +104,9 @@ Descrierea rezolvarii:
 Observatii:
     *
         Botul e departe de perfectiune, nu face decat sa treaca etapa1 (si
-    uneori etapa 2), avand un mecanism primitiv de a ataca (vede musuroiul - 
+    uneori etapa 2), avand un mecanism primitiv de a ataca (vede musuroiul -
     pleaca spre el).
-    
+
     *
         Botul contine memory-leakuri, acestea urmeaza a fi eliminate in etapele
     urmatoare. Nu am considerat de cuviinta sa le fixam acum, pentru ca scopul
@@ -66,26 +114,66 @@ Observatii:
     cu ele.
 
     *
-        Tinand cont ca view radius este intotdeauna 77, am hard-codat o functie 
+        Tinand cont ca view radius este intotdeauna 77, am hard-codat o functie
     legata de a marca celulele vizibile in grid. Ni s-a parut ca ar fi cea mai
     buna varianta. Aceasta functie deocamdata nu este folosita.
 
-    *        
-        Noi ne rezervam dreptul de a schimba pe viitor oricare din aceste 
+    *
+        Noi ne rezervam dreptul de a schimba pe viitor oricare din aceste
     functionalitati, daca vom considera de cuviinta.
+
+
+
+========================== Complexitati ============================
+
+	In aceasta rubrica sunt incluse complexitatile algoritmilor ce STAU LA BAZA
+functiilor si procedurilor scrise de noi. Bineinteles, complexitatile sunt cele
+din contextul codului din cadrul proiectului. De asemenea, vom include si
+complexitatile celor mai importante functii ale noastre.
+
+	Asadar, lista de algoritmi si functii folosite:
+
+	BFS:			O(VIEW_RADIUS)
+	Astar:			O(n * m * log(n * m))
+
+	mark_explored:	O(VIEW_RADIUS)
+	explore			O(Ants * VIEW_RADIUS)
+	gather_food		O(Ants * VIEW_RADIUS)
+	huntHills		O(Ants * n * m * log(n * m))
+
+	unde:
+
+		n - numarul de linii din grid
+		m - numarul de coloane din grid
+		VIEW_RADIUS - raza de vizibilitate
+		Ants - numarul furnicilor proprii
+
+
+
+========================== Miscelaneous ============================
 
 Contributii:
 
-    Toata echipa: Idei, propuneri, rezolvari, analiza.
+    Toata echipa:	Idei, propuneri, rezolvari, analiza.
+					Stergerea functiilor fara "viitor".
+
+
+	Vladimir Cernov:	Fixarea algoritmului A*.
+	Vicu Straticiuc:	Exprimarea complexitatii algoritmilor.
+	Vitalie Maldur:		Sugestii in imbunatatirea codului.
+	Victor Dodon:		Scrierea unor scripturi de "curatire" a codului.
+
 
     Vladimir Cernov:    Implementarea algoritmilor de BFS.
     Vicu Straticiuc:    Implementarea algoritmului de mark_visible.
-    Victor Dodon:        Crearea si administrarea repozitoriului git, 
-                        Makefile, structurarea si modularizarea proiectului.
-    Vitalie Maldur:        Implementarea algoritmului A*.
+    Victor Dodon:		Crearea si administrarea repozitoriului git,
+						Makefile, structurarea si modularizarea proiectului.
+    Vitalie Maldur:		Implementarea algoritmului A*.
 
-    
+
+
 Resurse folosite:
     http://forums.aichallenge.org
     http://en.wikipedia.org
     http://www.cplusplus.com
+	https://www.google.com
