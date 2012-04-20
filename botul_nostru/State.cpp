@@ -34,9 +34,9 @@ Square *State::square(const Location loc)
 }
 
 /* Returns the Manhattan distance between two locations. */
-int State::manhattan(const Location loc1, const Location loc2)
+int State::manhattan(const Location loc1,const Location loc2)
 {
-    int    rez = 0,
+    int rez = 0,
         min = loc2.row - loc1.row,
         max = loc1.row - loc2.row;
     if (min < 0)
@@ -63,7 +63,7 @@ int State::manhattan(const Location loc1, const Location loc2)
 }
 
 /* Returns the square of Euclid distance between two locations. */
-double State::distance(const Location loc1, const Location loc2)
+double State::distance(const Location loc1,const Location loc2)
 {
     int d11 = loc1.row - loc2.row;
     int d1 = d11 < 0 ? -d11 : d11;
@@ -209,8 +209,6 @@ void State::mark_explored()
         f->exploreIndex = 0;
         changed.pop_front();
     }
-
-    squares.clear();
 }
 
 /** Calculates a sum which represents a fog indicator. */
@@ -274,7 +272,7 @@ int State::unexplored_index(Location from)
 }
 
 /* The A* algorithm. */
-int State::Astar(Location from, Location to)
+int State::Astar(Location from,Location to)
 {
     std::vector<Square*> open;
     std::list<Square*> changed;
@@ -284,7 +282,7 @@ int State::Astar(Location from, Location to)
 
     Location curr = from;
 
-    Square * fr = square(curr), *cu, *ne;
+    Square *fr = square(curr),*cu,*ne;
     fr->g = 0;
     fr->h = manhattan(from,to);
     fr->f = fr->g + fr->h;
@@ -358,79 +356,101 @@ int State::Astar(Location from, Location to)
         changed.pop_front();
     }
 
-    open.clear();
-
     return rez;
 }
 
-/* Input functions. */
-std::istream& operator>>(std::istream &is, State &state)
+/** Returns a pointer to a neighbour square. */
+Square *State::move(Square *from,int dir)
 {
-    int row, col, player;
-    std::string inputType, junk;
+    if (dir == -1)
+        return from;
+        
+    int xrez = from->x + ROW_DIRECTION[dir];
+    int yrez = from->y + COLUMN_DIRECTION[dir];
+
+    if (xrez < 0)
+        xrez += gparam::mapRows;
+    else
+        if (xrez == gparam::mapRows)
+            xrez = 0;
+            
+    if (yrez < 0)
+        yrez += gparam::mapColumns;
+    else
+        if (yrez == gparam::mapColumns)
+            yrez = 0;
+
+    return (&grid[xrez][yrez]);
+}
+
+/* Input functions. */
+std::istream& operator>>(std::istream &is,State &state)
+{
+    int row,col,player;
+    std::string inputType,junk;
 
     /* Read in input type. */
-    while(is >> inputType)
+    while (is >> inputType)
     {
-        if(inputType == "end")
+        if (inputType == "end")
         {
             state.gameOver = true;
             break;
         }
-        else if(inputType == "turn")
+        else if (inputType == "turn")
         {
             is >> state.currentTurnNumber;
             break;
         }
         else
         {
-            getline(is, junk);
+            getline(is,junk);
         }
     }
 
-    if(state.currentTurnNumber == 0)
+    if (state.currentTurnNumber == 0)
     {
-        /* If we are at the beginning of the game, read in the parameters. */
-        while(is >> inputType)
+        /* If we are at the beginning of the game,read in the parameters. */
+        while (is >> inputType)
         {
-            if(inputType == "loadtime")
+            if (inputType == "loadtime")
             {
                 is >> gparam::loadTime;
             }
-            else if(inputType == "turntime")
+            else if (inputType == "turntime")
             {
                 is >> gparam::turnTime;
             }
-            else if(inputType == "rows")
+            else if (inputType == "rows")
             {
                 is >> gparam::mapRows;
             }
-            else if(inputType == "cols")
+            else if (inputType == "cols")
             {
                 is >> gparam::mapColumns;
             }
-            else if(inputType == "turns")
+            else if (inputType == "turns")
             {
                 is >> gparam::totalTurnsNumber;
             }
-            else if(inputType == "player_seed")
+            else if (inputType == "player_seed")
             {
                 is >> gparam::seed;
                 srand((unsigned int)gparam::seed);
             }
-            else if(inputType == "viewradius2")
+            else if (inputType == "viewradius2")
             {
                 is >> gparam::viewRadius;
             }
-            else if(inputType == "attackradius2")
+            else if (inputType == "attackradius2")
             {
                 is >> gparam::attackRadius;
             }
-            else if(inputType == "spawnradius2")
+            else if (inputType == "spawnradius2")
             {
                 is >> gparam::spawnRadius;
             }
-            else if(inputType == "ready")
+            else if (inputType == "ready")
             {
                 /* This is the end of the parameter input. */
                 state.timer.start();
@@ -438,81 +458,86 @@ std::istream& operator>>(std::istream &is, State &state)
             }
             else
             {
-                getline(is, junk);
+                getline(is,junk);
             }
         }
     }
     else
     {
         /* Reads in information about the current turn. */
-        while(is >> inputType)
+        while (is >> inputType)
         {
-            if(inputType == "w")
+            if (inputType == "w")
             {
                 /* Water square. */
                 is >> row >> col;
                 state.grid[row][col].isWater = 1;
             }
-            else if(inputType == "f")
+            else if (inputType == "f")
             {
                 /* Food square. */
                 is >> row >> col;
                 state.grid[row][col].isFood = 1;
-                state.food.push_back(Location(row, col));
+                state.food.push_back(Location(row,col));
+                state.foodNew.push_back(&state.grid[row][col]);
             }
-            else if(inputType == "a")
+            else if (inputType == "a")
             {
                 /* Live ant square. */
                 is >> row >> col >> player;
                 state.grid[row][col].antPlayer = player;
-                if(player == 0)
+                if (player == 0)
                 {
-                    state.grid[row][col].myAntNumber = state.myAnts.size ();
-                    state.myAnts.push_back(Location(row, col));
+                    state.grid[row][col].myAntNumber = state.myAnts.size();
+                    state.myAnts.push_back(Location(row,col));
+                    state.myAntsNew.push_back(&state.grid[row][col]);
                 }
                 else
                 {
-                    state.enemyAnts.push_back(Location(row, col));
+                    state.enemyAnts.push_back(Location(row,col));
+                    state.enemyAntsNew.push_back(&state.grid[row][col]);
                 }
             }
-            else if(inputType == "d")
+            else if (inputType == "d")
             {
                 /* Dead ant squares. */
                 is >> row >> col >> player;
             }
-            else if(inputType == "h")
+            else if (inputType == "h")
             {
                 /* Hill square. */
                 is >> row >> col >> player;
                 state.grid[row][col].isHill = 1;
                 state.grid[row][col].hillPlayer = player;
-                if(player == 0)
+                if (player == 0)
                 {
-                    state.myHills.push_back(Location(row, col));
+                    state.myHills.push_back(Location(row,col));
+                    state.myHillsNew.push_back(&state.grid[row][col]);
                 }
                 else
                 {
-                    state.enemyHills.push_back(Location(row, col));
+                    state.enemyHills.push_back(Location(row,col));
+                    state.enemyHillsNew.push_back(&state.grid[row][col]);
                 }
             }
-            else if(inputType == "players")
+            else if (inputType == "players")
             {
                 /* Information about the players. */
                 is >> gparam::numberPlayers;
             }
-            else if(inputType == "scores")
+            else if (inputType == "scores")
             {
                 /* Information about the scores. */
-                state.scores = std::vector<double>(gparam::numberPlayers, 0.0);
+                state.scores = std::vector<double>(gparam::numberPlayers,0.0);
                 for(int p = 0; p < gparam::numberPlayers; p++)
                 {
                     is >> state.scores[p];
                 }
             }
-            else if(inputType == "go")
+            else if (inputType == "go")
             {
                 /* Finished input. */
-                if(state.gameOver)
+                if (state.gameOver)
                 {
                     LOG("Received end of game message.");
                     is.setstate(std::ios::failbit);
@@ -525,7 +550,7 @@ std::istream& operator>>(std::istream &is, State &state)
             }
             else
             {
-                getline(is, junk);
+                getline(is,junk);
             }
         }
     }

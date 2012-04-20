@@ -17,8 +17,6 @@
 #ifndef STATE_H_
 #define STATE_H_
 
-// STD includes
-
 #include <string>
 #include <cstdlib>
 #include <stdint.h>
@@ -29,8 +27,6 @@
 #include <cmath>
 #include <vector>
 #include <functional>
-
-// Local includes
 
 #include "Square.h"
 #include "Location.h"
@@ -66,6 +62,11 @@ public:
     std::vector<Location> myHills;
     std::vector<Location> enemyHills;
     std::vector<Location> food;
+    std::vector<Square *> myAntsNew;
+    std::vector<Square *> enemyAntsNew;
+    std::vector<Square *> myHillsNew;
+    std::vector<Square *> enemyHillsNew;
+    std::vector<Square *> foodNew;
 
     /** This could have been global, but there you go... */
     Timer timer;
@@ -109,6 +110,9 @@ public:
 
     /** Marks the radius of sight. */
     void mark_seen(Location from);
+
+    /** Returns a pointer to a neighbour square. */
+    Square *move(Square *from,int dir);
 };
 
 /** Method that helps do the IO. */

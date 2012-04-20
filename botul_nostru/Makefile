@@ -1,6 +1,6 @@
 CC=g++
 CFLAGS=-O3 -funroll-loops -c -Wall -std=c++0x
-LDFLAGS=-lm -std=c++0x
+LDFLAGS=-O2 -lm -std=c++0x
 
 SOURCES=$(wildcard *.cpp)
 OBJECTS=$(addprefix bin/, $(notdir $(SOURCES:.cpp=.o)))

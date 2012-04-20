@@ -16,45 +16,46 @@
 #ifndef BOT_H_
 #define BOT_H_
 
-// local includes
+#include <queue>
 
 #include "State.h"
 
-struct Bot
+class Bot
 {
-    /** Current state of the game. */
-    State state;
+    public:
+        /** Current state of the game. */
+        State state;
 
-    /** Jobs that ants will do. */
-    /** Represent the direction to move. */
-    std::vector<int> jobs;
+        /** Jobs that ants will do. */
+        /** Represent the direction to move. */
+        std::vector<int> jobs;
 
-    /** Plays a single game of Ants. */
-    void playGame();
+        /** Plays a single game of Ants. */
+        void playGame();
 
-    /** Prepare the data for a round. */
-    void init_round();
+        /** Prepare the data for a round. */
+        void initRound();
 
-    /** "Gather" enemy hills. */
-    void gatherHills();
+        /** Gather food. */
+        void gatherFood();
 
-    /** Gather food. */
-    void gatherFood();
+        /** Moves ants on the board. */
+        void makeMoves();
 
-    /** Moves ants on the board. */
-    void makeMoves();
+        /** Explores the map. */
+        void explore();
 
-    /** Explores the map. */
-    void explore();
+        /** Tries to hunt enemy hills. */
+        void huntHills();
 
-    /** Tries to hunt enemy hills. */
-    void huntHills();
+        /** Calculates areas. */
+        void areas();
 
-    /** Indicates to the engine that it has made its moves. */
-    void endTurn();
+        /** Indicates to the engine that it has made its moves. */
+        void endTurn();
 
-    /** Returns the number of free ants. */
-    int freeAntsNumber();
+        /** Returns the number of free ants. */
+        int freeAntsNumber();
 };
 
 #endif
