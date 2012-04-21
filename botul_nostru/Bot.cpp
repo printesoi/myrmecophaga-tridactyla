@@ -242,6 +242,10 @@ void Bot::gatherFood()
     Location x,y;
     Square *f,*t;
 
+    /** TODO This is a temporary fix and should be removed. */
+    for (unsigned i = 0; i < state.enemyHills.size(); i++)
+        state.food.push_back(state.enemyHills[i]);
+
     int nr = 0;
     for (unsigned i = 0; i < state.food.size(); i++)
         if (state.grid[state.food[i].row][state.food[i].col].exploreIndex == 0)
