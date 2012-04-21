@@ -17,7 +17,7 @@
 /** Struct for representing a square in the grid. */
 Square::Square(int a, int b)
 {
-    isVisible = isWater = isHill = isFood = seen = false;
+    isVisible = isWater = isHill = isFood = seen = isBorder = false;
     hillPlayer = antPlayer = myAntNumber = isMarked = foodIndex = -1;
     f = g = h = dir = -1;
     exploreIndex = 500;
@@ -28,7 +28,7 @@ Square::Square(int a, int b)
 /** Resets the information for the square except water information. */
 void Square::reset()
 {
-    isVisible = isHill = isFood = false;
+    isVisible = isHill = isFood = isBorder = false;
     hillPlayer = antPlayer = myAntNumber = -1;
     exploreIndex++;
 }

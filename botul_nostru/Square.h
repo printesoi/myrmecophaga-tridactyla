@@ -33,6 +33,7 @@ public:
     bool isWater;
     bool isHill;
     bool isFood;
+    bool isBorder;
     bool seen;
     int isMarked;
     int hillPlayer;

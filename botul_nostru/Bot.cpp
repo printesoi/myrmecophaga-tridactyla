@@ -21,7 +21,7 @@ void Bot::playGame()
     std::cin >> state;
     endTurn();
 
-    srand((unsigned int)gparam::seed);
+    srand((unsigned)gparam::seed);
 
     /* Continues to make moves until game is over. */
     while(std::cin >> state)
@@ -32,8 +32,9 @@ void Bot::playGame()
         state.mark_explored();
         gatherFood();
         explore();
-        huntHills();
         areas();
+        toBorder2();
+        huntHills();
         makeMoves();
 
         endTurn();
@@ -45,29 +46,27 @@ void Bot::playGame()
 void Bot::initRound()
 {
     jobs.clear ();
-    for (unsigned int i = 0; i < state.myAnts.size(); i++)
+    for (unsigned i = 0; i < state.myAnts.size(); i++)
         jobs.push_back(-1);
 }
 
 void Bot::huntHills()
 {
     if (!state.enemyHills.empty())
-        for (unsigned int ant = 0; ant < state.myAnts.size(); ++ant)
+    {
+        for (unsigned ant = 0; ant < state.myAnts.size(); ++ant)
             if (jobs[ant] == -1)
                 jobs[ant] = state.Astar(state.myAnts[ant],state.enemyHills[0]);
+    }
 }
 
 void Bot::makeMoves()
 {
-    for (unsigned int ant = 0; ant < state.myAnts.size(); ++ant)
+    for (unsigned ant = 0; ant < state.myAnts.size(); ++ant)
     {
         int direction = jobs[ant];
         if (direction == -1)
-        {
-            //direction = state.Astar(state.myAnts[ant],Location());
-            if (direction == -1)
-                direction = rand() %  4;
-        }
+            direction = rand() % 4;
 
         Location newLocation = state.myAnts[ant].move(direction);
         /* Destination shouldn't be water and shouldn't be an ant. */
@@ -79,7 +78,7 @@ void Bot::makeMoves()
             state.grid[state.myAnts[ant].row][state.myAnts[ant].col].antPlayer = -1;
             /* Outputs move information correctly to the engine. */
             std::cout << "o" << " " << state.myAnts[ant].row << " " <<
-                    state.myAnts[ant].col << " " << DIRECTION_LETTER[direction] << std::endl;
+                state.myAnts[ant].col << " " << DIRECTION_LETTER[direction] << std::endl;
         }
     }
 }
@@ -97,6 +96,143 @@ void Bot::endTurn()
     std::cout << "go" << std::endl;
 }
 
+/** Move free ants to the border. */
+void Bot::toBorder()
+{
+    std::queue<Square *> squares;
+    std::queue<Square *> changed;
+    std::vector<bool> active;
+
+    Square *f,*t;
+
+    int nr = 0;
+    for (unsigned i = 0; i < state.borderTiles.size(); i++)
+    {
+        state.grid[state.borderTiles[i]->x][state.borderTiles[i]->y].isMarked = 0;
+        state.grid[state.borderTiles[i]->x][state.borderTiles[i]->y].foodIndex = nr++;
+        changed.push(state.borderTiles[i]);
+        squares.push(state.borderTiles[i]);
+        active.push_back(true);
+    }
+
+    while (squares.size())
+    {
+        f = squares.front();
+        squares.pop();
+
+        if (f->isMarked > 2 * VIEW_RADIUS) //TODO check 2 * view_radius
+            break;
+
+        if (!active[f->foodIndex])
+            continue;
+
+        for (int dir = 0; dir < 4; dir++)
+        {
+            t = f->neigh[dir];
+
+            if (t->antPlayer == 0)
+                if (jobs[t->myAntNumber] == -1)
+                {
+                    LOG("Am gasit o furnica");
+                    active[f->foodIndex] = false;
+                    if (dir + 2 > 3)
+                        jobs[t->myAntNumber] = dir - 2;
+                    else
+                        jobs[t->myAntNumber] = dir + 2;
+                }
+
+            if (!t->isWater && t->isMarked == -1)
+            {
+                t->isMarked = f->isMarked + 1;
+                t->foodIndex = f->foodIndex;
+                changed.push(t);
+                squares.push(t);
+            }
+        }
+    }
+
+    while (changed.size())
+    {
+        f = changed.front();
+        f->isMarked = -1;
+        f->foodIndex = -1;
+        changed.pop();
+    }
+}
+
+/** Move free ants to the border. */
+void Bot::toBorder2()
+{
+    for (unsigned ant = 0; ant < state.myAntsNew.size(); ++ant)
+        if (jobs[ant] == -1 && state.borderTiles.size() > 0)
+            jobs[ant] = findBorder(state.myAntsNew[ant]);
+}
+
+/** Returns a direction to a border. */
+int Bot::findBorder(Square *from)
+{
+    std::queue<Square *> open;
+    std::queue<Square *> changed;
+    std::queue<int> where;
+
+    Square *f,*to;
+    int rez = -1;
+
+    from->isMarked = 0;
+    changed.push(from);
+
+    for (int dir = 0; dir < 4; dir++)
+    {
+        to = from->neigh[dir];
+        if (!to->isWater)
+        {
+            to->isMarked = from->isMarked + 1;
+            open.push(to);
+            changed.push(to);
+            where.push(dir);
+        }
+    }
+
+    while (!open.empty())
+    {
+        f = open.front();
+        int d = where.front();
+        open.pop();
+        where.pop();
+
+        if (f->isBorder)
+        {
+            f->isBorder = false;
+            /** Side-effect to borderTiles vector. */
+            state.borderTiles.pop_back();
+            rez = d;
+            break;
+        }
+
+        for (int dir = 0; dir < 4; dir++)
+        {
+            to = f->neigh[dir];
+
+            if (!to->isWater && to->isMarked == -1)
+            {
+                to->isMarked = f->isMarked + 1;
+                to->foodIndex = f->foodIndex;
+                open.push(to);
+                changed.push(to);
+                where.push(d);
+            }
+        }
+    }
+
+    while (!changed.empty())
+    {
+        f = changed.front();
+        f->isMarked = -1;
+        changed.pop();
+    }
+
+    return rez;
+}
 void Bot::gatherFood()
 {
     std::list<Location> squares;
@@ -107,7 +243,7 @@ void Bot::gatherFood()
     Square *f,*t;
 
     int nr = 0;
-    for (unsigned int i = 0; i < state.food.size(); i++)
+    for (unsigned i = 0; i < state.food.size(); i++)
         if (state.grid[state.food[i].row][state.food[i].col].exploreIndex == 0)
         {
             state.grid[state.food[i].row][state.food[i].col].isMarked = 0;
@@ -166,7 +302,7 @@ void Bot::gatherFood()
 
 void Bot::explore()
 {
-    for (unsigned int ant = 0; ant < jobs.size(); ant++)
+    for (unsigned ant = 0; ant < jobs.size(); ant++)
         if (jobs[ant] == -1)
         {
             int dir = -1;
@@ -244,10 +380,14 @@ void Bot::areas()
                     if (!state.grid[i][j].neigh[dir]->isWater)
                         nr++;
             if (nr > 0)
+            {
+                state.grid[i][j].isBorder = true;
                 state.borderTiles.push_back(&state.grid[i][j]);
+            }
         }
-
+//#if 0
     /** Print some debug information. */
+#if 0
     for (int i = 0; i < gparam::mapRows; i++)
     {
         for (int j = 0; j < gparam::mapCols; j++)
@@ -255,6 +395,7 @@ void Bot::areas()
         LOG("");
     }
     LOG("");
+#endif
     for (int i = 0; i < gparam::mapRows; i++)
     {
         for (int j = 0; j < gparam::mapCols; j++)
@@ -265,11 +406,7 @@ void Bot::areas()
                     LOG_NEOLN(".");
                 else
                 {
-                    bool contains = false;
-                    for (unsigned u = 0; u < state.borderTiles.size(); u++)
-                        if (state.borderTiles[u]->x == i && state.borderTiles[u]->y == j)
-                            contains = true;
-                    if (contains)
+                    if (state.grid[i][j].isBorder)
                         LOG_NEOLN("O");
                     else
                     {
@@ -282,7 +419,7 @@ void Bot::areas()
         LOG("");
     }
     LOG("");
-
+//#endif
     /** Reset changed information. */
     while (!changed.empty())
     {

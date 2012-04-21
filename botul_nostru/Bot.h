@@ -17,6 +17,7 @@
 #define BOT_H_
 
 #include <queue>
+#include <algorithm>
 
 #include "State.h"
 
@@ -48,8 +49,17 @@ class Bot
         /** Tries to hunt enemy hills. */
         void huntHills();
 
+        /** Move free ants to the border. */
+        void toBorder();
+        
+        /** Move free ants to the border. */
+        void toBorder2();
+
         /** Calculates areas. */
         void areas();
+
+        /** Returns a direction to a border. */
+        int findBorder(Square *from);
 
         /** Indicates to the engine that it has made its moves. */
         void endTurn();
