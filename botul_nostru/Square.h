@@ -15,7 +15,7 @@
 #ifndef SQUARE_H_
 #define SQUARE_H_
 
-// Local includes
+#include <vector>
 
 #include "global.h"
 #include "Logging.h"
@@ -26,6 +26,7 @@ class Square
 {
 
 public:
+    /** Coordinates of the square. */
     int x;
     int y;
     bool isVisible;
@@ -39,12 +40,16 @@ public:
     int myAntNumber;
     int exploreIndex;
     int foodIndex;
+    /** Markers needed for A*. */
     int f,g,h,dir;
+
+    /** Links to neighbours. */
+    std::vector<Square *> neigh;
 
     /** Constructor. */
     Square(int a, int b);
 
-    /** Resets the information for the square except water information. */
+    /** Resets some information for the square. */
     void reset();
 };
 

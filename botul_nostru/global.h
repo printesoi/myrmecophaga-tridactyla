@@ -26,7 +26,7 @@ namespace gparam {
 
 /** Number of rows and columns of the map. */
 extern int mapRows;
-extern int mapColumns;
+extern int mapCols;
 
 /** Number of players on the map. */
 extern int numberPlayers;

@@ -29,9 +29,9 @@ Location Location::move(int dir)
         if (rez.row == gparam::mapRows)
             rez.row = 0;
     if (rez.col < 0)
-        rez.col += gparam::mapColumns;
+        rez.col += gparam::mapCols;
     else
-        if (rez.col == gparam::mapColumns)
+        if (rez.col == gparam::mapCols)
             rez.col = 0;
     return rez;
 }
@@ -45,9 +45,9 @@ Location Location::move(int x,int y)
         if (rez.row == gparam::mapRows)
             rez.row = 0;
     if (rez.col < 0)
-        rez.col += gparam::mapColumns;
+        rez.col += gparam::mapCols;
     else
-        if (rez.col == gparam::mapColumns)
+        if (rez.col == gparam::mapCols)
             rez.col = 0;
     return rez;
 }

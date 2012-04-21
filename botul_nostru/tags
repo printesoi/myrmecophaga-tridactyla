@@ -16,7 +16,7 @@ EAST	global.h	/^const int EAST = 1;$/;"	v
 EXECUTABLE	Makefile	/^EXECUTABLE=bin\/MyBot$/;"	m
 GLOBAL_H_	global.h	16;"	d
 GPARAM_H_	global.cpp	16;"	d	file:
-LDFLAGS	Makefile	/^LDFLAGS=-lm -std=c++0x$/;"	m
+LDFLAGS	Makefile	/^LDFLAGS=-O2 -lm -std=c++0x$/;"	m
 LOCATION_H_	Location.h	2;"	d
 LOG	Logging.h	30;"	d
 LOG	Logging.h	36;"	d
@@ -47,6 +47,7 @@ WEST	global.h	/^const int WEST = 3;$/;"	v
 antPlayer	Square.h	/^    int antPlayer;$/;"	m	class:Square
 areas	Bot.cpp	/^void Bot::areas()$/;"	f	class:Bot
 attackRadius	global.cpp	/^double attackRadius;$/;"	m	namespace:gparam	file:
+borderTiles	State.h	/^    std::vector<Square *> borderTiles;$/;"	m	class:State
 col	Location.h	/^    int col;$/;"	m	class:Location
 currentTime	Timer.h	/^    clock_t startTime, currentTime;$/;"	m	struct:Timer
 currentTime	Timer.h	/^    double startTime, currentTime;$/;"	m	struct:Timer
@@ -75,6 +76,8 @@ grid	State.h	/^    std::vector<std::vector<Square> > grid;$/;"	m	class:State
 h	Square.h	/^    int f,g,h,dir;$/;"	m	class:Square
 hillPlayer	Square.h	/^    int hillPlayer;$/;"	m	class:Square
 huntHills	Bot.cpp	/^void Bot::huntHills()$/;"	f	class:Bot
+initGrid	State.cpp	/^void State::initGrid()$/;"	f	class:State
+initNeighbours	State.cpp	/^void State::initNeighbours()$/;"	f	class:State
 initRound	Bot.cpp	/^void Bot::initRound()$/;"	f	class:Bot
 isFood	Square.h	/^    bool isFood;$/;"	m	class:Square
 isHill	Square.h	/^    bool isHill;$/;"	m	class:Square
@@ -86,18 +89,23 @@ loadTime	global.cpp	/^double loadTime;$/;"	m	namespace:gparam	file:
 main	main.cpp	/^int main(int argc, char *argv[])$/;"	f
 makeMoves	Bot.cpp	/^void Bot::makeMoves()$/;"	f	class:Bot
 manhattan	State.cpp	/^int State::manhattan(const Location loc1,const Location loc2)$/;"	f	class:State
-mapColumns	global.cpp	/^int mapColumns;$/;"	m	namespace:gparam	file:
+mapCols	global.cpp	/^int mapCols;$/;"	m	namespace:gparam	file:
 mapRows	global.cpp	/^int mapRows;$/;"	m	namespace:gparam	file:
 mark_explored	State.cpp	/^void State::mark_explored()$/;"	f	class:State
 mark_seen	State.cpp	/^void State::mark_seen(Location ant)$/;"	f	class:State
 mark_visible	State.cpp	/^void State::mark_visible()$/;"	f	class:State
 move	Location.cpp	/^Location Location::move(int dir)$/;"	f	class:Location
 move	Location.cpp	/^Location Location::move(int x,int y)$/;"	f	class:Location
+move	State.cpp	/^Square *State::move(Square *from,int dir)$/;"	f	class:State
 myAntNumber	Square.h	/^    int myAntNumber;$/;"	m	class:Square
 myAnts	State.h	/^    std::vector<Location> myAnts;$/;"	m	class:State
 myAntsNew	State.h	/^    std::vector<Square *> myAntsNew;$/;"	m	class:State
 myHills	State.h	/^    std::vector<Location> myHills;$/;"	m	class:State
 myHillsNew	State.h	/^    std::vector<Square *> myHillsNew;$/;"	m	class:State
+n0	Square.h	/^    Square *n0,*n1,*n2,*n3;$/;"	m	class:Square
+n1	Square.h	/^    Square *n0,*n1,*n2,*n3;$/;"	m	class:Square
+n2	Square.h	/^    Square *n0,*n1,*n2,*n3;$/;"	m	class:Square
+n3	Square.h	/^    Square *n0,*n1,*n2,*n3;$/;"	m	class:Square
 numberPlayers	global.cpp	/^int numberPlayers;$/;"	m	namespace:gparam	file:
 operator ()	State.h	/^    bool operator() (const Square* a, const Square* b)$/;"	f	class:Compare
 operator ==	Location.cpp	/^bool Location::operator == (Location param)$/;"	f	class:Location

@@ -23,8 +23,16 @@ void State::reset()
     enemyHills.clear();
     food.clear();
 
+    myAntsNew.clear();
+    myHillsNew.clear();
+    enemyAntsNew.clear();
+    enemyHillsNew.clear();
+    foodNew.clear();
+
+    borderTiles.clear();
+
     for(int row = 0; row < gparam::mapRows; row++)
-        for(int col = 0; col < gparam::mapColumns; col++)
+        for(int col = 0; col < gparam::mapCols; col++)
             grid[row][col].reset();
 }
 
@@ -51,9 +59,9 @@ int State::manhattan(const Location loc1,const Location loc2)
     min = loc2.col - loc1.col;
     max = loc1.col - loc2.col;
     if (min < 0)
-        min += gparam::mapColumns;
+        min += gparam::mapCols;
     else
-        max += gparam::mapColumns;
+        max += gparam::mapCols;
     if (min < max)
         rez += min;
     else
@@ -70,7 +78,7 @@ double State::distance(const Location loc1,const Location loc2)
     int d22 = loc1.col - loc2.col;
     int d2 = d22 < 0 ? -d22 : d22;
     int dr = d1 < (gparam::mapRows - d1) ? d1 : (gparam::mapRows - d1);
-    int dc = d2 < (gparam::mapColumns - d2) ? d2 : (gparam::mapColumns - d2);
+    int dc = d2 < (gparam::mapCols - d2) ? d2 : (gparam::mapCols - d2);
     return dr*dr + dc*dc;
 }
 
@@ -359,28 +367,47 @@ int State::Astar(Location from,Location to)
     return rez;
 }
 
-/** Returns a pointer to a neighbour square. */
-Square *State::move(Square *from,int dir)
+/** Initializes the grid (map variable). */
+void State::initGrid()
 {
-    if (dir == -1)
-        return from;
-        
-    int xrez = from->x + ROW_DIRECTION[dir];
-    int yrez = from->y + COLUMN_DIRECTION[dir];
+    for (int i = 0; i < gparam::mapRows; i++)
+    {
+        grid.push_back(std::vector<Square>());
+        for (int j = 0; j < gparam::mapCols; j++)
+            grid[i].push_back(Square(i,j));
+    }
+}
 
-    if (xrez < 0)
-        xrez += gparam::mapRows;
-    else
-        if (xrez == gparam::mapRows)
-            xrez = 0;
-            
-    if (yrez < 0)
-        yrez += gparam::mapColumns;
-    else
-        if (yrez == gparam::mapColumns)
-            yrez = 0;
+/** Initialize the neighbours of the squares in the grid. */
+void State::initNeighbours()
+{
+    /** Initialize n0 neighbour. */
+    for (int i = 0; i < gparam::mapCols; i++)
+        grid[0][i].neigh.push_back(&grid[gparam::mapRows - 1][i]);
+    for (int i = 1; i < gparam::mapRows; i++)
+        for (int j = 0; j < gparam::mapCols; j++)
+            grid[i][j].neigh.push_back(&grid[i - 1][j]);
 
-    return (&grid[xrez][yrez]);
+    /** Initialize n1 neighbour. */
+    for (int i = 0; i < gparam::mapRows; i++)
+        grid[i][gparam::mapCols - 1].neigh.push_back(&grid[i][0]);
+    for (int i = 0; i < gparam::mapRows; i++)
+        for (int j = 0; j < gparam::mapCols - 1; j++)
+            grid[i][j].neigh.push_back(&grid[i][j + 1]);
+
+    /** Initialize n2 neighbour. */
+    for (int i = 0; i < gparam::mapCols; i++)
+        grid[gparam::mapRows - 1][i].neigh.push_back(&grid[0][i]);
+    for (int i = 0; i < gparam::mapRows - 1; i++)
+        for (int j = 0; j < gparam::mapCols; j++)
+            grid[i][j].neigh.push_back(&grid[i + 1][j]);
+
+    /** Initialize n3 neighbour. */
+    for (int i = 0; i < gparam::mapRows; i++)
+        grid[i][0].neigh.push_back(&grid[i][gparam::mapCols - 1]);
+    for (int i = 0; i < gparam::mapRows; i++)
+        for (int j = 1; j < gparam::mapCols; j++)
+            grid[i][j].neigh.push_back(&grid[i][j - 1]);
 }
 
 /* Input functions. */
@@ -427,7 +454,10 @@ std::istream& operator>>(std::istream &is,State &state)
             }
             else if (inputType == "cols")
             {
-                is >> gparam::mapColumns;
+                is >> gparam::mapCols;
+                /** Initialize the grid. */
+                state.initGrid();
+                state.initNeighbours();
             }
             else if (inputType == "turns")
             {

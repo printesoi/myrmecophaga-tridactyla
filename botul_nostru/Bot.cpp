@@ -220,7 +220,7 @@ void Bot::areas()
 
         for (int dir = 0; dir < 4; dir++)
         {
-            t = state.move(f,dir);
+            t = f->neigh[dir];
 
             if (!t->isWater && t->isMarked == -1)
             {
@@ -233,18 +233,57 @@ void Bot::areas()
             }
         }
     }
-    for (unsigned i = 0; i < 39; i++)
+
+    /** Calculate the border tiles. */
+    for (int i = 0; i < gparam::mapRows; i++)
+        for (int j = 0; j < gparam::mapCols; j++)
+        {
+            int nr = 0;
+            for (int dir = 0; dir < 4; dir++)
+                if (state.grid[i][j].neigh[dir]->isMarked < 0)
+                    if (!state.grid[i][j].neigh[dir]->isWater)
+                        nr++;
+            if (nr > 0)
+                state.borderTiles.push_back(&state.grid[i][j]);
+        }
+
+    /** Print some debug information. */
+    for (int i = 0; i < gparam::mapRows; i++)
     {
-        for (unsigned j = 0; j < 39; j++)
+        for (int j = 0; j < gparam::mapCols; j++)
+            LOG_NEOLN(state.grid[i][j].isMarked << "\t");
+        LOG("");
+    }
+    LOG("");
+    for (int i = 0; i < gparam::mapRows; i++)
+    {
+        for (int j = 0; j < gparam::mapCols; j++)
             if (state.grid[i][j].isMarked < -1)
                 LOG_NEOLN("+");
             else
                 if (state.grid[i][j].isMarked == -1)
                     LOG_NEOLN(".");
                 else
-                    LOG_NEOLN("O");
+                {
+                    bool contains = false;
+                    for (unsigned u = 0; u < state.borderTiles.size(); u++)
+                        if (state.borderTiles[u]->x == i && state.borderTiles[u]->y == j)
+                            contains = true;
+                    if (contains)
+                        LOG_NEOLN("O");
+                    else
+                    {
+                        if (state.grid[i][j].isMarked > 0)
+                            LOG_NEOLN(" ");
+                        else
+                            LOG_NEOLN("#");
+                    }
+                }
         LOG("");
     }
+    LOG("");
+
+    /** Reset changed information. */
     while (!changed.empty())
     {
         f = changed.front();

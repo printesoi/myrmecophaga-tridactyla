@@ -27,7 +27,7 @@
 namespace gparam {
 
 int mapRows;
-int mapColumns;
+int mapCols;
 
 int numberPlayers;
 

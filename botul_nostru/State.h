@@ -54,7 +54,7 @@ public:
     /** Score for each of the current players. */
     std::vector<double> scores;
 
-    /** See definition of Square for further details. */
+    /** A matrix that represents the map. */
     std::vector<std::vector<Square> > grid;
 
     std::vector<Location> myAnts;
@@ -68,6 +68,9 @@ public:
     std::vector<Square *> enemyHillsNew;
     std::vector<Square *> foodNew;
 
+    /** A vector that keeps the border tiles. */
+    std::vector<Square *> borderTiles;
+
     /** This could have been global, but there you go... */
     Timer timer;
 
@@ -76,12 +79,6 @@ public:
     {
         gameOver = false;
         currentTurnNumber = 0;
-        for (int i = 0; i < MAXIMUM_MAP_SIZE; ++i)
-        {
-            grid.push_back(std::vector<Square>());
-            for (int j = 0; j < MAXIMUM_MAP_SIZE; ++j)
-                grid[i].push_back(Square(i,j));
-        }
     }
 
     /** Clears non-persistent informatin from the grid after a step. */
@@ -111,8 +108,11 @@ public:
     /** Marks the radius of sight. */
     void mark_seen(Location from);
 
-    /** Returns a pointer to a neighbour square. */
-    Square *move(Square *from,int dir);
+    /** Initialize the grid (the map variable). */
+    void initGrid();
+
+    /** Initialize the neighbours of the squares in the grid. */
+    void initNeighbours();
 };
 
 /** Method that helps do the IO. */
