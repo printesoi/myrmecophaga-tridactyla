@@ -51,7 +51,7 @@ class Bot
 
         /** Move free ants to the border. */
         void toBorder();
-        
+
         /** Move free ants to the border. */
         void toBorder2();
 

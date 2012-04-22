@@ -29,7 +29,7 @@ clean:
 	-rm -f bin/*.o $(EXECUTABLE) *.d debug.txt MylaEtapa1.zip && rm -rf bin/
 
 pack:
-	zip MylaEtapa1.zip *.h *.cpp README Makefile
+	zip MylaEtapa3.zip *.h *.cpp README Makefile
 
 .PHONY: all clean pack
 

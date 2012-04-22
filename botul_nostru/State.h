@@ -33,86 +33,84 @@
 
 class Compare
 {
-
-public:
-
-    bool operator() (const Square* a, const Square* b)
-    {
-        return (a->f > b->f);
-    }
+    public:
+        bool operator() (const Square* a, const Square* b)
+        {
+            return (a->f > b->f);
+        }
 };
 
 class State
 {
 
-public:
-    /** False while we keep playing. */
-    bool gameOver;
+    public:
+        /** False while we keep playing. */
+        bool gameOver;
 
-    int currentTurnNumber;
+        int currentTurnNumber;
 
-    /** Score for each of the current players. */
-    std::vector<double> scores;
+        /** Score for each of the current players. */
+        std::vector<double> scores;
 
-    /** A matrix that represents the map. */
-    std::vector<std::vector<Square> > grid;
+        /** A matrix that represents the map. */
+        std::vector<std::vector<Square> > grid;
 
-    std::vector<Location> myAnts;
-    std::vector<Location> enemyAnts;
-    std::vector<Location> myHills;
-    std::vector<Location> enemyHills;
-    std::vector<Location> food;
-    std::vector<Square *> myAntsNew;
-    std::vector<Square *> enemyAntsNew;
-    std::vector<Square *> myHillsNew;
-    std::vector<Square *> enemyHillsNew;
-    std::vector<Square *> foodNew;
+        std::vector<Location> myAnts;
+        std::vector<Location> enemyAnts;
+        std::vector<Location> myHills;
+        std::vector<Location> enemyHills;
+        std::vector<Location> food;
+        std::vector<Square *> myAntsNew;
+        std::vector<Square *> enemyAntsNew;
+        std::vector<Square *> myHillsNew;
+        std::vector<Square *> enemyHillsNew;
+        std::vector<Square *> foodNew;
 
-    /** A vector that keeps the border tiles. */
-    std::vector<Square *> borderTiles;
+        /** A vector that keeps the border tiles. */
+        std::vector<Square *> borderTiles;
 
-    /** This could have been global, but there you go... */
-    Timer timer;
+        /** This could have been global, but there you go... */
+        Timer timer;
 
-    /** Constructor creates the map proper. */
-    State()
-    {
-        gameOver = false;
-        currentTurnNumber = 0;
-    }
+        /** Constructor creates the map proper. */
+        State()
+        {
+            gameOver = false;
+            currentTurnNumber = 0;
+        }
 
-    /** Clears non-persistent informatin from the grid after a step. */
-    void reset();
+        /** Clears non-persistent informatin from the grid after a step. */
+        void reset();
 
-    /** Marks visible cells. */
-    void mark_visible();
+        /** Marks visible cells. */
+        void mark_visible();
 
-    /** Marks the explored cells. */
-    void mark_explored();
+        /** Marks the explored cells. */
+        void mark_explored();
 
-    /** Calculates the unexplored index. */
-    int unexplored_index(Location from);
+        /** Calculates the unexplored index. */
+        int unexplored_index(Location from);
 
-    /** This is just square of Euclid distance. */
-    double distance(const Location loc1, const Location loc2);
+        /** This is just square of Euclid distance. */
+        double distance(const Location loc1, const Location loc2);
 
-    /** This is just Manhattan distance. */
-    int manhattan (const Location loc1, const Location loc2);
+        /** This is just Manhattan distance. */
+        int manhattan (const Location loc1, const Location loc2);
 
-    /** Return the square that a location points to. */
-    Square* square(const Location loc);
+        /** Return the square that a location points to. */
+        Square* square(const Location loc);
 
-    /** A* algorithm. */
-    int Astar(Location from, Location to);
+        /** A* algorithm. */
+        int Astar(Location from, Location to);
 
-    /** Marks the radius of sight. */
-    void mark_seen(Location from);
+        /** Marks the radius of sight. */
+        void mark_seen(Location from);
 
-    /** Initialize the grid (the map variable). */
-    void initGrid();
+        /** Initialize the grid (the map variable). */
+        void initGrid();
 
-    /** Initialize the neighbours of the squares in the grid. */
-    void initNeighbours();
+        /** Initialize the neighbours of the squares in the grid. */
+        void initNeighbours();
 };
 
 /** Method that helps do the IO. */

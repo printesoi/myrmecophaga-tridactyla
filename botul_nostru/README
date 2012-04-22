@@ -5,12 +5,15 @@ README pentru botul "Myrmecophaga tridactyla" [prescurtat Myla], proiect PA.
 =======
 Echipa:
     Vladimir Cernov     323CC
-    Victor Dodon         325CC
+    Victor Dodon        325CC
     Vicu Straticiuc     325CC
-    Vitalie Maldur         324CC
+    Vitalie Maldur      324CC
 
 Sistem de operare folosit:
-     Linux (Ubuntu, Xubuntu, Archlinux)
+    Linux (Ubuntu, Xubuntu, Archlinux, Lubuntu, Fedora)
+
+Compilator folosit:
+    g++ 4.6.x
 
 Mod de compilare:
     $ make
@@ -20,10 +23,64 @@ contine fisierele obiect si executabilul "MyBot".
 
 
 
-========================== Etapa2 ============================
+========================== Etapa3 ============================
+
 
 Task:
-	De adaugat botul un mecanism de a cuceri un mecanism.
+    De facut botul mai puternic decat botul etapei 3.
+
+Changelog:
+    
+    * Am introdus notiunea de borders
+    * Noii algoritmi de BFS nu mai folosesc clasa Location
+    * Noii algoritmi de BFS folosesc "queue" in loc "list" pentru coada
+    * Added areas() function
+    * Added findBorder() function
+    * Added toBorder() function
+
+Descrierea rezolvarii:
+
+        Practic, cele 3 functii noi adaugate sunt reprezinta o implementare (si
+    un comportament al botului) a notiunii de "borders". Terenul de lupta
+    trebuie impartit in zone clare: ocupate de noi, sau ocupate de adversar.
+        Aceste zone sunt calculate de functia areas(). De fapt, este pornit un
+    BFS de la fiecare furnica proprie, cu raza egala cu dublul VIEW_RADIUS.
+    Zona astfel marcata reprezinta teritoriul propriu.
+        In acelasi timp, este pornit un BFS si din locatiile furnicilor adverse.
+    Astfel, zonele (proprie si adversa) se extind simultan. Evident, in acest
+    caz campurile din grid la care se va termina BFS-ul vor fi situate la
+    distanta egala de furnicile proprii si adverse.
+    
+        Urmatorul pas, si schimbarea majora fata de etapa 2, este faptul ca
+    acum, exista ceva cu adevarat util cu care sa se ocupe furnicile ramase fara
+    lucru: indreptarea catre marginea teritoriului propriu: toBorder.
+        O furnica proprie ramasa fara job va cauta cea mai apropiata borderTile
+    prin findBorder, si prin toBorder se va indrepta catre ea.
+    
+        In consecinta, chiar daca botul nostru va pierde un numar anumit de
+    furnici intr-un mod "not very wise", acest comportament tinde sa "sugrume"
+    adversarul, micsorandu-i teritoriul ocupat.
+        Micsorarea teritoriul advers va duce la marirea teritoriul propriu, si
+    la dezvoltarea mai buna a botului nostru.
+
+Observatii:
+    *
+        A mai ramas de inlocuit si in ceilalti algoritmi de BFS list cu queue.
+    *
+        A mai ramas de modificat si ceilalti algoritmi de BFS, astfel incat
+    acestia sa nu mai foloseasca clasa Location.
+    *
+        Avem idei foarte bune pentru etapa 4, insa ele vor avea ca baza botul
+    etapei 3 (adica ceea ce a fost scris pana acum se va modifica foarte putin
+    ca mod de functionalitate).
+    
+
+
+========================== Etapa2 ============================
+
+
+Task:
+	De facut botul mai puternic decat botul etapei 2.
 
 Changelog:
 
@@ -134,12 +191,15 @@ complexitatile celor mai importante functii ale noastre.
 	Asadar, lista de algoritmi si functii folosite:
 
 	BFS:			O(VIEW_RADIUS)
-	Astar:			O(n * m * log(n * m))
+	Astar:			O(n * m)
 
-	mark_explored:	O(VIEW_RADIUS)
+	mark_explored	O(VIEW_RADIUS)
 	explore			O(Ants * VIEW_RADIUS)
 	gather_food		O(Ants * VIEW_RADIUS)
-	huntHills		O(Ants * n * m * log(n * m))
+	huntHills		O(freeAnts * n * m)
+    areas           O(max((4 * VIEW_RADIUS),n * m))
+    toBorder        O(n * m)
+    findBorder      O(Ants * n * m)
 
 	unde:
 
@@ -147,6 +207,7 @@ complexitatile celor mai importante functii ale noastre.
 		m - numarul de coloane din grid
 		VIEW_RADIUS - raza de vizibilitate
 		Ants - numarul furnicilor proprii
+        freeAnts - numarul furnicilor proprii libere
 
 
 
@@ -157,6 +218,12 @@ Contributii:
     Toata echipa:	Idei, propuneri, rezolvari, analiza.
 					Stergerea functiilor fara "viitor".
 
+    Vladimir Cernov:    areas() function.
+    Vicu Straticiuc:    findBorder() function
+    Vitalie Maldur:     toBorder() function
+    Victor Dodon:       Anumite revizii ale codului.
+                        Scripturi de testare a botului.
+    
 
 	Vladimir Cernov:	Fixarea algoritmului A*.
 	Vicu Straticiuc:	Exprimarea complexitatii algoritmilor.

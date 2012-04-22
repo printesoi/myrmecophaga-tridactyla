@@ -33,7 +33,7 @@ void Bot::playGame()
         gatherFood();
         explore();
         areas();
-        toBorder2();
+        toBorder();
         huntHills();
         makeMoves();
 
@@ -75,10 +75,12 @@ void Bot::makeMoves()
         {
             /* Move ant. */
             state.grid[newLocation.row][newLocation.col].antPlayer = 0;
-            state.grid[state.myAnts[ant].row][state.myAnts[ant].col].antPlayer = -1;
+            state.grid[state.myAnts[ant].row][state.myAnts[ant].col].antPlayer
+                = -1;
             /* Outputs move information correctly to the engine. */
             std::cout << "o" << " " << state.myAnts[ant].row << " " <<
-                state.myAnts[ant].col << " " << DIRECTION_LETTER[direction] << std::endl;
+                state.myAnts[ant].col << " " << DIRECTION_LETTER[direction] <<
+                std::endl;
         }
     }
 }
@@ -98,70 +100,6 @@ void Bot::endTurn()
 
 /** Move free ants to the border. */
 void Bot::toBorder()
-{
-    std::queue<Square *> squares;
-    std::queue<Square *> changed;
-    std::vector<bool> active;
-
-    Square *f,*t;
-
-    int nr = 0;
-    for (unsigned i = 0; i < state.borderTiles.size(); i++)
-    {
-        state.grid[state.borderTiles[i]->x][state.borderTiles[i]->y].isMarked = 0;
-        state.grid[state.borderTiles[i]->x][state.borderTiles[i]->y].foodIndex = nr++;
-        changed.push(state.borderTiles[i]);
-        squares.push(state.borderTiles[i]);
-        active.push_back(true);
-    }
-
-    while (squares.size())
-    {
-        f = squares.front();
-        squares.pop();
-
-        if (f->isMarked > 2 * VIEW_RADIUS) //TODO check 2 * view_radius
-            break;
-
-        if (!active[f->foodIndex])
-            continue;
-
-        for (int dir = 0; dir < 4; dir++)
-        {
-            t = f->neigh[dir];
-
-            if (t->antPlayer == 0)
-                if (jobs[t->myAntNumber] == -1)
-                {
-                    LOG("Am gasit o furnica");
-                    active[f->foodIndex] = false;
-                    if (dir + 2 > 3)
-                        jobs[t->myAntNumber] = dir - 2;
-                    else
-                        jobs[t->myAntNumber] = dir + 2;
-                }
-
-            if (!t->isWater && t->isMarked == -1)
-            {
-                t->isMarked = f->isMarked + 1;
-                t->foodIndex = f->foodIndex;
-                changed.push(t);
-                squares.push(t);
-            }
-        }
-    }
-
-    while (changed.size())
-    {
-        f = changed.front();
-        f->isMarked = -1;
-        f->foodIndex = -1;
-        changed.pop();
-    }
-}
-
-/** Move free ants to the border. */
-void Bot::toBorder2()
 {
     for (unsigned ant = 0; ant < state.myAntsNew.size(); ++ant)
         if (jobs[ant] == -1 && state.borderTiles.size() > 0)
@@ -233,6 +171,8 @@ int Bot::findBorder(Square *from)
 
     return rez;
 }
+
+/** Move around and get some food. */
 void Bot::gatherFood()
 {
     std::list<Location> squares;
@@ -304,6 +244,7 @@ void Bot::gatherFood()
     }
 }
 
+/** Move around to unexplored tiles. */
 void Bot::explore()
 {
     for (unsigned ant = 0; ant < jobs.size(); ant++)
@@ -329,6 +270,7 @@ void Bot::explore()
         }
 }
 
+/** Calculates the borders of own ants area. */
 void Bot::areas()
 {
     std::queue<Square *> squares;
@@ -389,41 +331,7 @@ void Bot::areas()
                 state.borderTiles.push_back(&state.grid[i][j]);
             }
         }
-//#if 0
-    /** Print some debug information. */
-#if 0
-    for (int i = 0; i < gparam::mapRows; i++)
-    {
-        for (int j = 0; j < gparam::mapCols; j++)
-            LOG_NEOLN(state.grid[i][j].isMarked << "\t");
-        LOG("");
-    }
-    LOG("");
-#endif
-    for (int i = 0; i < gparam::mapRows; i++)
-    {
-        for (int j = 0; j < gparam::mapCols; j++)
-            if (state.grid[i][j].isMarked < -1)
-                LOG_NEOLN("+");
-            else
-                if (state.grid[i][j].isMarked == -1)
-                    LOG_NEOLN(".");
-                else
-                {
-                    if (state.grid[i][j].isBorder)
-                        LOG_NEOLN("O");
-                    else
-                    {
-                        if (state.grid[i][j].isMarked > 0)
-                            LOG_NEOLN(" ");
-                        else
-                            LOG_NEOLN("#");
-                    }
-                }
-        LOG("");
-    }
-    LOG("");
-//#endif
+
     /** Reset changed information. */
     while (!changed.empty())
     {

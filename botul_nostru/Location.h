@@ -6,31 +6,30 @@
 
 class Location
 {
+    public:
+        int row;
+        int col;
 
-public:
-    int row;
-    int col;
+        Location()
+        {
+            row = col = 0;
+        }
 
-    Location()
+        Location(int row, int col) : row(row), col(col)
     {
-        row = col = 0;
     }
 
-    Location(int row, int col) : row(row), col(col)
-    {
-    }
+        Location(Square s)
+        {
+            row = s.x;
+            col = s.y;
+        }
 
-    Location(Square s)
-    {
-        row = s.x;
-        col = s.y;
-    }
+        bool operator == (Location);
 
-    bool operator == (Location);
+        Location move(int dir);
 
-    Location move(int dir);
-
-    Location move(int x,int y);
+        Location move(int x,int y);
 };
 
 #endif
