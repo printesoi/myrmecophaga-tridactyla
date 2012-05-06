@@ -1,4 +1,4 @@
-README pentru botul "Myrmecophaga tridactyla" [prescurtat Myla], proiect PA.
+README pentru botul "Myrmecophaga tridactyla" [a.k.a. Myla], proiect PA.
 
 
 
@@ -191,12 +191,12 @@ complexitatile celor mai importante functii ale noastre.
     Asadar, lista de algoritmi si functii folosite:
 
     BFS:            O(VIEW_RADIUS)
-    Astar:            O(n * m)
+    Astar:          O(n * m)
 
-    mark_explored    O(VIEW_RADIUS)
-    explore            O(Ants * VIEW_RADIUS)
-    gather_food        O(Ants * VIEW_RADIUS)
-    huntHills        O(freeAnts * n * m)
+    mark_explored   O(VIEW_RADIUS)
+    explore         O(Ants * VIEW_RADIUS)
+    gather_food     O(Ants * VIEW_RADIUS)
+    huntHills       O(freeAnts * n * m)
     areas           O(max((4 * VIEW_RADIUS),n * m))
     toBorder        O(n * m)
     findBorder      O(Ants * n * m)
