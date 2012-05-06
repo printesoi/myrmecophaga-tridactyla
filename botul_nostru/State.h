@@ -27,9 +27,9 @@
 #include <cmath>
 #include <vector>
 #include <functional>
+#include <queue>
 
 #include "Square.h"
-#include "Location.h"
 
 class Compare
 {
@@ -55,11 +55,6 @@ class State
         /** A matrix that represents the map. */
         std::vector<std::vector<Square> > grid;
 
-        std::vector<Location> myAnts;
-        std::vector<Location> enemyAnts;
-        std::vector<Location> myHills;
-        std::vector<Location> enemyHills;
-        std::vector<Location> food;
         std::vector<Square *> myAntsNew;
         std::vector<Square *> enemyAntsNew;
         std::vector<Square *> myHillsNew;
@@ -89,22 +84,13 @@ class State
         void mark_explored();
 
         /** Calculates the unexplored index. */
-        int unexplored_index(Location from);
-
-        /** This is just square of Euclid distance. */
-        double distance(const Location loc1, const Location loc2);
+        int unexplored_index(Square *from);
 
         /** This is just Manhattan distance. */
-        int manhattan (const Location loc1, const Location loc2);
-
-        /** Return the square that a location points to. */
-        Square* square(const Location loc);
+        int manhattan (Square *loc1, Square *loc2);
 
         /** A* algorithm. */
-        int Astar(Location from, Location to);
-
-        /** Marks the radius of sight. */
-        void mark_seen(Location from);
+        int Astar(Square *from, Square *to);
 
         /** Initialize the grid (the map variable). */
         void initGrid();

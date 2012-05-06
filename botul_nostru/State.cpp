@@ -17,12 +17,6 @@
 /* Resets all non-water squares to land and clears the bots ant vector. */
 void State::reset()
 {
-    myAnts.clear();
-    myHills.clear();
-    enemyAnts.clear();
-    enemyHills.clear();
-    food.clear();
-
     myAntsNew.clear();
     myHillsNew.clear();
     enemyAntsNew.clear();
@@ -36,17 +30,12 @@ void State::reset()
             grid[row][col].reset();
 }
 
-Square *State::square(const Location loc)
-{
-    return &grid[loc.row][loc.col];
-}
-
 /* Returns the Manhattan distance between two locations. */
-int State::manhattan(const Location loc1,const Location loc2)
+int State::manhattan(Square *loc1,Square *loc2)
 {
     int rez = 0,
-        min = loc2.row - loc1.row,
-        max = loc1.row - loc2.row;
+        min = loc2->x - loc1->x,
+        max = loc1->x - loc2->x;
     if (min < 0)
         min += gparam::mapRows;
     else
@@ -56,8 +45,8 @@ int State::manhattan(const Location loc1,const Location loc2)
     else
         rez += max;
 
-    min = loc2.col - loc1.col;
-    max = loc1.col - loc2.col;
+    min = loc2->y - loc1->y;
+    max = loc1->y - loc2->y;
     if (min < 0)
         min += gparam::mapCols;
     else
@@ -70,84 +59,66 @@ int State::manhattan(const Location loc1,const Location loc2)
     return rez;
 }
 
-/* Returns the square of Euclid distance between two locations. */
-double State::distance(const Location loc1,const Location loc2)
-{
-    int d11 = loc1.row - loc2.row;
-    int d1 = d11 < 0 ? -d11 : d11;
-    int d22 = loc1.col - loc2.col;
-    int d2 = d22 < 0 ? -d22 : d22;
-    int dr = d1 < (gparam::mapRows - d1) ? d1 : (gparam::mapRows - d1);
-    int dc = d2 < (gparam::mapCols - d2) ? d2 : (gparam::mapCols - d2);
-    return dr*dr + dc*dc;
-}
-
 /** Resets the exploreIndex of the "visible" squares to 0. */
 void State::mark_explored()
 {
-    std::list<Location> squares;
-    std::list<Location> changed;
+    std::queue<Square *> open;
+    std::queue<Square *> closed;
 
-    Location x,y;
     Square *f,*t;
-    for (unsigned int ant = 0; ant < myAnts.size(); ant++)
+    for (unsigned int ant = 0; ant < myAntsNew.size(); ant++)
     {
-        grid[myAnts[ant].row][myAnts[ant].col].isMarked = 0;
-        changed.push_back(myAnts[ant]);
-        squares.push_back(myAnts[ant]);
+        myAntsNew[ant]->isMarked = 0;
+        open.push(myAntsNew[ant]);
+        closed.push(myAntsNew[ant]);
     }
-    while (!squares.empty())
+    while (!open.empty())
     {
-        x = squares.front();
-        f = &grid[x.row][x.col];
-        squares.pop_front();
+        f = open.front();
+        open.pop();
 
         if (f->isMarked == VIEW_RADIUS)
             break;
 
         for (int dir = 0; dir < 4; dir++)
         {
-            y = x.move(dir);
-            t = &grid[y.row][y.col];
+            t = f->neigh[dir];
 
             if (!t->isWater && t->isMarked == -1)
             {
                 t->isMarked = f->isMarked + 1;
-                changed.push_back(y);
-                squares.push_back(y);
+                open.push(t);
+                closed.push(t);
             }
         }
     }
-    while (!changed.empty())
+    while (!closed.empty())
     {
-        x = changed.front();
-        f = &grid[x.row][x.col];
+        f = closed.front();
         f->isMarked = -1;
         f->exploreIndex = 0;
-        changed.pop_front();
+        closed.pop();
     }
 }
 
 /** Calculates a sum which represents a fog indicator. */
-int State::unexplored_index(Location from)
+int State::unexplored_index(Square *from)
 {
-    std::list<Location> squares;
-    std::list<Location> changed;
+    std::queue<Square *> squares;
+    std::queue<Square *> changed;
 
-    Location x,y;
     Square *f,*t;
 
     int rez = 0;
 
-    grid[from.row][from.col].isMarked = 0;
-    changed.push_back(from);
-    squares.push_back(from);
+    from->isMarked = 0;
+    changed.push(from);
+    squares.push(from);
 
     while (!squares.empty())
     {
-        x = squares.front();
-        f = &grid[x.row][x.col];
-        squares.pop_front();
+        f = squares.front();
+        squares.pop();
 
         if (f->isMarked == VIEW_RADIUS)
         {
@@ -157,49 +128,46 @@ int State::unexplored_index(Location from)
 
         for (int dir = 0; dir < 4; dir++)
         {
-            y = x.move(dir);
-            t = &grid[y.row][y.col];
+            t = f->neigh[dir];
 
             if (!t->isWater && t->isMarked == -1)
             {
                 t->isMarked = f->isMarked + 1;
-                changed.push_back(y);
-                squares.push_back(y);
+                changed.push(t);
+                squares.push(t);
             }
         }
     }
 
     while (!squares.empty())
     {
-        x = squares.front();
-        f = &grid[x.row][x.col];
+        f = squares.front();
         rez += f->exploreIndex;
-        squares.pop_front();
+        squares.pop();
     }
 
     while (!changed.empty())
     {
-        x = changed.front();
-        f = &grid[x.row][x.col];
+        f = changed.front();
         f->isMarked = -1;
-        changed.pop_front();
+        changed.pop();
     }
 
     return rez;
 }
 
 /* The A* algorithm. */
-int State::Astar(Location from,Location to)
+int State::Astar(Square *from,Square *to)
 {
-    std::vector<Square*> open;
-    std::list<Square*> changed;
+    std::vector<Square *> open;
+    std::list<Square *> changed;
 
     int tentative_g_score;
     bool tentative_is_better;
 
-    Location curr = from;
+    Square *curr = from;
 
-    Square *fr = square(curr),*cu,*ne;
+    Square *fr = curr,*cu,*ne;
     fr->g = 0;
     fr->h = manhattan(from,to);
     fr->f = fr->g + fr->h;
@@ -214,7 +182,7 @@ int State::Astar(Location from,Location to)
         make_heap(open.begin(),open.end(),Compare());
         cu = open[0];
 
-        if (Location(*cu) == to)
+        if (cu->x == to->x && cu->y == to->y)
             break;
 
         pop_heap(open.begin(),open.end(),Compare());
@@ -223,7 +191,7 @@ int State::Astar(Location from,Location to)
         cu->isMarked = -2;
         for (int dir = 0; dir < 4; dir++)
         {
-            ne = square(Location(*cu).move(dir));
+            ne = cu->neigh[dir];
             if (ne->isMarked == -2 || ne->isWater)
                 continue;
 
@@ -232,7 +200,7 @@ int State::Astar(Location from,Location to)
             if (ne->isMarked == -1)
             {
                 ne->isMarked = 0;
-                ne->h = manhattan(Location(*ne),to);
+                ne->h = manhattan(ne,to);
 
                 changed.push_back(ne);
                 open.push_back(ne);
@@ -254,11 +222,11 @@ int State::Astar(Location from,Location to)
 
     int rez = -1;
 
-    cu = square(to);
+    cu = to;
     while (cu->dir != -1)
     {
         rez = (cu->dir + 2) > 3 ? cu->dir - 2 : cu->dir + 2;
-        cu = square(Location(*cu).move(cu->dir));
+        cu = cu->neigh[cu->dir];
     }
 
     while (!changed.empty())
@@ -417,7 +385,6 @@ std::istream& operator>>(std::istream &is,State &state)
                 /* Food square. */
                 is >> row >> col;
                 state.grid[row][col].isFood = 1;
-                state.food.push_back(Location(row,col));
                 state.foodNew.push_back(&state.grid[row][col]);
             }
             else if (inputType == "a")
@@ -427,13 +394,11 @@ std::istream& operator>>(std::istream &is,State &state)
                 state.grid[row][col].antPlayer = player;
                 if (player == 0)
                 {
-                    state.grid[row][col].myAntNumber = state.myAnts.size();
-                    state.myAnts.push_back(Location(row,col));
+                    state.grid[row][col].myAntNumber = state.myAntsNew.size();
                     state.myAntsNew.push_back(&state.grid[row][col]);
                 }
                 else
                 {
-                    state.enemyAnts.push_back(Location(row,col));
                     state.enemyAntsNew.push_back(&state.grid[row][col]);
                 }
             }
@@ -450,12 +415,10 @@ std::istream& operator>>(std::istream &is,State &state)
                 state.grid[row][col].hillPlayer = player;
                 if (player == 0)
                 {
-                    state.myHills.push_back(Location(row,col));
                     state.myHillsNew.push_back(&state.grid[row][col]);
                 }
                 else
                 {
-                    state.enemyHills.push_back(Location(row,col));
                     state.enemyHillsNew.push_back(&state.grid[row][col]);
                 }
             }
