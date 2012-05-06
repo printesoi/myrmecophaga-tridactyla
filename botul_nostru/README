@@ -80,44 +80,44 @@ Observatii:
 
 
 Task:
-	De facut botul mai puternic decat botul etapei 2.
+    De facut botul mai puternic decat botul etapei 2.
 
 Changelog:
 
-	* Am fixat algoritmul Astar, acum acesta functioneaza foarte bine.
-	* Am eliminat niste mecanisme de la prima etapa:
-		- O functie greoaie folosita pentru explorare
-		- O functie greoaie folosita pentru atac
-		(Ambele bazate pe BFS)
-	* Am adus imbunatiri la coding style (multumim Adrian !)
-		- am eliminat "trailing whitespace"
-		- am introdus un singur tip de comentarii
-		- am eliminat functia hard-codata urat
-		- am trunchiat si sursele la 80 caractere (erau trunchiate la 100)
-	* In proces de a elimina clasa Location.h
-	* Am eliminat memory-leaks
+    * Am fixat algoritmul Astar, acum acesta functioneaza foarte bine.
+    * Am eliminat niste mecanisme de la prima etapa:
+        - O functie greoaie folosita pentru explorare
+        - O functie greoaie folosita pentru atac
+        (Ambele bazate pe BFS)
+    * Am adus imbunatiri la coding style (multumim Adrian !)
+        - am eliminat "trailing whitespace"
+        - am introdus un singur tip de comentarii
+        - am eliminat functia hard-codata urat
+        - am trunchiat si sursele la 80 caractere (erau trunchiate la 100)
+    * In proces de a elimina clasa Location.h
+    * Am eliminat memory-leaks
 
 Descrierea rezolvarii:
 
-		Pornind de la botul cu etapa 1, am eliminat niste functii care erau
-	intr-un fel fortate, si care nu puteau fi dezvoltate in continuare. Nu am
-	pastrat decat modul in care botul se expanda si strangea mancare.
-		Una din partile rele ale etapei 1 era ca ramaneau furnici care nu
-	faceau nimic, si tot ce am facut a fost ca sa folosim Astar pentru a le
-	trimite sa cuceareasca adversarul, in cazul in care acesta este vizibil.
+        Pornind de la botul cu etapa 1, am eliminat niste functii care erau
+    intr-un fel fortate, si care nu puteau fi dezvoltate in continuare. Nu am
+    pastrat decat modul in care botul se expanda si strangea mancare.
+        Una din partile rele ale etapei 1 era ca ramaneau furnici care nu
+    faceau nimic, si tot ce am facut a fost ca sa folosim Astar pentru a le
+    trimite sa cuceareasca adversarul, in cazul in care acesta este vizibil.
 
-		Scopul nostru pentru aceasta etapa este doar sa invingem adversarul,
-	ceea ce se si intampla (chiar daca pe o harta ramanem fara un musuroi). De
-	asemenea, punem bazele unui comportament nou, practic, care va fi folosit
-	in etapa 3 si, bineinteles, etapa 4.
+        Scopul nostru pentru aceasta etapa este doar sa invingem adversarul,
+    ceea ce se si intampla (chiar daca pe o harta ramanem fara un musuroi). De
+    asemenea, punem bazele unui comportament nou, practic, care va fi folosit
+    in etapa 3 si, bineinteles, etapa 4.
 
 Observatii:
-	*
-		Complexitatile pentru toti algoritmii implementati sunt incluse la
-	sfarsitul acestui README la rubrica "Complexitati".
-	*
-		Complexitatea algoritmul Astar nu este optima, o vom face optima in
-	viitor.
+    *
+        Complexitatile pentru toti algoritmii implementati sunt incluse la
+    sfarsitul acestui README la rubrica "Complexitati".
+    *
+        Complexitatea algoritmul Astar nu este optima, o vom face optima in
+    viitor.
 
 
 
@@ -183,30 +183,30 @@ Observatii:
 
 ========================== Complexitati ============================
 
-	In aceasta rubrica sunt incluse complexitatile algoritmilor ce STAU LA BAZA
+    In aceasta rubrica sunt incluse complexitatile algoritmilor ce STAU LA BAZA
 functiilor si procedurilor scrise de noi. Bineinteles, complexitatile sunt cele
 din contextul codului din cadrul proiectului. De asemenea, vom include si
 complexitatile celor mai importante functii ale noastre.
 
-	Asadar, lista de algoritmi si functii folosite:
+    Asadar, lista de algoritmi si functii folosite:
 
-	BFS:			O(VIEW_RADIUS)
-	Astar:			O(n * m)
+    BFS:            O(VIEW_RADIUS)
+    Astar:            O(n * m)
 
-	mark_explored	O(VIEW_RADIUS)
-	explore			O(Ants * VIEW_RADIUS)
-	gather_food		O(Ants * VIEW_RADIUS)
-	huntHills		O(freeAnts * n * m)
+    mark_explored    O(VIEW_RADIUS)
+    explore            O(Ants * VIEW_RADIUS)
+    gather_food        O(Ants * VIEW_RADIUS)
+    huntHills        O(freeAnts * n * m)
     areas           O(max((4 * VIEW_RADIUS),n * m))
     toBorder        O(n * m)
     findBorder      O(Ants * n * m)
 
-	unde:
+    unde:
 
-		n - numarul de linii din grid
-		m - numarul de coloane din grid
-		VIEW_RADIUS - raza de vizibilitate
-		Ants - numarul furnicilor proprii
+        n - numarul de linii din grid
+        m - numarul de coloane din grid
+        VIEW_RADIUS - raza de vizibilitate
+        Ants - numarul furnicilor proprii
         freeAnts - numarul furnicilor proprii libere
 
 
@@ -215,8 +215,8 @@ complexitatile celor mai importante functii ale noastre.
 
 Contributii:
 
-    Toata echipa:	Idei, propuneri, rezolvari, analiza.
-					Stergerea functiilor fara "viitor".
+    Toata echipa:   Idei, propuneri, rezolvari, analiza.
+                    Stergerea functiilor fara "viitor".
 
     Vladimir Cernov:    areas() function.
     Vicu Straticiuc:    findBorder() function
@@ -225,17 +225,17 @@ Contributii:
                         Scripturi de testare a botului.
     
 
-	Vladimir Cernov:	Fixarea algoritmului A*.
-	Vicu Straticiuc:	Exprimarea complexitatii algoritmilor.
-	Vitalie Maldur:		Sugestii in imbunatatirea codului.
-	Victor Dodon:		Scrierea unor scripturi de "curatire" a codului.
+    Vladimir Cernov:    Fixarea algoritmului A*.
+    Vicu Straticiuc:    Exprimarea complexitatii algoritmilor.
+    Vitalie Maldur:     Sugestii in imbunatatirea codului.
+    Victor Dodon:       Scrierea unor scripturi de "curatire" a codului.
 
 
     Vladimir Cernov:    Implementarea algoritmilor de BFS.
     Vicu Straticiuc:    Implementarea algoritmului de mark_visible.
-    Victor Dodon:		Crearea si administrarea repozitoriului git,
-						Makefile, structurarea si modularizarea proiectului.
-    Vitalie Maldur:		Implementarea algoritmului A*.
+    Victor Dodon:       Crearea si administrarea repozitoriului git,
+                        Makefile, structurarea si modularizarea proiectului.
+    Vitalie Maldur:     Implementarea algoritmului A*.
 
 
 
@@ -243,4 +243,4 @@ Resurse folosite:
     http://forums.aichallenge.org
     http://en.wikipedia.org
     http://www.cplusplus.com
-	https://www.google.com
+    https://www.google.com
