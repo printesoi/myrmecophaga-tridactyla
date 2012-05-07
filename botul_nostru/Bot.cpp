@@ -82,6 +82,26 @@ void Bot::makeMoves()
                 std::endl;
         }
     }
+    for (unsigned ant = 0; ant < state.myAntsNew.size(); ++ant)
+    {
+        int direction = jobs[ant];
+        if (direction == -1)
+            direction = rand() % 4;
+
+        Square *newSquare = state.myAntsNew[ant]->neigh[direction];
+        /* Destination shouldn't be water and shouldn't be an ant. */
+        if (!newSquare->isWater && newSquare->antPlayer == -1)
+        {
+            /* Move ant. */
+            newSquare->antPlayer = 0;
+            state.myAntsNew[ant]->antPlayer = -1;
+
+            /* Outputs move information correctly to the engine. */
+            std::cout << "o" << " " << state.myAntsNew[ant]->x << " " <<
+                state.myAntsNew[ant]->y << " " << DIRECTION_LETTER[direction] <<
+                std::endl;
+        }
+    }
 }
 
 void Bot::endTurn()
