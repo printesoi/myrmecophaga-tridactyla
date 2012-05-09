@@ -1,0 +1,113 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+Astar	State.cpp	/^int State::Astar(Square *from,Square *to)$/;"	f	class:State
+BOT_H_	Bot.h	17;"	d
+Bot	Bot.h	/^class Bot$/;"	c
+CC	Makefile	/^CC=g++$/;"	m
+CFLAGS	Makefile	/^CFLAGS=-O3 -funroll-loops -c -Wall -std=c++0x$/;"	m
+COLUMN_DIRECTION	global.h	/^const int COLUMN_DIRECTION[NUMBER_DIRECTIONS] = { 0, 1, 0, -1 };$/;"	v
+Compare	State.h	/^class Compare$/;"	c
+DIRECTION_LETTER	global.h	/^const char DIRECTION_LETTER[NUMBER_DIRECTIONS] = { 'N', 'E', 'S', 'W' };$/;"	v
+EAST	global.h	/^const int EAST = 1;$/;"	v
+EXECUTABLE	Makefile	/^EXECUTABLE=bin\/MyBot$/;"	m
+GLOBAL_H_	global.h	16;"	d
+GPARAM_H_	global.cpp	16;"	d	file:
+LDFLAGS	Makefile	/^LDFLAGS=-O2 -std=c++0x$/;"	m
+LOG	Logging.h	30;"	d
+LOG	Logging.h	36;"	d
+LOGFILENAME	global.cpp	24;"	d	file:
+LOGGING_H_	Logging.h	23;"	d
+LOG_NEOLN	Logging.h	31;"	d
+MAXIMUM_MAP_SIZE	global.h	/^const int MAXIMUM_MAP_SIZE = 200;$/;"	v
+NORTH	global.h	/^const int NORTH = 0;$/;"	v
+NUMBER_DIRECTIONS	global.h	/^const int NUMBER_DIRECTIONS = 4;$/;"	v
+OBJECTS	Makefile	/^OBJECTS=$(addprefix bin\/, $(notdir $(SOURCES:.cpp=.o)))$/;"	m
+ROW_DIRECTION	global.h	/^const int ROW_DIRECTION[NUMBER_DIRECTIONS] = { -1, 0, 1, 0 };$/;"	v
+SOURCES	Makefile	/^SOURCES=$(wildcard *.cpp)$/;"	m
+SOUTH	global.h	/^const int SOUTH = 2;$/;"	v
+SQUARE_H_	Square.h	16;"	d
+STATE_H_	State.h	18;"	d
+Square	Square.cpp	/^Square::Square(int a, int b)$/;"	f	class:Square
+Square	Square.h	/^class Square$/;"	c
+State	State.h	/^        State()$/;"	f	class:State
+State	State.h	/^class State$/;"	c
+TIMER_H_	Timer.h	16;"	d
+Timer	Timer.h	/^struct Timer$/;"	s
+VIEW_RADIUS	global.h	/^const int VIEW_RADIUS = 10;$/;"	v
+WEST	global.h	/^const int WEST = 3;$/;"	v
+antPlayer	Square.h	/^        int antPlayer;$/;"	m	class:Square
+areas	Bot.cpp	/^void Bot::areas()$/;"	f	class:Bot
+attackRadius	global.cpp	/^double attackRadius;$/;"	m	namespace:gparam	file:
+borderTiles	State.h	/^        std::vector<Square *> borderTiles;$/;"	m	class:State
+currentTime	Timer.h	/^    clock_t startTime, currentTime;$/;"	m	struct:Timer
+currentTime	Timer.h	/^    double startTime, currentTime;$/;"	m	struct:Timer
+currentTurnNumber	State.h	/^        int currentTurnNumber;$/;"	m	class:State
+dir	Square.h	/^        int f,g,h,dir;$/;"	m	class:Square
+endTurn	Bot.cpp	/^void Bot::endTurn()$/;"	f	class:Bot
+enemyAntsNew	State.h	/^        std::vector<Square *> enemyAntsNew;$/;"	m	class:State
+enemyHillsNew	State.h	/^        std::vector<Square *> enemyHillsNew;$/;"	m	class:State
+explore	Bot.cpp	/^void Bot::explore()$/;"	f	class:Bot
+exploreIndex	Square.h	/^        int exploreIndex;$/;"	m	class:Square
+f	Square.h	/^        int f,g,h,dir;$/;"	m	class:Square
+findBorder	Bot.cpp	/^int Bot::findBorder(Square *from)$/;"	f	class:Bot
+foodIndex	Square.h	/^        int foodIndex;$/;"	m	class:Square
+foodNew	State.h	/^        std::vector<Square *> foodNew;$/;"	m	class:State
+freeAntsNumber	Bot.cpp	/^int Bot::freeAntsNumber()$/;"	f	class:Bot
+g	Square.h	/^        int f,g,h,dir;$/;"	m	class:Square
+gameOver	State.h	/^        bool gameOver;$/;"	m	class:State
+gatherFood	Bot.cpp	/^void Bot::gatherFood()$/;"	f	class:Bot
+getTime	Timer.h	/^    double getTime()$/;"	f	struct:Timer
+gparam	global.cpp	/^namespace gparam {$/;"	n	file:
+gparam	global.h	/^namespace gparam {$/;"	n
+grid	State.h	/^        std::vector<std::vector<Square> > grid;$/;"	m	class:State
+h	Square.h	/^        int f,g,h,dir;$/;"	m	class:Square
+hillPlayer	Square.h	/^        int hillPlayer;$/;"	m	class:Square
+huntHills	Bot.cpp	/^void Bot::huntHills()$/;"	f	class:Bot
+initGrid	State.cpp	/^void State::initGrid()$/;"	f	class:State
+initNeighbours	State.cpp	/^void State::initNeighbours()$/;"	f	class:State
+initRound	Bot.cpp	/^void Bot::initRound()$/;"	f	class:Bot
+isBorder	Square.h	/^        bool isBorder;$/;"	m	class:Square
+isFood	Square.h	/^        bool isFood;$/;"	m	class:Square
+isHill	Square.h	/^        bool isHill;$/;"	m	class:Square
+isMarked	Square.h	/^        int isMarked;$/;"	m	class:Square
+isVisible	Square.h	/^        bool isVisible;$/;"	m	class:Square
+isWater	Square.h	/^        bool isWater;$/;"	m	class:Square
+jobs	Bot.h	/^        std::vector<int> jobs;$/;"	m	class:Bot
+loadTime	global.cpp	/^double loadTime;$/;"	m	namespace:gparam	file:
+main	main.cpp	/^int main(int argc, char *argv[])$/;"	f
+makeMoves	Bot.cpp	/^void Bot::makeMoves()$/;"	f	class:Bot
+manhattan	State.cpp	/^int State::manhattan(Square *loc1,Square *loc2)$/;"	f	class:State
+mapCols	global.cpp	/^int mapCols;$/;"	m	namespace:gparam	file:
+mapRows	global.cpp	/^int mapRows;$/;"	m	namespace:gparam	file:
+mark_explored	State.cpp	/^void State::mark_explored()$/;"	f	class:State
+myAntNumber	Square.h	/^        int myAntNumber;$/;"	m	class:Square
+myAntsNew	State.h	/^        std::vector<Square *> myAntsNew;$/;"	m	class:State
+myHillsNew	State.h	/^        std::vector<Square *> myHillsNew;$/;"	m	class:State
+neigh	Square.h	/^        std::vector<Square *> neigh;$/;"	m	class:Square
+numberPlayers	global.cpp	/^int numberPlayers;$/;"	m	namespace:gparam	file:
+operator ()	State.h	/^        bool operator() (const Square* a, const Square* b)$/;"	f	class:Compare
+operator >>	State.cpp	/^std::istream& operator>>(std::istream &is,State &state)$/;"	f
+playGame	Bot.cpp	/^void Bot::playGame()$/;"	f	class:Bot
+reset	Square.cpp	/^void Square::reset()$/;"	f	class:Square
+reset	State.cpp	/^void State::reset()$/;"	f	class:State
+scores	State.h	/^        std::vector<double> scores;$/;"	m	class:State
+seed	global.cpp	/^int64_t seed;$/;"	m	namespace:gparam	file:
+seen	Square.h	/^        bool seen;$/;"	m	class:Square
+spawnRadius	global.cpp	/^double spawnRadius;$/;"	m	namespace:gparam	file:
+start	Timer.h	/^    void start()$/;"	f	struct:Timer
+startTime	Timer.h	/^    clock_t startTime, currentTime;$/;"	m	struct:Timer
+startTime	Timer.h	/^    double startTime, currentTime;$/;"	m	struct:Timer
+state	Bot.h	/^        State state;$/;"	m	class:Bot
+timer	State.h	/^        Timer timer;$/;"	m	class:State
+timer	Timer.h	/^    timeval timer;$/;"	m	struct:Timer
+toBorder	Bot.cpp	/^void Bot::toBorder()$/;"	f	class:Bot
+totalTurnsNumber	global.cpp	/^int totalTurnsNumber;$/;"	m	namespace:gparam	file:
+turnTime	global.cpp	/^double turnTime;$/;"	m	namespace:gparam	file:
+unexplored_index	State.cpp	/^int State::unexplored_index(Square *from)$/;"	f	class:State
+viewRadius	global.cpp	/^double viewRadius;$/;"	m	namespace:gparam	file:
+x	Square.h	/^        int x;$/;"	m	class:Square
+y	Square.h	/^        int y;$/;"	m	class:Square

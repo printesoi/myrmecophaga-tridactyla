@@ -20,6 +20,7 @@ Square::Square(int a, int b)
     isVisible = isWater = isHill = isFood = seen = isBorder = false;
     hillPlayer = antPlayer = myAntNumber = isMarked = foodIndex = -1;
     f = g = h = dir = -1;
+    dd = di = 0;
     exploreIndex = 500;
     x = a;
     y = b;
@@ -30,5 +31,6 @@ void Square::reset()
 {
     isVisible = isHill = isFood = isBorder = false;
     hillPlayer = antPlayer = myAntNumber = -1;
+    dd = di = 0;
     exploreIndex++;
 }

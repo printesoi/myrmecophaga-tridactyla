@@ -1,6 +1,6 @@
 CC=g++
 CFLAGS=-O3 -funroll-loops -c -Wall -std=c++0x
-LDFLAGS=-O2 -lm -std=c++0x
+LDFLAGS=-O2 -std=c++0x
 
 SOURCES=$(wildcard *.cpp)
 OBJECTS=$(addprefix bin/, $(notdir $(SOURCES:.cpp=.o)))
@@ -29,7 +29,7 @@ clean:
 	-rm -f bin/*.o $(EXECUTABLE) *.d debug.txt MylaEtapa1.zip && rm -rf bin/
 
 pack:
-	zip MylaEtapa3.zip *.h *.cpp README Makefile
+	zip MylaEtapa4.zip *.h *.cpp README Makefile
 
 .PHONY: all clean pack
 

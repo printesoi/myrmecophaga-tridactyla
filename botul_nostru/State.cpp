@@ -352,6 +352,7 @@ std::istream& operator>>(std::istream &is,State &state)
             else if (inputType == "attackradius2")
             {
                 is >> gparam::attackRadius;
+                LOG("Atack radius " << gparam::atackRadius);
             }
             else if (inputType == "spawnradius2")
             {

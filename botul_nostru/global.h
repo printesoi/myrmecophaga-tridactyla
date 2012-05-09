@@ -24,34 +24,32 @@
 
 namespace gparam {
 
-/** Number of rows and columns of the map. */
-extern int mapRows;
-extern int mapCols;
+    /** Number of rows and columns of the map. */
+    extern int mapRows;
+    extern int mapCols;
 
-/** Number of players on the map. */
-extern int numberPlayers;
+    /** Number of players on the map. */
+    extern int numberPlayers;
 
-/** Initial seed. */
-extern int64_t seed;
+    /** Initial seed. */
+    extern int64_t seed;
 
-/** Number of available turns. */
-extern int totalTurnsNumber;
+    /** Number of available turns. */
+    extern int totalTurnsNumber;
 
-/** Attack constants. */
-extern double attackRadius;
-extern double spawnRadius;
-extern double viewRadius;
+    /** Attack constants. */
+    extern double attackRadius;
+    extern double spawnRadius;
+    extern double viewRadius;
 
-/** Time per load and time per turn. */
-extern double loadTime;
-extern double turnTime;
+    /** Time per load and time per turn. */
+    extern double loadTime;
+    extern double turnTime;
 
-/** Log file. */
-extern std::ofstream logFile;
+    /** Log file. */
+    extern std::ofstream logFile;
 
 }
-
-/** Useful constants go below. */
 
 /** Maximum map size. */
 const int MAXIMUM_MAP_SIZE = 200;

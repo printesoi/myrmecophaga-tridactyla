@@ -42,6 +42,8 @@ class Square
         int foodIndex;
         /** Markers needed for A*. */
         int f,g,h,dir;
+        /** Markes for danger status. */
+        int dd,di;
 
         /** Links to neighbours. */
         std::vector<Square *> neigh;
