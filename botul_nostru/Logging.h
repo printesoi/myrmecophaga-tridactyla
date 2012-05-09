@@ -13,11 +13,11 @@
  */
 
 /**
-  * Logging functionality implementations. Hopefully, this will spare us a lot
-  * of trouble in the future.
-  *
-  * For an object to be loggable, operator<< has to be defined on it.
-  */
+ * Logging functionality implementations. Hopefully, this will spare us a lot
+ * of trouble in the future.
+ *
+ * For an object to be loggable, operator<< has to be defined on it.
+ */
 
 #ifndef LOGGING_H_
 #define LOGGING_H_

@@ -42,7 +42,7 @@ class Square
         int foodIndex;
         /** Markers needed for A*. */
         int f,g,h,dir;
-        /** Markes for danger status. */
+        /** Markers for danger status. */
         int dd,di;
 
         /** Links to neighbours. */
@@ -56,6 +56,11 @@ class Square
 
         /** Constructor. */
         Square(int a, int b);
+
+        bool operator== (Square y)
+        {
+            return (this->x == y.x && this->y == y.y);
+        }
 
         /** Resets some information for the square. */
         void reset();

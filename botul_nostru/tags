@@ -43,12 +43,19 @@ antPlayer	Square.h	/^        int antPlayer;$/;"	m	class:Square
 areas	Bot.cpp	/^void Bot::areas()$/;"	f	class:Bot
 attackRadius	global.cpp	/^double attackRadius;$/;"	m	namespace:gparam	file:
 borderTiles	State.h	/^        std::vector<Square *> borderTiles;$/;"	m	class:State
+combatAnts	State.h	/^        std::vector<Square *> combatAnts;$/;"	m	class:State
+combatLinks	State.h	/^        std::vector<std::pair<Square *,Square *> > combatLinks;$/;"	m	class:State
 currentTime	Timer.h	/^    clock_t startTime, currentTime;$/;"	m	struct:Timer
 currentTime	Timer.h	/^    double startTime, currentTime;$/;"	m	struct:Timer
 currentTurnNumber	State.h	/^        int currentTurnNumber;$/;"	m	class:State
+dd	Square.h	/^        int dd,di;$/;"	m	class:Square
+ddir	Square.h	/^        std::vector<Square *> ddir;$/;"	m	class:Square
+di	Square.h	/^        int dd,di;$/;"	m	class:Square
+dind	Square.h	/^        std::vector<Square *> dind;$/;"	m	class:Square
 dir	Square.h	/^        int f,g,h,dir;$/;"	m	class:Square
 endTurn	Bot.cpp	/^void Bot::endTurn()$/;"	f	class:Bot
 enemyAntsNew	State.h	/^        std::vector<Square *> enemyAntsNew;$/;"	m	class:State
+enemyGroups	State.h	/^        std::vector<std::vector<Square *> > enemyGroups;$/;"	m	class:State
 enemyHillsNew	State.h	/^        std::vector<Square *> enemyHillsNew;$/;"	m	class:State
 explore	Bot.cpp	/^void Bot::explore()$/;"	f	class:Bot
 exploreIndex	Square.h	/^        int exploreIndex;$/;"	m	class:Square
@@ -60,6 +67,7 @@ freeAntsNumber	Bot.cpp	/^int Bot::freeAntsNumber()$/;"	f	class:Bot
 g	Square.h	/^        int f,g,h,dir;$/;"	m	class:Square
 gameOver	State.h	/^        bool gameOver;$/;"	m	class:State
 gatherFood	Bot.cpp	/^void Bot::gatherFood()$/;"	f	class:Bot
+getCombatAnts	State.cpp	/^void State::getCombatAnts()$/;"	f	class:State
 getTime	Timer.h	/^    double getTime()$/;"	f	struct:Timer
 gparam	global.cpp	/^namespace gparam {$/;"	n	file:
 gparam	global.h	/^namespace gparam {$/;"	n
@@ -67,6 +75,7 @@ grid	State.h	/^        std::vector<std::vector<Square> > grid;$/;"	m	class:State
 h	Square.h	/^        int f,g,h,dir;$/;"	m	class:Square
 hillPlayer	Square.h	/^        int hillPlayer;$/;"	m	class:Square
 huntHills	Bot.cpp	/^void Bot::huntHills()$/;"	f	class:Bot
+initDanger	State.cpp	/^void State::initDanger()$/;"	f	class:State
 initGrid	State.cpp	/^void State::initGrid()$/;"	f	class:State
 initNeighbours	State.cpp	/^void State::initNeighbours()$/;"	f	class:State
 initRound	Bot.cpp	/^void Bot::initRound()$/;"	f	class:Bot
@@ -83,13 +92,17 @@ makeMoves	Bot.cpp	/^void Bot::makeMoves()$/;"	f	class:Bot
 manhattan	State.cpp	/^int State::manhattan(Square *loc1,Square *loc2)$/;"	f	class:State
 mapCols	global.cpp	/^int mapCols;$/;"	m	namespace:gparam	file:
 mapRows	global.cpp	/^int mapRows;$/;"	m	namespace:gparam	file:
+mark_direct_dangered	State.cpp	/^void State::mark_direct_dangered(Square *ant)$/;"	f	class:State
 mark_explored	State.cpp	/^void State::mark_explored()$/;"	f	class:State
+mark_indirect_dangered	State.cpp	/^void State::mark_indirect_dangered(Square *ant)$/;"	f	class:State
 myAntNumber	Square.h	/^        int myAntNumber;$/;"	m	class:Square
 myAntsNew	State.h	/^        std::vector<Square *> myAntsNew;$/;"	m	class:State
+myGroups	State.h	/^        std::vector<std::vector<Square *> > myGroups;$/;"	m	class:State
 myHillsNew	State.h	/^        std::vector<Square *> myHillsNew;$/;"	m	class:State
 neigh	Square.h	/^        std::vector<Square *> neigh;$/;"	m	class:Square
 numberPlayers	global.cpp	/^int numberPlayers;$/;"	m	namespace:gparam	file:
 operator ()	State.h	/^        bool operator() (const Square* a, const Square* b)$/;"	f	class:Compare
+operator ==	Square.h	/^        bool operator== (Square y)$/;"	f	class:Square
 operator >>	State.cpp	/^std::istream& operator>>(std::istream &is,State &state)$/;"	f
 playGame	Bot.cpp	/^void Bot::playGame()$/;"	f	class:Bot
 reset	Square.cpp	/^void Square::reset()$/;"	f	class:Square
@@ -98,6 +111,7 @@ scores	State.h	/^        std::vector<double> scores;$/;"	m	class:State
 seed	global.cpp	/^int64_t seed;$/;"	m	namespace:gparam	file:
 seen	Square.h	/^        bool seen;$/;"	m	class:Square
 spawnRadius	global.cpp	/^double spawnRadius;$/;"	m	namespace:gparam	file:
+splitCombatAnts	State.cpp	/^void State::splitCombatAnts()$/;"	f	class:State
 start	Timer.h	/^    void start()$/;"	f	struct:Timer
 startTime	Timer.h	/^    clock_t startTime, currentTime;$/;"	m	struct:Timer
 startTime	Timer.h	/^    double startTime, currentTime;$/;"	m	struct:Timer

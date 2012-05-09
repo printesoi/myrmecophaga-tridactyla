@@ -25,6 +25,12 @@ void State::reset()
 
     borderTiles.clear();
 
+    combatAnts.clear();
+    combatLinks.clear();
+
+    myGroups.clear();
+    enemyGroups.clear();
+
     for(int row = 0; row < gparam::mapRows; row++)
         for(int col = 0; col < gparam::mapCols; col++)
             grid[row][col].reset();
@@ -602,6 +608,89 @@ void State::initDanger()
             mark_direct_dangered(&grid[i][j]);
             mark_indirect_dangered(&grid[i][j]);
         }
+}
+
+/** Create the list of combat ants. */
+void State::getCombatAnts()
+{
+    for (unsigned ant = 0; ant < myAntsNew.size(); ant++)
+    {
+        bool added = false;
+
+        /** Check for direct danger. */
+        for (unsigned i = 0; i < myAntsNew[ant]->ddir.size(); i++)
+            if (myAntsNew[ant]->ddir[i]->antPlayer > 0)
+            {
+                myAntsNew[ant]->dd++;
+                combatLinks.push_back(std::pair<Square *,Square *>(myAntsNew[ant],myAntsNew[ant]->ddir[i]));
+                if (!added)
+                    added = true;
+            }
+
+        /** Check for indirect danger. */
+        for (unsigned i = 0; i < myAntsNew[ant]->dind.size(); i++)
+            if (myAntsNew[ant]->dind[i]->antPlayer > 0)
+            {
+                myAntsNew[ant]->di++;
+                combatLinks.push_back(std::pair<Square *,Square *>(myAntsNew[ant],myAntsNew[ant]->dind[i]));
+                if (!added)
+                    added = true;
+            }
+
+        if (added)
+            combatAnts.push_back(myAntsNew[ant]);
+
+    }
+}
+
+/** Split the ants to groups. */
+void State::splitCombatAnts()
+{
+    while (!combatLinks.empty())
+    {
+        std::vector<Square *> me;
+        std::vector<Square *> enemy;
+        
+        me.push_back(combatLinks[0].first);
+        enemy.push_back(combatLinks[0].second);
+
+        combatLinks[0] = combatLinks.back();
+        combatLinks.pop_back();
+
+        bool stop = false;
+        while (!stop)
+        {
+            stop = true;
+            for (unsigned k = 0; k < combatLinks.size(); k++)
+            {
+                for (unsigned i = 0; i < me.size(); i++)
+                    if (*combatLinks[k].first == *me[i])
+                    {
+                        stop = false;
+                        enemy.push_back(combatLinks[k].second);
+                        combatLinks[k] = combatLinks.back();
+                        combatLinks.pop_back();
+                        break;
+                    }
+                if (!stop)
+                    break;
+                for (unsigned i = 0; i < enemy.size(); i++)
+                    if (*combatLinks[k].second == *enemy[i])
+                    {
+                        stop = false;
+                        me.push_back(combatLinks[k].first);
+                        combatLinks[k] = combatLinks.back();
+                        combatLinks.pop_back();
+                        break;
+                    }
+            }
+        }
+        myGroups.push_back(me);
+        enemyGroups.push_back(enemy);
+    }
+    LOG(myGroups.size() << " fighting groups");
+    for (unsigned i = 0; i < myGroups.size(); i++)
+        LOG(myGroups[i].size() << " vs " << enemyGroups[i].size());
 }
 
 /* Input functions. */

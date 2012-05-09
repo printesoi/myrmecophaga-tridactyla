@@ -30,6 +30,8 @@ void Bot::playGame()
 
         initRound();
         state.mark_explored();
+        state.getCombatAnts();
+        state.splitCombatAnts();
         gatherFood();
         explore();
         areas();
@@ -39,7 +41,7 @@ void Bot::playGame()
 
         endTurn();
         LOG("Time taken: " << state.timer.getTime() << "ms");
-        LOG("Alocated Time: " << gparam::turnTime<<"ms" << std::endl);
+        LOG("Alocated Time: " << gparam::turnTime << "ms" << std::endl);
     }
 }
 
@@ -48,7 +50,6 @@ void Bot::initRound()
     jobs.clear ();
     for (unsigned i = 0; i < state.myAntsNew.size(); i++)
         jobs.push_back(-1);
-    combatAnts.clear();
 }
 
 void Bot::huntHills()
@@ -114,7 +115,6 @@ void Bot::endTurn()
 
     /* Move to next turn. */
     state.currentTurnNumber++;
-
     std::cout << "go" << std::endl;
 }
 

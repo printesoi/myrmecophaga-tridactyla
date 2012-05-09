@@ -64,6 +64,16 @@ class State
         /** A vector that keeps the border tiles. */
         std::vector<Square *> borderTiles;
 
+        /** List of combat ants. */
+        std::vector<Square *> combatAnts;
+
+        /** List of combat dependencies. */
+        std::vector<std::pair<Square *,Square *> > combatLinks;
+
+        /** Groups of own ants and enemy ants fighting. */
+        std::vector<std::vector<Square *> > myGroups;
+        std::vector<std::vector<Square *> > enemyGroups;
+
         /** This could have been global, but there you go... */
         Timer timer;
 
@@ -106,6 +116,12 @@ class State
 
         /** Marks indirect dangered tiles by an enemy. */
         void mark_indirect_dangered(Square *sq);
+
+        /** Create the list of combat ants. */
+        void getCombatAnts();
+
+        /** Split the ants to groups. */
+        void splitCombatAnts();
 };
 
 /** Method that helps do the IO. */

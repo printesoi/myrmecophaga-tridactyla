@@ -31,9 +31,6 @@ class Bot
         /** Represent the direction to move. */
         std::vector<int> jobs;
 
-        /** List of combat ants. */
-        std::vector<Square *> combatAnts;
-
         /** Plays a single game of Ants. */
         void playGame();
 
