@@ -287,6 +287,323 @@ void State::initNeighbours()
             grid[i][j].neigh.push_back(&grid[i][j - 1]);
 }
 
+/** Marks direct dangered tiles by an enemy. */
+void State::mark_direct_dangered(Square *ant)
+{
+    /** This assumes an atack radius of 5. */
+    int x = ant->x;
+    int y = ant->y;
+    int nx,ny;
+
+    nx = x - 3;
+    ny = y;
+    nx += gparam::mapRows;
+    nx %= gparam::mapRows;
+    ny += gparam::mapCols;
+    ny %= gparam::mapCols;
+    ant->ddir.push_back(&grid[nx][ny]);
+
+    nx = x - 3;
+    ny = y + 1;
+    nx += gparam::mapRows;
+    nx %= gparam::mapRows;
+    ny += gparam::mapCols;
+    ny %= gparam::mapCols;
+    ant->ddir.push_back(&grid[nx][ny]);
+
+    nx = x - 2;
+    ny = y + 2;
+    nx += gparam::mapRows;
+    nx %= gparam::mapRows;
+    ny += gparam::mapCols;
+    ny %= gparam::mapCols;
+    ant->ddir.push_back(&grid[nx][ny]);
+
+    nx = x - 1;
+    ny = y + 3;
+    nx += gparam::mapRows;
+    nx %= gparam::mapRows;
+    ny += gparam::mapCols;
+    ny %= gparam::mapCols;
+    ant->ddir.push_back(&grid[nx][ny]);
+
+    nx = x;
+    ny = y + 3;
+    nx += gparam::mapRows;
+    nx %= gparam::mapRows;
+    ny += gparam::mapCols;
+    ny %= gparam::mapCols;
+    ant->ddir.push_back(&grid[nx][ny]);
+
+    nx = x + 1;
+    ny = y + 3;
+    nx += gparam::mapRows;
+    nx %= gparam::mapRows;
+    ny += gparam::mapCols;
+    ny %= gparam::mapCols;
+    ant->ddir.push_back(&grid[nx][ny]);
+
+    nx = x + 2;
+    ny = y + 2;
+    nx += gparam::mapRows;
+    nx %= gparam::mapRows;
+    ny += gparam::mapCols;
+    ny %= gparam::mapCols;
+    ant->ddir.push_back(&grid[nx][ny]);
+
+    nx = x + 3;
+    ny = y + 1;
+    nx += gparam::mapRows;
+    nx %= gparam::mapRows;
+    ny += gparam::mapCols;
+    ny %= gparam::mapCols;
+    ant->ddir.push_back(&grid[nx][ny]);
+
+    nx = x + 3;
+    ny = y;
+    nx += gparam::mapRows;
+    nx %= gparam::mapRows;
+    ny += gparam::mapCols;
+    ny %= gparam::mapCols;
+    ant->ddir.push_back(&grid[nx][ny]);
+
+    nx = x + 3;
+    ny = y - 1;
+    nx += gparam::mapRows;
+    nx %= gparam::mapRows;
+    ny += gparam::mapCols;
+    ny %= gparam::mapCols;
+    ant->ddir.push_back(&grid[nx][ny]);
+
+    nx = x + 2;
+    ny = y - 2;
+    nx += gparam::mapRows;
+    nx %= gparam::mapRows;
+    ny += gparam::mapCols;
+    ny %= gparam::mapCols;
+    ant->ddir.push_back(&grid[nx][ny]);
+
+    nx = x + 1;
+    ny = y - 3;
+    nx += gparam::mapRows;
+    nx %= gparam::mapRows;
+    ny += gparam::mapCols;
+    ny %= gparam::mapCols;
+    ant->ddir.push_back(&grid[nx][ny]);
+
+    nx = x;
+    ny = y - 3;
+    nx += gparam::mapRows;
+    nx %= gparam::mapRows;
+    ny += gparam::mapCols;
+    ny %= gparam::mapCols;
+    ant->ddir.push_back(&grid[nx][ny]);
+
+    nx = x - 1;
+    ny = y - 3;
+    nx += gparam::mapRows;
+    nx %= gparam::mapRows;
+    ny += gparam::mapCols;
+    ny %= gparam::mapCols;
+    ant->ddir.push_back(&grid[nx][ny]);
+
+    nx = x - 2;
+    ny = y - 2;
+    nx += gparam::mapRows;
+    nx %= gparam::mapRows;
+    ny += gparam::mapCols;
+    ny %= gparam::mapCols;
+    ant->ddir.push_back(&grid[nx][ny]);
+
+    nx = x - 3;
+    ny = y - 1;
+    nx += gparam::mapRows;
+    nx %= gparam::mapRows;
+    ny += gparam::mapCols;
+    ny %= gparam::mapCols;
+    ant->ddir.push_back(&grid[nx][ny]);
+}
+
+/** Marks indirect dangered tiles by an enemy. */
+void State::mark_indirect_dangered(Square *ant)
+{
+    /** This assumes an atack radius of 5. */
+    int x = ant->x;
+    int y = ant->y;
+    int nx,ny;
+
+    nx = x - 4;
+    ny = y;
+    nx += gparam::mapRows;
+    nx %= gparam::mapRows;
+    ny += gparam::mapCols;
+    ny %= gparam::mapCols;
+    ant->dind.push_back(&grid[nx][ny]);
+
+    nx = x - 4;
+    ny = y + 1;
+    nx += gparam::mapRows;
+    nx %= gparam::mapRows;
+    ny += gparam::mapCols;
+    ny %= gparam::mapCols;
+    ant->dind.push_back(&grid[nx][ny]);
+
+    nx = x - 3;
+    ny = y + 2;
+    nx += gparam::mapRows;
+    nx %= gparam::mapRows;
+    ny += gparam::mapCols;
+    ny %= gparam::mapCols;
+    ant->dind.push_back(&grid[nx][ny]);
+
+    nx = x - 2;
+    ny = y + 3;
+    nx += gparam::mapRows;
+    nx %= gparam::mapRows;
+    ny += gparam::mapCols;
+    ny %= gparam::mapCols;
+    ant->dind.push_back(&grid[nx][ny]);
+
+    nx = x - 1;
+    ny = y + 4;
+    nx += gparam::mapRows;
+    nx %= gparam::mapRows;
+    ny += gparam::mapCols;
+    ny %= gparam::mapCols;
+    ant->dind.push_back(&grid[nx][ny]);
+
+    nx = x;
+    ny = y + 4;
+    nx += gparam::mapRows;
+    nx %= gparam::mapRows;
+    ny += gparam::mapCols;
+    ny %= gparam::mapCols;
+    ant->dind.push_back(&grid[nx][ny]);
+
+    nx = x + 1;
+    ny = y + 4;
+    nx += gparam::mapRows;
+    nx %= gparam::mapRows;
+    ny += gparam::mapCols;
+    ny %= gparam::mapCols;
+    ant->dind.push_back(&grid[nx][ny]);
+
+    nx = x + 2;
+    ny = y + 3;
+    nx += gparam::mapRows;
+    nx %= gparam::mapRows;
+    ny += gparam::mapCols;
+    ny %= gparam::mapCols;
+    ant->dind.push_back(&grid[nx][ny]);
+
+    nx = x + 3;
+    ny = y + 2;
+    nx += gparam::mapRows;
+    nx %= gparam::mapRows;
+    ny += gparam::mapCols;
+    ny %= gparam::mapCols;
+    ant->dind.push_back(&grid[nx][ny]);
+
+    nx = x + 4;
+    ny = y + 1;
+    nx += gparam::mapRows;
+    nx %= gparam::mapRows;
+    ny += gparam::mapCols;
+    ny %= gparam::mapCols;
+    ant->dind.push_back(&grid[nx][ny]);
+
+    nx = x + 4;
+    ny = y;
+    nx += gparam::mapRows;
+    nx %= gparam::mapRows;
+    ny += gparam::mapCols;
+    ny %= gparam::mapCols;
+    ant->dind.push_back(&grid[nx][ny]);
+
+    nx = x + 4;
+    ny = y - 1;
+    nx += gparam::mapRows;
+    nx %= gparam::mapRows;
+    ny += gparam::mapCols;
+    ny %= gparam::mapCols;
+    ant->dind.push_back(&grid[nx][ny]);
+
+    nx = x + 3;
+    ny = y - 2;
+    nx += gparam::mapRows;
+    nx %= gparam::mapRows;
+    ny += gparam::mapCols;
+    ny %= gparam::mapCols;
+    ant->dind.push_back(&grid[nx][ny]);
+
+    nx = x + 2;
+    ny = y - 3;
+    nx += gparam::mapRows;
+    nx %= gparam::mapRows;
+    ny += gparam::mapCols;
+    ny %= gparam::mapCols;
+    ant->dind.push_back(&grid[nx][ny]);
+
+    nx = x + 1;
+    ny = y - 4;
+    nx += gparam::mapRows;
+    nx %= gparam::mapRows;
+    ny += gparam::mapCols;
+    ny %= gparam::mapCols;
+    ant->dind.push_back(&grid[nx][ny]);
+
+    nx = x;
+    ny = y - 4;
+    nx += gparam::mapRows;
+    nx %= gparam::mapRows;
+    ny += gparam::mapCols;
+    ny %= gparam::mapCols;
+    ant->dind.push_back(&grid[nx][ny]);
+
+    nx = x - 1;
+    ny = y - 4;
+    nx += gparam::mapRows;
+    nx %= gparam::mapRows;
+    ny += gparam::mapCols;
+    ny %= gparam::mapCols;
+    ant->dind.push_back(&grid[nx][ny]);
+
+    nx = x - 2;
+    ny = y - 3;
+    nx += gparam::mapRows;
+    nx %= gparam::mapRows;
+    ny += gparam::mapCols;
+    ny %= gparam::mapCols;
+    ant->dind.push_back(&grid[nx][ny]);
+
+    nx = x - 3;
+    ny = y - 2;
+    nx += gparam::mapRows;
+    nx %= gparam::mapRows;
+    ny += gparam::mapCols;
+    ny %= gparam::mapCols;
+    ant->dind.push_back(&grid[nx][ny]);
+
+    nx = x - 4;
+    ny = y - 1;
+    nx += gparam::mapRows;
+    nx %= gparam::mapRows;
+    ny += gparam::mapCols;
+    ny %= gparam::mapCols;
+    ant->dind.push_back(&grid[nx][ny]);
+}
+
+/** Initialize vector with dangered tiles. */
+void State::initDanger()
+{
+    for (int i = 0; i < gparam::mapRows; i++)
+        for (int j = 0; j < gparam::mapCols; j++)
+        {
+            mark_direct_dangered(&grid[i][j]);
+            mark_indirect_dangered(&grid[i][j]);
+        }
+}
+
 /* Input functions. */
 std::istream& operator>>(std::istream &is,State &state)
 {
@@ -335,6 +652,7 @@ std::istream& operator>>(std::istream &is,State &state)
                 /** Initialize the grid. */
                 state.initGrid();
                 state.initNeighbours();
+                state.initDanger();
             }
             else if (inputType == "turns")
             {
@@ -352,7 +670,7 @@ std::istream& operator>>(std::istream &is,State &state)
             else if (inputType == "attackradius2")
             {
                 is >> gparam::attackRadius;
-                LOG("Atack radius " << gparam::atackRadius);
+                LOG("Atack radius " << gparam::attackRadius);
             }
             else if (inputType == "spawnradius2")
             {

@@ -58,18 +58,6 @@ class Bot
         /** Calculates areas. */
         void areas();
 
-        /** Marks direct dangered tiles by an enemy. */
-        void mark_direct_dangered(Square *x);
-
-        /** Marks all the direct dangered tiles. */
-        void mark_all_direct_dangered();
-
-        /** Marks indirect dangered tiles by an enemy. */
-        void mark_indirect_dangered(Square *x);
-
-        /** Marks all the indirect dangered tiles. */
-        void mark_all_indirect_dangered();
-
         /** Returns a direction to a border. */
         int findBorder(Square *from);
 
@@ -78,10 +66,6 @@ class Bot
 
         /** Returns the number of free ants. */
         int freeAntsNumber();
-
-        /** Finds the ants in combat. */
-        void get_combatAnts();
-
 };
 
 #endif

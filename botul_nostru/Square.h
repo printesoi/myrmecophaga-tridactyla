@@ -48,6 +48,12 @@ class Square
         /** Links to neighbours. */
         std::vector<Square *> neigh;
 
+        /** Direct dangered tiles. */
+        std::vector<Square *> ddir;
+
+        /** Indirect dangered tiles. */
+        std::vector<Square *> dind;
+
         /** Constructor. */
         Square(int a, int b);
 

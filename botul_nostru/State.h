@@ -97,6 +97,15 @@ class State
 
         /** Initialize the neighbours of the squares in the grid. */
         void initNeighbours();
+
+        /** Initialize vector with dangered tiles. */
+        void initDanger();
+
+        /** Marks direct dangered tiles by an enemy. */
+        void mark_direct_dangered(Square *sq);
+
+        /** Marks indirect dangered tiles by an enemy. */
+        void mark_indirect_dangered(Square *sq);
 };
 
 /** Method that helps do the IO. */
