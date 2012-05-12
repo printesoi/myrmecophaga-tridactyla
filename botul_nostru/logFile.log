@@ -2,187 +2,224 @@ Reading initial parameters.
 Atack radius 5
 Sending endTurn()
 turn 1:
+0 fighting groups
+combat()
+end combat()
 Sending endTurn()
-Time taken: 99.7601ms
+Time taken: 103.01ms
 Alocated Time: 1000ms
 
 turn 2:
+0 fighting groups
+combat()
+end combat()
 Sending endTurn()
-Time taken: 7.00593ms
+Time taken: 7.10201ms
 Alocated Time: 1000ms
 
 turn 3:
+0 fighting groups
+combat()
+end combat()
 Sending endTurn()
-Time taken: 2.78091ms
+Time taken: 2.75993ms
 Alocated Time: 1000ms
 
 turn 4:
+0 fighting groups
+combat()
+end combat()
 Sending endTurn()
-Time taken: 3.057ms
+Time taken: 3.01504ms
 Alocated Time: 1000ms
 
 turn 5:
+0 fighting groups
+combat()
+end combat()
 Sending endTurn()
-Time taken: 2.41184ms
+Time taken: 2.31385ms
 Alocated Time: 1000ms
 
 turn 6:
+0 fighting groups
+combat()
+end combat()
 Sending endTurn()
 Time taken: 3.77297ms
 Alocated Time: 1000ms
 
 turn 7:
+0 fighting groups
+combat()
+end combat()
 Sending endTurn()
-Time taken: 2.5351ms
+Time taken: 2.47288ms
 Alocated Time: 1000ms
 
 turn 8:
+0 fighting groups
+combat()
+end combat()
 Sending endTurn()
-Time taken: 5.25188ms
+Time taken: 5.68914ms
 Alocated Time: 1000ms
 
 turn 9:
+0 fighting groups
+combat()
+end combat()
 Sending endTurn()
-Time taken: 3.09706ms
+Time taken: 3.51787ms
 Alocated Time: 1000ms
 
 turn 10:
+0 fighting groups
+combat()
+end combat()
 Sending endTurn()
-Time taken: 5.11909ms
+Time taken: 4.90499ms
 Alocated Time: 1000ms
 
 turn 11:
+0 fighting groups
+combat()
+end combat()
 Sending endTurn()
-Time taken: 29.3279ms
+Time taken: 30.2989ms
 Alocated Time: 1000ms
 
 turn 12:
+0 fighting groups
+combat()
+end combat()
 Sending endTurn()
-Time taken: 6.68812ms
+Time taken: 6.66308ms
 Alocated Time: 1000ms
 
 turn 13:
+0 fighting groups
+combat()
+end combat()
 Sending endTurn()
-Time taken: 4.62484ms
+Time taken: 5.17988ms
 Alocated Time: 1000ms
 
 turn 14:
+0 fighting groups
+combat()
+end combat()
 Sending endTurn()
-Time taken: 4.02188ms
+Time taken: 4.73309ms
 Alocated Time: 1000ms
 
 turn 15:
+0 fighting groups
+combat()
+end combat()
 Sending endTurn()
-Time taken: 4.95696ms
+Time taken: 4.96697ms
 Alocated Time: 1000ms
 
 turn 16:
+0 fighting groups
+combat()
+end combat()
 Sending endTurn()
-Time taken: 42.3069ms
+Time taken: 37.3869ms
 Alocated Time: 1000ms
 
 turn 17:
+0 fighting groups
+combat()
+end combat()
 Sending endTurn()
-Time taken: 6.11496ms
+Time taken: 6.1779ms
 Alocated Time: 1000ms
 
 turn 18:
+0 fighting groups
+combat()
+end combat()
 Sending endTurn()
-Time taken: 7.10607ms
+Time taken: 7.00903ms
 Alocated Time: 1000ms
 
 turn 19:
+0 fighting groups
+combat()
+end combat()
 Sending endTurn()
-Time taken: 9.99808ms
+Time taken: 9.97496ms
 Alocated Time: 1000ms
 
 turn 20:
+0 fighting groups
+combat()
+end combat()
 Sending endTurn()
-Time taken: 8.68297ms
+Time taken: 8.77595ms
 Alocated Time: 1000ms
 
 turn 21:
+0 fighting groups
+combat()
+end combat()
 Sending endTurn()
-Time taken: 11.205ms
+Time taken: 11.0562ms
 Alocated Time: 1000ms
 
 turn 22:
+0 fighting groups
+combat()
+end combat()
 Sending endTurn()
-Time taken: 10.565ms
+Time taken: 13.303ms
 Alocated Time: 1000ms
 
 turn 23:
+0 fighting groups
+combat()
+end combat()
 Sending endTurn()
-Time taken: 9.04703ms
+Time taken: 10.0589ms
 Alocated Time: 1000ms
 
 turn 24:
+0 fighting groups
+combat()
+end combat()
 Sending endTurn()
-Time taken: 10.3841ms
+Time taken: 11.2ms
 Alocated Time: 1000ms
 
 turn 25:
+0 fighting groups
+combat()
+end combat()
 Sending endTurn()
-Time taken: 12.7501ms
+Time taken: 10.2069ms
 Alocated Time: 1000ms
 
 turn 26:
+0 fighting groups
+combat()
+end combat()
 Sending endTurn()
-Time taken: 9.35006ms
+Time taken: 9.49407ms
 Alocated Time: 1000ms
 
 turn 27:
+0 fighting groups
+combat()
+end combat()
 Sending endTurn()
-Time taken: 12.7759ms
+Time taken: 18.012ms
 Alocated Time: 1000ms
 
 turn 28:
-Combat: 23 3
-Link: 23 3 vs 21 1
-Sending endTurn()
-Time taken: 16.9141ms
-Alocated Time: 1000ms
-
-turn 29:
-Combat: 23 2
-Link: 23 2 vs 20 1
-Sending endTurn()
-Time taken: 10.1931ms
-Alocated Time: 1000ms
-
-turn 30:
-Combat: 23 1
-Link: 23 1 vs 20 1
-Sending endTurn()
-Time taken: 10.186ms
-Alocated Time: 1000ms
-
-turn 31:
-Sending endTurn()
-Time taken: 10.071ms
-Alocated Time: 1000ms
-
-turn 32:
-Combat: 25 1
-Link: 25 1 vs 25 57
-Sending endTurn()
-Time taken: 13.5479ms
-Alocated Time: 1000ms
-
-turn 33:
-Combat: 26 1
-Link: 26 1 vs 26 57
-Sending endTurn()
-Time taken: 13.8059ms
-Alocated Time: 1000ms
-
-turn 34:
-Combat: 15 5
-Link: 15 5 vs 15 2
-Sending endTurn()
-Time taken: 13.366ms
-Alocated Time: 1000ms
-
-turn 35:
-Combat: 19 7
-Link: 19 7
+1 fighting groups
+1 vs 1
+combat()
+Pushing1 1
+Pushing1 1

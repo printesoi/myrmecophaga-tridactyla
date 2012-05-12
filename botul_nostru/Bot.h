@@ -63,6 +63,9 @@ class Bot
 
         /** Returns the number of free ants. */
         int freeAntsNumber();
+
+        /** Move combat ants. */
+        void moveCombatAnts();
 };
 
 #endif

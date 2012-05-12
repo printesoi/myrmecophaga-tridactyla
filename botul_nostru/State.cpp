@@ -26,6 +26,7 @@ void State::reset()
     borderTiles.clear();
 
     combatAnts.clear();
+    movedAnts.clear();
     combatLinks.clear();
 
     myGroups.clear();
@@ -68,8 +69,8 @@ int State::manhattan(Square *loc1,Square *loc2)
 /** Resets the exploreIndex of the "visible" squares to 0. */
 void State::mark_explored()
 {
-    std::queue<Square *> open;
-    std::queue<Square *> closed;
+    queue<Square *> open;
+    queue<Square *> closed;
 
     Square *f,*t;
     for (unsigned int ant = 0; ant < myAntsNew.size(); ant++)
@@ -110,8 +111,8 @@ void State::mark_explored()
 /** Calculates a sum which represents a fog indicator. */
 int State::unexplored_index(Square *from)
 {
-    std::queue<Square *> squares;
-    std::queue<Square *> changed;
+    queue<Square *> squares;
+    queue<Square *> changed;
 
     Square *f,*t;
 
@@ -165,8 +166,8 @@ int State::unexplored_index(Square *from)
 /* The A* algorithm. */
 int State::Astar(Square *from,Square *to)
 {
-    std::vector<Square *> open;
-    std::list<Square *> changed;
+    vector<Square *> open;
+    list<Square *> changed;
 
     int tentative_g_score;
     bool tentative_is_better;
@@ -255,7 +256,7 @@ void State::initGrid()
 {
     for (int i = 0; i < gparam::mapRows; i++)
     {
-        grid.push_back(std::vector<Square>());
+        grid.push_back(vector<Square>());
         for (int j = 0; j < gparam::mapCols; j++)
             grid[i].push_back(Square(i,j));
     }
@@ -291,6 +292,11 @@ void State::initNeighbours()
     for (int i = 0; i < gparam::mapRows; i++)
         for (int j = 1; j < gparam::mapCols; j++)
             grid[i][j].neigh.push_back(&grid[i][j - 1]);
+
+    /** Initialize n4 neighbour (self). */
+    for (int i = 0; i < gparam::mapRows; i++)
+        for (int j = 0; j < gparam::mapCols; j++)
+            grid[i][j].neigh.push_back(&grid[i][j]);
 }
 
 /** Marks direct dangered tiles by an enemy. */
@@ -622,7 +628,7 @@ void State::getCombatAnts()
             if (myAntsNew[ant]->ddir[i]->antPlayer > 0)
             {
                 myAntsNew[ant]->dd++;
-                combatLinks.push_back(std::pair<Square *,Square *>(myAntsNew[ant],myAntsNew[ant]->ddir[i]));
+                combatLinks.push_back(pair<Square *,Square *>(myAntsNew[ant],myAntsNew[ant]->ddir[i]));
                 if (!added)
                     added = true;
             }
@@ -632,7 +638,7 @@ void State::getCombatAnts()
             if (myAntsNew[ant]->dind[i]->antPlayer > 0)
             {
                 myAntsNew[ant]->di++;
-                combatLinks.push_back(std::pair<Square *,Square *>(myAntsNew[ant],myAntsNew[ant]->dind[i]));
+                combatLinks.push_back(pair<Square *,Square *>(myAntsNew[ant],myAntsNew[ant]->dind[i]));
                 if (!added)
                     added = true;
             }
@@ -648,8 +654,8 @@ void State::splitCombatAnts()
 {
     while (!combatLinks.empty())
     {
-        std::vector<Square *> me;
-        std::vector<Square *> enemy;
+        vector<Square *> me;
+        vector<Square *> enemy;
         
         me.push_back(combatLinks[0].first);
         enemy.push_back(combatLinks[0].second);
@@ -684,20 +690,175 @@ void State::splitCombatAnts()
                         break;
                     }
             }
+
+            /** Groups size restriction. */
+            if (me.size() + enemy.size() > 8)
+                stop = true;
         }
         myGroups.push_back(me);
         enemyGroups.push_back(enemy);
     }
-    LOG(myGroups.size() << " fighting groups");
+}
+
+/** A group of own ants fighting. */
+pair<vector<Square *>,int> State::fightMy(vector<Square *> demut,vector<Square *> mut,int ind)
+{
+    pair<vector<Square *>,int> max_scor(vector<Square *>(),-1000000);
+
+    if (!demut.empty())
+    {
+        Square *tmp = demut.back();
+        demut.pop_back();
+        
+        for (int i = 0; i < 5; i++)
+        {
+            Square *tmp1 = tmp->neigh[i];
+
+            /** This condition tests for collisions. */
+            for (unsigned j = 0; j < mut.size(); j++)
+                if (mut[j] == tmp1)
+                    continue;
+
+            /** Own ants don't run from the face of danger. */
+            //if (tmp1->notDangered(enemyGroups[ind]))
+            //    continue;
+
+            if (!tmp1->isWater)
+            {
+                vector<Square *> nextmut = mut;
+                nextmut.push_back(tmp1);
+                pair<vector<Square *>, int> scor = fightMy(demut,nextmut,ind);
+                if (scor.second > max_scor.second)
+                    max_scor = scor;
+            }
+        }
+        return max_scor;
+    }
+    int tent_scor = fightEnemy(mut,ind,enemyGroups[ind],vector<Square *>());
+    return pair<vector<Square *>,int>(mut,tent_scor);
+}
+
+/** A group of enemy ants fighting. */
+int State::fightEnemy(const vector<Square *> &my,int ind,vector<Square *> demut,vector<Square *> mut)
+{
+    if (!demut.empty())
+    {
+        int min_scor = 1000000;
+        Square *tmp = demut.back();
+        demut.pop_back();
+        
+        for (int i = 0; i < 5; i++)
+        {
+            Square *tmp1 = tmp->neigh[i];
+
+            /** This condition tests for collisions. */
+            for (unsigned j = 0; j < mut.size(); j++)
+                if (mut[j] == tmp1)
+                    continue;
+
+            /** Enemy ants don't run from the face of danger. */
+            //if (tmp1->notDangered(myGroups[ind]))
+            //    continue;
+
+            if (!tmp1->isWater)
+            {
+                vector<Square *> nextmut = mut;
+                nextmut.push_back(tmp1);
+                int tent_scor = fightEnemy(my,ind,demut,nextmut);
+                if (tent_scor < min_scor)
+                    min_scor = tent_scor;
+            }
+        }
+        return min_scor;
+    }
+    return evaluate(my,mut);
+}
+
+/** Simulate a combat. */
+void State::combat()
+{
+    combatAnts.clear();
     for (unsigned i = 0; i < myGroups.size(); i++)
-        LOG(myGroups[i].size() << " vs " << enemyGroups[i].size());
+    {
+        /** Timeout restriction. */
+        if (myGroups[i].size() + enemyGroups[i].size() > 7)
+            continue;
+
+        pair<vector<Square *>,int> best = fightMy(myGroups[i],vector<Square *>(),i);
+
+        for (unsigned j = best.first.size() - 1; j < best.first.size(); j--)
+            movedAnts.push_back(best.first[j]);
+        for (unsigned j = 0; j < myGroups[i].size(); j++)
+            combatAnts.push_back(myGroups[i][j]);
+
+    }
+}
+
+int State::distances(const vector<Square *> &my,const vector<Square *> &en)
+{
+    int rez = 0;
+    for (unsigned i = 0; i < my.size(); i++)
+        for (unsigned j = 0; j < en.size(); j++)
+            rez += my[i]->dist(en[j]);
+    return rez;
+}
+
+/** Returns the evaluation score for 2 sets of positions. */
+int State::evaluate(const vector<Square *> &my,const vector<Square *> &en)
+{
+    int md = 0;
+    int ed = 0;
+
+    /** Check for my dead ants. */
+    for (unsigned i = 0; i < my.size(); i++)
+    {
+        /** Enemies of our ants. */
+        int ea = 0;
+        /** Enemies of enemies. */
+        int ee = 0;
+        for (unsigned j = 0; j < en.size(); j++)
+            if (my[i]->dist(en[j]) <= 5)
+                ea++;
+        for (unsigned j = 0; j < en.size(); j++)
+            if (my[i]->dist(en[j]) <= 5)
+            {
+                for (unsigned k = 0; k < my.size(); k++)
+                    if (en[j]->dist(my[k]) <= 5)
+                        ee++;
+            }
+        if (ea >= ee && ea && ee)
+            md++;
+    }
+
+    /** Check for enemy dead ants. */
+    for (unsigned i = 0; i < en.size(); i++)
+    {
+        /** Enemies of enemies. */
+        int ee = 0;
+        /** Enemies of our ants. */
+        int ea = 0;
+        for (unsigned j = 0; j < my.size(); j++)
+            if (en[i]->dist(my[j]) <= 5)
+                ee++;
+        for (unsigned j = 0; j < my.size(); j++)
+            if (en[i]->dist(my[j]) <= 5)
+            {
+                for (unsigned k = 0; k < en.size(); k++)
+                    if (my[j]->dist(en[k]) <= 5)
+                        ea++;
+            }
+        if (ee >= ea && ea && ee)
+            ed++;
+    }
+
+    return (1000 * ed - 1400 * md - distances(my,en));
 }
 
 /* Input functions. */
-std::istream& operator>>(std::istream &is,State &state)
+istream& operator>>(istream &is,State &state)
 {
     int row,col,player;
-    std::string inputType,junk;
+    string inputType,junk;
 
     /* Read in input type. */
     while (is >> inputType)
@@ -759,7 +920,6 @@ std::istream& operator>>(std::istream &is,State &state)
             else if (inputType == "attackradius2")
             {
                 is >> gparam::attackRadius;
-                LOG("Atack radius " << gparam::attackRadius);
             }
             else if (inputType == "spawnradius2")
             {
@@ -838,7 +998,7 @@ std::istream& operator>>(std::istream &is,State &state)
             else if (inputType == "scores")
             {
                 /* Information about the scores. */
-                state.scores = std::vector<double>(gparam::numberPlayers,0.0);
+                state.scores = vector<double>(gparam::numberPlayers,0.0);
                 for(int p = 0; p < gparam::numberPlayers; p++)
                 {
                     is >> state.scores[p];
@@ -850,7 +1010,7 @@ std::istream& operator>>(std::istream &is,State &state)
                 if (state.gameOver)
                 {
                     LOG("Received end of game message.");
-                    is.setstate(std::ios::failbit);
+                    is.setstate(ios::failbit);
                 }
                 else
                 {

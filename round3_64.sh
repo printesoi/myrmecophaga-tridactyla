@@ -3,6 +3,7 @@
 bot='./MyBot'
 xathis='java -cp xathis MyBot'
 contrabot='./bot3_64'
+mihai='java -jar MyBot.jar'
 
 cp botul_nostru/bin/MyBot .
 

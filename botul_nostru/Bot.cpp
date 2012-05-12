@@ -30,8 +30,14 @@ void Bot::playGame()
 
         initRound();
         state.mark_explored();
+
+
         state.getCombatAnts();
         state.splitCombatAnts();
+        state.combat();
+        moveCombatAnts();
+
+
         gatherFood();
         explore();
         areas();
@@ -365,4 +371,20 @@ int Bot::freeAntsNumber()
         if (jobs[i] == -1)
             rez++;
     return rez;
+}
+
+/** Move combat ants. */
+void Bot::moveCombatAnts()
+{
+    for (unsigned i = 0; i < state.combatAnts.size(); i++)
+    {
+        if (state.combatAnts[i]->x < state.movedAnts[i]->x)
+            jobs[state.combatAnts[i]->myAntNumber] = 2;
+        if (state.combatAnts[i]->x > state.movedAnts[i]->x)
+            jobs[state.combatAnts[i]->myAntNumber] = 0;
+        if (state.combatAnts[i]->y < state.movedAnts[i]->y)
+            jobs[state.combatAnts[i]->myAntNumber] = 1;
+        if (state.combatAnts[i]->y > state.movedAnts[i]->y)
+            jobs[state.combatAnts[i]->myAntNumber] = 3;
+    }
 }

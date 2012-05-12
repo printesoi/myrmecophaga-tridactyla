@@ -31,6 +31,8 @@
 
 #include "Square.h"
 
+using namespace std;
+
 class Compare
 {
     public:
@@ -50,29 +52,32 @@ class State
         int currentTurnNumber;
 
         /** Score for each of the current players. */
-        std::vector<double> scores;
+        vector<double> scores;
 
         /** A matrix that represents the map. */
-        std::vector<std::vector<Square> > grid;
+        vector<vector<Square> > grid;
 
-        std::vector<Square *> myAntsNew;
-        std::vector<Square *> enemyAntsNew;
-        std::vector<Square *> myHillsNew;
-        std::vector<Square *> enemyHillsNew;
-        std::vector<Square *> foodNew;
+        vector<Square *> myAntsNew;
+        vector<Square *> enemyAntsNew;
+        vector<Square *> myHillsNew;
+        vector<Square *> enemyHillsNew;
+        vector<Square *> foodNew;
 
         /** A vector that keeps the border tiles. */
-        std::vector<Square *> borderTiles;
+        vector<Square *> borderTiles;
 
         /** List of combat ants. */
-        std::vector<Square *> combatAnts;
+        vector<Square *> combatAnts;
+
+        /** List of moves for combat ans. */
+        vector<Square *> movedAnts;
 
         /** List of combat dependencies. */
-        std::vector<std::pair<Square *,Square *> > combatLinks;
+        vector<pair<Square *,Square *> > combatLinks;
 
         /** Groups of own ants and enemy ants fighting. */
-        std::vector<std::vector<Square *> > myGroups;
-        std::vector<std::vector<Square *> > enemyGroups;
+        vector<vector<Square *> > myGroups;
+        vector<vector<Square *> > enemyGroups;
 
         /** This could have been global, but there you go... */
         Timer timer;
@@ -122,9 +127,23 @@ class State
 
         /** Split the ants to groups. */
         void splitCombatAnts();
+
+        /** A group of own ants fighting. */
+        pair<vector<Square *>,int> fightMy(vector<Square *> demut,vector<Square *> mut,int ind);
+
+        /** A group of enemy ants fighting. */
+        int fightEnemy(const vector<Square *> &my,int ind,vector<Square *> demut,vector<Square *> mut);
+
+        /** Simulate a combat. */
+        void combat();
+
+        /** Returns the evaluation score for 2 sets of positions. */
+        int evaluate(const vector<Square *> &my,const vector<Square *> &en);
+
+        int distances(const vector<Square *> &my,const vector<Square *> &en);
 };
 
 /** Method that helps do the IO. */
-std::istream& operator>>(std::istream &is, State &state);
+istream& operator>>(istream &is, State &state);
 
 #endif

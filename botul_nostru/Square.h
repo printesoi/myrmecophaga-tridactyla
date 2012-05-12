@@ -21,6 +21,8 @@
 #include "Logging.h"
 #include "Timer.h"
 
+using namespace std;
+
 /** Class for representing a square in the grid. */
 class Square
 {
@@ -46,13 +48,13 @@ class Square
         int dd,di;
 
         /** Links to neighbours. */
-        std::vector<Square *> neigh;
+        vector<Square *> neigh;
 
         /** Direct dangered tiles. */
-        std::vector<Square *> ddir;
+        vector<Square *> ddir;
 
         /** Indirect dangered tiles. */
-        std::vector<Square *> dind;
+        vector<Square *> dind;
 
         /** Constructor. */
         Square(int a, int b);
@@ -61,6 +63,18 @@ class Square
         {
             return (this->x == y.x && this->y == y.y);
         }
+
+        /** Returns the square of euclidian distance relative to a square. */
+        int dist(Square *y);
+
+        /** Checks if the square is not dangered. */
+        bool notDangered(const vector<Square *> &v);
+
+        /** Checks if the square is indirectly dangered. */
+        bool indirectDangered(const vector<Square *> &v);
+
+        /** Checks if the square is directly dangered. */
+        bool directDangered(const vector<Square *> &v);
 
         /** Resets some information for the square. */
         void reset();

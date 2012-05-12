@@ -23,6 +23,23 @@ contine fisierele obiect si executabilul "MyBot".
 
 
 
+
+========================== Etapa4 ============================
+
+    Pentru etapa4 am facut foarte putin, din criza de timp. Nu am implementat
+decat un minimax simplu.
+    Sunt selectate grupurile de furnici aflate in lupta, apoi sunt generate
+toate mutarile lor posibile. Este aleasa cea mai buna serie, cu ajutorul unei
+functii de evaluare (simpla si aia).
+
+Complexitati:
+
+Impartirea in grup: liniara cu numarul de furnici apropiate de adversar.
+Generarea mutarilor: 5 ^ nr de furnici din grup.
+
+Grupurile sunt formate din maxim 7 furnici.
+
+
 ========================== Etapa3 ============================
 
 
